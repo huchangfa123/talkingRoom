@@ -36,5 +36,8 @@ module.exports = {
         use: ['style-loader', 'sass-loader', 'css-loader']
       }
     ]
+  },
+  node: {
+   fs: "empty"
   }
 }

@@ -12,6 +12,7 @@ function CreatSocketServer(server) {
     // 用户发送信息
     client.on('send.message', function(msg){
       client.broadcast.emit('send.message', msg);
+      console.log('client:', msg);
     });
 
     // 用户断开连接
