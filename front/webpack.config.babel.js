@@ -21,10 +21,20 @@ module.exports = {
     port: 8080
   },
   module: {
-    loaders: [{
-      test: /(\.jsx|\.js)$/,
-      loaders: ['react-hot-loader', 'babel-loader'],
-      exclude: /node_modules/      
-    }]
+    rules: [
+      {
+        test: /(\.jsx|\.js)$/,
+        use: ['react-hot-loader', 'babel-loader'],
+        exclude: /node_modules/      
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.scss$/,
+        use: ['style-loader', 'sass-loader', 'css-loader']
+      }
+    ]
   }
 }
