@@ -6,7 +6,7 @@ export default class Hello extends Component {
 
   constructor(props) {
     super(props);
-    this.ws = io.connect('http://192.168.1.165:3000');
+    this.ws = io.connect('http://192.168.1.147:3000');
   }
   
   async addMessage(from, msg) {
