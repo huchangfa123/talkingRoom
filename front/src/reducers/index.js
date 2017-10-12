@@ -1,0 +1,1 @@
+export { messageList } from './user';

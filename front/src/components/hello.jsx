@@ -1,37 +1,39 @@
 import React, { Component } from 'react';
 import '../assert/css/component.css';
 import io from 'socket.io';
+import { connect, dispatch } from 'react-redux';
+import { test } from '../action/UserAction'
 
 export default class Hello extends Component {
 
   constructor(props) {
     super(props);
-    this.ws = io.connect('http://192.168.1.147:3000');
   }
   
-  async addMessage(from, msg) {
-    let li = document.createElement('li');
-    li.innerHTML = `<span>${from}</span>:${msg}`;
-    document.querySelector('#chat_container').appendChild(li);
-  }
-
-  sendMessage(msg) {
-    this.ws.emit('send.message', msg);
+  addMessage(from, msgList) {
+    let doc = document.createDocumentFragment();
+    for(let msg of msgList) {
+      let li = document.createElement('li');
+      li.innerHTML = `<span>${from}</span>:${msg}`;
+      doc.appendChild(li);
+    }
+    document.querySelector('#chat_container').appendChild(doc);
   }
 
   actionSend() {
     let textarea = document.querySelector('textarea');
     let msg = textarea.value.replace('\r\n', '').trim();
     if (!msg) { return; }
-    sendMessage(msg);
-    addMessage('你', msg);
+    this.props.messageSend(msg);
+    this.addMessage('huchangfa', this.props.messageList);
     textarea.value = '';
   }
 
   render() {
+
     return (
       <div className="wrapper">
-         <div className="content">
+         <div className="content">          
           <ul id="chat_container">
           </ul>
          </div>
@@ -46,3 +48,20 @@ export default class Hello extends Component {
     )
   }
 }
+
+const mapMessageList = (state) => {
+  return {
+    messageList: state.messageList
+  }
+}
+
+const mapDispatch = (dispatch) => {
+  return {
+    messageSend: (message) => {
+      dispatch(test(message))
+    }
+  }
+}
+
+export const ReduxHello = connect(mapMessageList, mapDispatch)(Hello);
+

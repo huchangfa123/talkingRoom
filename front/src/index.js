@@ -1,9 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Hello from './components/hello.jsx';
+import { Provider } from 'react-redux';
+import { ReduxHello } from './components/hello.jsx';
+import store from './store';
 
 var rootInstance = render(
-  <Hello />, 
+  <Provider store={store}>
+    <ReduxHello />
+  </Provider>,
   document.getElementById('app')
 );
 
