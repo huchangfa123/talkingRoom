@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Hello } from './components/hello.jsx';
+import Hello from './components/hello.jsx';
 import store from './store';
 
 var rootInstance = render(
