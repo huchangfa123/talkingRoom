@@ -4,37 +4,47 @@ import io from 'socket.io';
 import { connect, dispatch } from 'react-redux';
 import { test } from '../action/UserAction'
 
+const mapStateToProps = (state) => {
+  return {
+    messageList: state.messageList,
+    test: state.test1
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    messageSend: (message) => {
+      dispatch(test(message))
+    }
+  }
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
+
 export default class Hello extends Component {
 
   constructor(props) {
     super(props);
   }
   
-  addMessage(from, msgList) {
-    let doc = document.createDocumentFragment();
-    for(let msg of msgList) {
-      let li = document.createElement('li');
-      li.innerHTML = `<span>${from}</span>:${msg}`;
-      doc.appendChild(li);
-    }
-    document.querySelector('#chat_container').appendChild(doc);
-  }
-
   actionSend() {
     let textarea = document.querySelector('textarea');
     let msg = textarea.value.replace('\r\n', '').trim();
     if (!msg) { return; }
+    console.log(msg);
     this.props.messageSend(msg);
-    this.addMessage('huchangfa', this.props.messageList);
+    console.log('messageLi1st:', this.props.messageList);
+    console.log('test:', this.props.test);
     textarea.value = '';
   }
 
   render() {
-
+    let messageRenderList = this.props.messageList.map((item, index) => <li key={index}> {item} </li>)
     return (
       <div className="wrapper">
          <div className="content">          
           <ul id="chat_container">
+            { messageRenderList }
           </ul>
          </div>
          <div className="action">
@@ -49,19 +59,5 @@ export default class Hello extends Component {
   }
 }
 
-const mapMessageList = (state) => {
-  return {
-    messageList: state.messageList
-  }
-}
 
-const mapDispatch = (dispatch) => {
-  return {
-    messageSend: (message) => {
-      dispatch(test(message))
-    }
-  }
-}
-
-export const ReduxHello = connect(mapMessageList, mapDispatch)(Hello);
 
