@@ -9,6 +9,12 @@ export function messageList(messageList = [], action) {
     case GET_MESSAGE:
       list.push(action.data);
       break;
+    case ADD_USER:
+      list.push('a user is joining');
+      break;
+    case USER_LEAVE:
+      list.push('a user is leaving');
+      break;
   }
   return list;
 }

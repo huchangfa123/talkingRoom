@@ -4,12 +4,13 @@ import store from '../store';
 
 export function socketMonitor (io) {
   // 新用户加入
-  io.on('join', (data) => {
+  io.on('user.join', (data) => {
+    console.log('a user join')
     store.dispatch(addUser(data));
   });
 
   // 用户离开
-  io.on('disconnect', (data) => {
+  io.on('user.leave', (data) => {
     store.dispatch(userLeave(data));
   });
 

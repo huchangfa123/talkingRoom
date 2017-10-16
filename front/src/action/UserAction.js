@@ -5,6 +5,10 @@ export const ADD_USER = "add-user";
 export const USER_LEAVE = " user-leave";
 export const GET_MESSAGE = "get-message";
 
+
+/**
+ * 主动发送信息
+ */
 export function send(message) {
   socket.emit('send.message', message);
   return {

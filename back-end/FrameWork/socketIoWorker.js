@@ -9,6 +9,7 @@ function CreatSocketServer(server) {
     console.log('a client is joining!');
     // 用户加入    
     client.on('join', function(msg) {
+      client.broadcast.emit('user.join', msg);      
       console.log(msg);
     });
 
@@ -20,7 +21,8 @@ function CreatSocketServer(server) {
 
     // 用户断开连接
     client.on('disconnect', function(msg) {
-      client.broadcast.emit('disconnect', msg);
+      console.log('a client is leaving:', msg);
+      client.broadcast.emit('user.leave', msg);
     });
   });
 }
