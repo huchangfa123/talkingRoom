@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../assert/css/component.css';
 import io from 'socket.io';
 import { connect, dispatch } from 'react-redux';
-import { test } from '../action/UserAction'
+import { send } from '../action/UserAction'
 
 const mapStateToProps = (state) => {
   return {
@@ -14,7 +14,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     messageSend: (message) => {
-      dispatch(test(message))
+      dispatch(send(message))
     }
   }
 }
