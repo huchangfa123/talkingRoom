@@ -6,8 +6,7 @@ import { send } from '../action/UserAction'
 
 const mapStateToProps = (state) => {
   return {
-    messageList: state.messageList,
-    test: state.test1
+    messageList: state.messageList
   }
 }
 
@@ -34,7 +33,6 @@ export default class Hello extends Component {
     console.log(msg);
     this.props.messageSend(msg);
     console.log('messageLi1st:', this.props.messageList);
-    console.log('test:', this.props.test);
     textarea.value = '';
   }
 

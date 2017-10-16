@@ -1,5 +1,5 @@
 import { addUser, userLeave } from '../action/UserAction';
-import { send } from '../action/UserAction';
+import { getNewMessage } from '../action/UserAction';
 import store from '../store';
 
 export function socketMonitor (io) {
@@ -14,6 +14,6 @@ export function socketMonitor (io) {
   });
 
   io.on('send.message', (data) => {
-    store.dispatch(send(data));
-  })
+    store.dispatch(getNewMessage(data));
+  });
 }

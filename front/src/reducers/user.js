@@ -1,4 +1,4 @@
-import { SEND_MESSAGE, TEST_MESSAGE } from '../action/UserAction';
+import { SEND_MESSAGE, GET_MESSAGE, ADD_USER, USER_LEAVE } from '../action/UserAction';
 
 export function messageList(messageList = [], action) {
   const list = [...messageList]
@@ -6,16 +6,9 @@ export function messageList(messageList = [], action) {
     case SEND_MESSAGE:
       list.push(action.message);
       break;
-  }
-  console.log(2222222222, list);
-  return list;
-}
-
-export function test1(result = {}, action) {
-  switch(action.type) {
-    case TEST_MESSAGE:
-      result = action.message;
+    case GET_MESSAGE:
+      list.push(action.data);
       break;
   }
-  return result;
+  return list;
 }

@@ -1,1 +1,1 @@
-export { messageList, test1 } from './user';
+export { messageList } from './user';

@@ -1,5 +1,5 @@
 import { createStore, combineReducers } from 'redux';
-import { messageList, test1 } from '../reducers';
+import { messageList } from '../reducers';
 
 const store = create();
 
@@ -7,8 +7,7 @@ export default store;
 
 function create() {
   const reducer = combineReducers({
-    messageList,
-    test1
+    messageList
   });
   const store = createStore(reducer);
   return store;
