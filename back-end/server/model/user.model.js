@@ -1,9 +1,8 @@
-import sequelize from '../../sequelize';
-import Sequelize from 'sequelize';
+const UserModel = function(sequelize, DataTypes) {
+  return sequelize.define('user', {
+    name: {type: DataTypes.STRING},
+    password: {type: DataTypes.STRING}
+  })
+};
 
-const User = sequelize.define('user', {
-  name: {type: Sequelize.STRING},
-  password: {type: Sequelize.STRING}
-});
-
-export default User;
+export default UserModel;

@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 import config from './config';
+import glob from 'glob';
 
 var sequelize = new Sequelize(config.database, config.username, config.password, {
   host: config.host,
