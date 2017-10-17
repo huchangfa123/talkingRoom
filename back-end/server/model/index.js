@@ -1,8 +1,10 @@
 import db from '../../sequelize';
-import UserModel from './user.model';
+
+const UserModel = './user.model.js'
 
 const User = db.import(UserModel);
 
+db.sync();
 module.exports = {
   User
 }
