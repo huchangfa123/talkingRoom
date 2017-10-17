@@ -8,6 +8,14 @@ class UserController {
       msg: result
     }
   }
+
+  async login(ctx, next) {
+    let result = await userServices.login(ctx.request.body);
+    ctx.body = {
+      code: 200,
+      token: result
+    }
+  }
 }
 
 export default new UserController();

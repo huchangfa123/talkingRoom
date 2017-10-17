@@ -3,9 +3,17 @@ module.exports = function onError () {
     try {
       await next();
     } catch (e) {
+      console.log('err:', e);
+      let code = 400;
+      let message = e.message;
+      if (e.status == 401) {
+        ctx.status = 401;
+        code = 401;
+        message = '请先登录!'
+      }
       ctx.body = {
-        code: 400,
-        message: e.message
+        code,
+        message
       }
     }
   } 
