@@ -7,9 +7,7 @@ const User = models.User;
 
 class UserServices {
   async register(data) {
-    console.log('111', data.name);
     let check = await User.findOne({name: data.name});
-    console.log('222', check);
     if (check) {
       throw Error('该用户名已注册');
     }
@@ -32,9 +30,12 @@ class UserServices {
           id: check.id,
           date: new Date()
         }
-        const token = jwt.sign(userToken, config.jwtSecret);
-        console.log('222', token);
+        const token = jwt.sign(userToken, config.jwtSecret, {
+          expiresIn: 24 * 60 * 60 * 100
+        });
         return token;
+      } else {
+        throw Error('密码输入错误');
       }
     } else {
       throw Error('用户不存在');

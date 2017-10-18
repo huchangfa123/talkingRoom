@@ -3,7 +3,7 @@ module.exports = function onError () {
     try {
       await next();
     } catch (e) {
-      console.log('err:', e);
+      console.log('err11:', e);
       let code = 400;
       let message = e.message;
       if (e.status == 401) {

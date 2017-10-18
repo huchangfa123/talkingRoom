@@ -1,11 +1,24 @@
 import SocketIo from 'socket.io';
+import config from '../config';
+import jwt from 'jsonwebtoken';
 
 function CreatSocketServer(server) {
   const io = SocketIo(server);
   io.use(function(socket, next) {
-    return next();
+    let accessToken = socket.handshake.headers;
+    if (!accessToken) {
+      return next(new Error('Authentication error'));
+    } else {
+      jwt.verify(accessToken, config.jwtSecret, function(err, decoded) {
+        if (err) {
+          return next(new Error('Authentication error'));
+        } else {
+          return next();
+        }
+      })
+    }
   });
-  io.on('connection', function(client) {
+  io.on('connection', function(client, cb) {
     console.log('a client is joining!');
     // 用户加入    
     client.on('join', function(msg) {

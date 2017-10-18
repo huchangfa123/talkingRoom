@@ -13,7 +13,6 @@ const app = new Koa();
 app.use(onerror());
 app.use(bodyparser());
 app.use(logger());
-app.use(api.routes(), api.allowedMethods());
 
 app.use(jwt({
   secret: config.jwtSecret
@@ -23,6 +22,7 @@ app.use(jwt({
 
 const server = http.createServer(app.callback());
 SocketService(server);
+app.use(api.routes(), api.allowedMethods());
 
 server.listen(3000, function(){
   console.log('Server created on http://localhost:3000');
