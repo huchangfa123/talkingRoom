@@ -1,5 +1,5 @@
-module.exports = function onError () {  
-  return async (ctx, next) => {
+module.exports = function onError() {
+  return async(ctx, next) => {
     try {
       await next();
     } catch (e) {
@@ -16,6 +16,5 @@ module.exports = function onError () {
         message
       }
     }
-  } 
+  }
 }
-
