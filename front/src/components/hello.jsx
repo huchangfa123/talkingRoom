@@ -25,7 +25,7 @@ export default class Hello extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   actionSend() {
     let textarea = document.querySelector('textarea');
     let msg = textarea.value.replace('\r\n', '').trim();
@@ -40,18 +40,18 @@ export default class Hello extends Component {
     let messageRenderList = this.props.messageList.map((item, index) => <li key={index}> {item} </li>)
     return (
       <div className="wrapper">
-         <div className="content">          
+        <div className="content">
           <ul id="chat_container">
-            { messageRenderList }
+            {messageRenderList}
           </ul>
-         </div>
-         <div className="action">
+        </div>
+        <div className="action">
           <textarea ></textarea>
           <div className="bottom">
             <button className="btn">清屏</button>
             <button className="btn" onClick={this.actionSend.bind(this)}>发送</button>
           </div>
-         </div>
+        </div>
       </div>
     )
   }

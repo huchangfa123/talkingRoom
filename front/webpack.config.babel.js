@@ -5,7 +5,7 @@ module.exports = {
   entry: {
     app: [
       'webpack-dev-server/client?http://localhost:8080/',
-      './src/index.js'
+      './src/index.jsx'
     ]
   },
   output: {
@@ -21,11 +21,10 @@ module.exports = {
     port: 8080
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /(\.jsx|\.js)$/,
         use: ['react-hot-loader', 'babel-loader'],
-        exclude: /node_modules/      
+        exclude: /node_modules/
       },
       {
         test: /\.css$/,
@@ -38,6 +37,6 @@ module.exports = {
     ]
   },
   node: {
-   fs: "empty"
+    fs: "empty"
   }
 }

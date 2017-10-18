@@ -7,7 +7,7 @@ html {
   font: 14px/1.4 '微软雅黑';
 }
 
-body{
+body {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,7 +30,7 @@ body{
   flex: 3;
   background-color: #fff111;
   border-radius: 1rem;
-}  
+}
 
 .wrapper .action {
   flex: 1;
