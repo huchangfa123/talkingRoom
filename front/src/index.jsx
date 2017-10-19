@@ -4,18 +4,18 @@ import { Provider } from 'react-redux';
 import Hello from './components/hello.jsx';
 import store from './store';
 import Login from './components/login.jsx';
-import { Router, Route, IndexRedirect, browserHistory } from 'react-router';
-import { createBrowserHistory } from 'react-router-redux';
+import { Link, Route, BrowserRouter } from 'react-router-dom';
+import './assert/css/app.css';
 
-const history = createBrowserHistory(browserHistory, store);
 var rootInstance = render(
   <Provider store={store}>
-    <Router history={history}>
-      <Route path="/">
-        <Route path="login" component={Login}></Route>
-        <Route path="chatting" component={Hello}></Route>
-      </Route>
-    </Router>
+    <BrowserRouter>
+      <div>
+        <Route exact path="/" component={Login}/>
+        <Route path="login" component={Login}/>
+        <Route path="chatting" component={Hello}/>
+      </div>
+    </BrowserRouter>
   </Provider>,
   document.getElementById('app')
 );

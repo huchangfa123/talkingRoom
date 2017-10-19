@@ -8,16 +8,18 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div class="login">
-        <div>asd</div>
+      <div className="login">
         <div>
-          <span>asd</span>
-          <div class="input-normal">
-            <div>
-              {/* <i></i> */}
-              asd
+          <div>asd</div>
+          <div>
+            <span>asd</span>
+            <div className="input-normal">
+              <div>
+                {/* <i></i> */}
+                asd
+              </div>
+              <input type="text" placeholder="用户名" />
             </div>
-            <input type="text" placeholder="用户名" />
           </div>
         </div>
       </div>

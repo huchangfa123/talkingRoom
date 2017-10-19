@@ -6,6 +6,7 @@ const io = getSocket();
 export default io;
 
 function getSocket() {
+  return ;
   const io = Socket(config.location);
   console.log('the result of connecte io:', io);
 

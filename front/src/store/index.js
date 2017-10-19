@@ -1,13 +1,6 @@
-import {
-  createStore,
-  combineReducers
-} from 'redux';
-import {
-  messageList
-} from '../reducers';
-import {
-  routerReducer
-} from 'react-router-redux';
+import { createStore, combineReducers } from 'redux';
+import { messageList } from '../reducers';
+import { routerReducer } from 'react-router-redux';
 
 const store = create();
 
