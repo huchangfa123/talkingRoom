@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect, dispatch } from 'react-redux';
+import '../assert/css/login.css'
 
 export default class Login extends Component {
   constructor(props) {
@@ -9,8 +10,8 @@ export default class Login extends Component {
   render() {
     return (
       <div className="login">
-        <div>
-          <div>asd</div>
+        <div className="managerBlock">
+          <div><img className="userHead" src="http://www.17qq.com/img_qqtouxiang/22526416.jpeg" /></div>
           <div>
             <span>asd</span>
             <div className="input-normal">

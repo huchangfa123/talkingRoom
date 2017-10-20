@@ -1,10 +1,23 @@
 import socket from '../frameworks/Socket';
+import axios from 'axios';
+import config from '../config'
 
 export const SEND_MESSAGE = "send-message";
 export const ADD_USER = "add-user";
 export const USER_LEAVE = " user-leave";
 export const GET_MESSAGE = "get-message";
+export const USER_LOGIN = "user-login";
 
+/**
+ * 用户登录
+*/
+export async function login(data) {
+  let message = {};
+  return {
+    type: USER_LOGIN,
+    message
+  }
+}
 
 /**
  * 主动发送信息
