@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../assert/css/component.css';
-import io from 'socket.io';
 import { connect, dispatch } from 'react-redux';
 import { send } from '../action/UserAction'
 

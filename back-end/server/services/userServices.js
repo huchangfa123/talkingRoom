@@ -7,7 +7,11 @@ const User = models.User;
 
 class UserServices {
   async register(data) {
-    let check = await User.findOne({name: data.name});
+    console.log('11', data.name);
+    let check = await User.findOne({
+      where:{name: data.name}
+    });
+    console.log('22', check);
     if (check) {
       throw Error('该用户名已注册');
     }
@@ -22,7 +26,9 @@ class UserServices {
   }
 
   async login(data) {
-    let check = await User.findOne({name: data.name});
+    let check = await User.findOne({
+      where: {name: data.name}
+    });
     if (check) {
       if (bcrypt.compareSync(data.password, check.password)) {
         const userToken = {
