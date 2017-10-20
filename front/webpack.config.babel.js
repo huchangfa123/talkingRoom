@@ -33,6 +33,10 @@ module.exports = {
       {
         test: /\.scss$/,
         use: ['style-loader', 'sass-loader', 'css-loader']
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: ['url-loader?limit=8192&name=../images/[name].[ext]?[hash]']
       }
     ]
   },
