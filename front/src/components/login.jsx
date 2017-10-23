@@ -74,6 +74,10 @@ export default class Login extends Component {
               <button className="btn" onClick={this.login.bind(this)}>登录</button>
               <button className="btn" onClick={this.register.bind(this)}>注册</button>              
             </div>
+            <div className="input-normal">
+              <span>密码:</span>
+              <input type="password" placeholder="密码" />
+            </div>
           </div>
         </div>
       </div>
