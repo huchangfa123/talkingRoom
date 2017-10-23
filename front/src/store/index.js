@@ -1,6 +1,7 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { messageList, loginSetting } from '../reducers';
 import { routerReducer } from 'react-router-redux';
+import thunk from 'redux-thunk';
 
 const store = create();
 
@@ -12,6 +13,6 @@ function create() {
     loginSetting,
     routing: routerReducer
   });
-  const store = createStore(reducer);
+  const store = createStore(reducer, applyMiddleware(thunk));
   return store;
 }
