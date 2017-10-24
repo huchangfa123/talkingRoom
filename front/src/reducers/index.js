@@ -1,2 +1,2 @@
 export { messageList } from './user';
-export { loginSetting } from './auth';
+export { loginResult, registerResult } from './auth';

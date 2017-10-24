@@ -1,26 +1,20 @@
 import React, { Component } from 'react';
-import { connect, dispatch } from 'react-redux';
+import { connect, dispatch, bindActionCreators } from 'react-redux';
 import '../assert/css/login.css';
 import { login, register } from '../action/UserAction';
+import notification from './notice';
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    login: (data) => {
-      dispatch(login(data));
-    },
-    register: (data) => {
-      dispatch(register(data));
-    }
-  }
-}
-
-@connect(null, mapDispatchToProps)
+@connect(
+  state => ({ registerResult: state.registerResult, loginResult: state.loginResult}),
+  dispatch => bindActionCreators({login, register}, dispatch)
+)
 export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       userName: '',
-      password: ''
+      password: '',
+      isLoading: false
     }
   }
 
@@ -46,12 +40,14 @@ export default class Login extends Component {
     this.props.login(data);
   }
 
-  register() {
+  registerButton() {
     let data = {
       name: this.state.userName,
       password: this.state.password
     }
-    this.props.register(data);
+    this.props.register(data).then(res => {
+      console.log('111', res);
+    });
   }
 
   render() {
@@ -72,7 +68,7 @@ export default class Login extends Component {
             </div>
             <div className="clickBlock">
               <button className="btn" onClick={this.login.bind(this)}>登录</button>
-              <button className="btn" onClick={this.register.bind(this)}>注册</button>              
+              <button className="btn" onClick={this.registerButton.bind(this)}>注册</button>              
             </div>
           </div>
         </div>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import Hello from './components/hello.jsx';
+import Hello from './components/hello';
 import store from './store';
-import Login from './components/login.jsx';
+import Login from './components/login';
 import { Link, Route, BrowserRouter } from 'react-router-dom';
 import './assert/css/app.css';
 
