@@ -3,6 +3,7 @@ import { messageList, registerResult, loginResult } from '../reducers';
 import { routerReducer } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise';
+import createLogger from 'redux-logger';
 
 const store = create();
 
@@ -16,7 +17,7 @@ function create() {
     routing: routerReducer
   });
 
-  const args = [applyMiddleware(thunk), applyMiddleware(promise)]
-  const store = createStore(reducer, compose(...args));
+  const args = applyMiddleware(thunk, promise, createLogger);
+  const store = createStore(reducer, args);
   return store;
 }

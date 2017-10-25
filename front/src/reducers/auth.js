@@ -9,8 +9,7 @@ export function loginResult(loginResult = '', action) {
 
 export function registerResult(registerResult = '', action) {
   if (action.type === USER_REGISTER) {
-    registerResult = action.data.data;
+    registerResult = action.data;
   }
-  console.log('33', registerResult);
   return registerResult;
 }

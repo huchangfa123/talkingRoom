@@ -4,10 +4,10 @@ import '../assert/css/login.css';
 import { login, register } from '../action/UserAction';
 import notification from './notice';
 
-@connect(
-  state => ({ registerResult: state.registerResult, loginResult: state.loginResult}),
-  dispatch => bindActionCreators({login, register}, dispatch)
-)
+@connect(state => ({
+  registerResult: state.registerResult,
+  loginResult: state.loginResult
+}), {register, login})
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -40,14 +40,17 @@ export default class Login extends Component {
     this.props.login(data);
   }
 
-  registerButton() {
+  async registerButton() {
     let data = {
       name: this.state.userName,
       password: this.state.password
     }
-    this.props.register(data).then(res => {
-      console.log('111', res);
-    });
+    let result = await this.props.register(data);
+    if (result.code === 400) {
+      notification.error(result.message)     
+    } else {
+      notification.success('注册成功')
+    }
   }
 
   render() {
@@ -76,3 +79,15 @@ export default class Login extends Component {
     )
   }
 }
+
+// 非装饰器写法
+// export default connect(
+//   (state, props) => ({
+//     registerResult: state.registerResult,
+//     loginResult: state.loginResult
+//   }),
+//   {
+//     register,
+//     login
+//   }
+// )(Login)

@@ -26,9 +26,17 @@ export function login(data) {
  * 用户注册
  */
 export function register(data) {
-  return async(dispatch) => {
-    let response = await postData('/user/register', data);
-    return response;
+  return async (dispatch) => {
+    try {
+      const result = await postData('/user/register', data);
+      dispatch({
+        type: USER_REGISTER,
+        data: result.data
+      });
+      return result.data;
+    } catch (error) {
+      console.log(err);
+    }
   }
 }
 

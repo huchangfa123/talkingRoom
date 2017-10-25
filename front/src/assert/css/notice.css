@@ -1,0 +1,38 @@
+.notice {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.notice-middle {
+  width: 220px;
+  height: 40px;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 5px;
+}
+
+.notice-error {
+  border: 1px solid #ffeecc;
+  background-color: #d0021b;
+}
+
+.notice-warning {
+  border: 1px solid #ffddcc;
+  background-color: #f5a623;
+}
+
+.notice-success {
+  border: 1px solid #8cd350;
+  background-color: #7dd320;
+}
+
+.notice-info {
+  border: 1px solid #cfe8fb;
+  background-color: #e7f4fd;
+}

@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import '../assert/css/notice.css'
 
 class Notice extends React.Component{
+   constructor(props) {
+     super(props);
+     console.log('props:', this.props);
+   }
    render() {
      const { message, type="info" } = this.props;
-
      return (
       <div className="notice">
         <div className={`notice-middle notice-${type}`}>
