@@ -3,7 +3,7 @@ import config from '../config';
 
 
 export default function getSocket() {
-  const io = Socket(config.location);
+  const io = Socket(config.location, config.options);
   console.log('the result of connecte io:', io);
 
   io.on('connect', () => {

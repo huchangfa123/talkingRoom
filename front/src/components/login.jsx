@@ -3,6 +3,7 @@ import { connect, dispatch, bindActionCreators } from 'react-redux';
 import '../assert/css/login.css';
 import { login, register } from '../action/UserAction';
 import notification from './notice';
+import { browserHistory } from 'react-router';
 
 @connect(state => ({
   registerResult: state.registerResult,
@@ -32,12 +33,17 @@ export default class Login extends Component {
     });
   }
 
-  login() {
+  async login() {
     let data = {
       name: this.state.userName,
       password: this.state.password
     }
-    this.props.login(data);
+    let result = await this.props.login(data);
+    if (result.code !== 200) {
+      notification.warning(result.message);
+    } else {
+      browserHistory.push('/chatting')
+    }
   }
 
   async registerButton() {

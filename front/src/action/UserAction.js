@@ -16,9 +16,17 @@ export const USER_REGISTER = "user-register";
  * 用户登录
  */
 export function login(data) {
-  return {
-    type: USER_LOGIN,
-    data
+  return async (dispatch) => {
+    try {
+      const result = await postData('/user/login', data);
+      dispatch({
+        type: USER_LOGIN,
+        data: result.data
+      });
+      return result.data;
+    } catch (error) {
+      console.log(error) 
+    }
   }
 }
 
@@ -35,7 +43,7 @@ export function register(data) {
       });
       return result.data;
     } catch (error) {
-      console.log(err);
+      console.log(error);
     }
   }
 }
