@@ -53,7 +53,6 @@ export function register(data) {
  * 主动发送信息
  */
 export function send(message) {
-  socket.emit('send.message', message);
   return {
     type: SEND_MESSAGE,
     message

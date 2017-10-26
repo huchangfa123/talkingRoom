@@ -11,11 +11,9 @@ class UserServices {
     let check = await User.findOne({
       where:{name: data.name}
     });
-    console.log('22', check);
     if (check) {
       throw Error('该用户名已注册');
     }
-    console.log(333);
     let password = bcrypt.hashSync(data.password, 10);
     console.log(password);    
     let result = await User.create({

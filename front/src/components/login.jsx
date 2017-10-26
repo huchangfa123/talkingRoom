@@ -3,7 +3,8 @@ import { connect, dispatch, bindActionCreators } from 'react-redux';
 import '../assert/css/login.css';
 import { login, register } from '../action/UserAction';
 import notification from './notice';
-import { browserHistory } from 'react-router';
+import { Redirect } from 'react-router-dom';
+import socketServer from '../frameworks/Socket'
 
 @connect(state => ({
   registerResult: state.registerResult,
@@ -15,7 +16,8 @@ export default class Login extends Component {
     this.state = {
       userName: '',
       password: '',
-      isLoading: false
+      isLoading: false,
+      redirect: false
     }
   }
 
@@ -42,7 +44,12 @@ export default class Login extends Component {
     if (result.code !== 200) {
       notification.warning(result.message);
     } else {
-      browserHistory.push('/chatting')
+      let result = await socketServer();
+      if (result) {
+        this.setState({redirect: true});
+      } else {
+        notification.warning('用户认证失败')
+      }
     }
   }
 
@@ -60,6 +67,9 @@ export default class Login extends Component {
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect push to ='/chatting' />
+    }
     return (
       <div className="login">
         <div className="managerBlock">

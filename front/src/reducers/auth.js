@@ -1,4 +1,5 @@
 import { USER_LOGIN, USER_REGISTER } from '../action/UserAction';
+import config from '../config';
 
 export function loginResult(loginResult = '', action) {
   if (action.type === USER_LOGIN) {
@@ -6,6 +7,7 @@ export function loginResult(loginResult = '', action) {
   }
   sessionStorage.setItem('accessToken', loginResult.token);
   console.log('loginResult:', loginResult);
+  config.options.headers.Authorization = `${sessionStorage.getItem('accessToken')}`;
   return loginResult;
 }
 

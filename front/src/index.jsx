@@ -12,8 +12,8 @@ var rootInstance = render(
     <BrowserRouter>
       <div>
         <Route exact path="/" component={Login}/>
-        <Route path="login" component={Login}/>
-        <Route path="chatting" component={Hello}/>
+        <Route path="/login" component={Login}/>
+        <Route path="/chatting" component={Hello}/>
       </div>
     </BrowserRouter>
   </Provider>,

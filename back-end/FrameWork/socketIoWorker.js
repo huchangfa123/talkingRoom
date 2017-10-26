@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 function CreatSocketServer(server) {
   const io = SocketIo(server);
   io.use(function (socket, next) {
-    let accessToken = socket.handshake.headers;
+    let accessToken = socket.handshake.query.accessToken;
     if (!accessToken) {
       return next(new Error('Authentication error'));
     } else {
