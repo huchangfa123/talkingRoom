@@ -18,49 +18,64 @@ body {
 
 .wrapper {
   display: flex;
-  height: 80vh;
-  width: 80vw;
+  height: 95vh;
+  width: 65vw;
   flex-direction: column;
-  background-color: #9b9393;
-  border-radius: 1rem;
 }
 
-.wrapper .content {
-  margin: 1rem 1rem;
-  flex: 3;
-  background-color: #fff111;
-  border-radius: 1rem;
-}
-
-.wrapper .action {
+.wrapper .leaderBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color:  #faa56f;
   flex: 1;
+}
+
+.wrapper .logo {
+  flex: 1;
+  margin-left: 1rem;
+}
+
+.wrapper .nav-list {
+  flex: 3;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
-.wrapper .action textarea {
-  margin: 0 1rem 1rem 1rem;
-  border-radius: 1rem;
-  height: 10vh;
-  padding: 0.2rem 0.5rem;
-  outline: none;
-  resize: none;
+.wrapper .nav-list div:first-child {
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;  
 }
 
-.wrapper .action .bottom {
+.wrapper .nav-list div:last-child {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.nav-list-item {
+  width: 5rem;
+  height: 3rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
+  background-color: #e0864c;
+  cursor: pointer;
 }
 
-.wrapper .action .bottom .btn {
-  display: inline-block;
-  margin: 0 1rem 0.3rem 0;
-  font-size: 1rem;
-  text-align: center;
-  border: 1px solid transparent;
-  padding: 6px 12px;
-  color: #fff;
-  background-color: #337ab7;
-  border-color: #2e6da4;
-  border-radius: 0.3rem;
+.selected {
+  background-color: #efbb9a
 }
+
+.wrapper .user-panel {
+  flex: 1;
+}
+
+.wrapper .chatBody {
+  display: flex;
+  flex: 6;
+  background-color: hsla(0, 0%, 95%, .2);
+  filter: blur(1rem);
+}
+

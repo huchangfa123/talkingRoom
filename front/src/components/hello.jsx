@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../assert/css/component.css';
+import '../assert/css/icon.css';
 import { connect, dispatch } from 'react-redux';
 import { send } from '../action/UserAction'
 
@@ -23,7 +24,6 @@ export default class Hello extends Component {
 
   constructor(props) {
     super(props);
-    console.log('555555555555555')
   }
 
   actionSend() {
@@ -40,17 +40,20 @@ export default class Hello extends Component {
     let messageRenderList = this.props.messageList.map((item, index) => <li key={index}> {item} </li>)
     return (
       <div className="wrapper">
-        <div className="content">
-          <ul id="chat_container">
-            {messageRenderList}
-          </ul>
-        </div>
-        <div className="action">
-          <textarea ></textarea>
-          <div className="bottom">
-            <button className="btn">清屏</button>
-            <button className="btn" onClick={this.actionSend.bind(this)}>发送</button>
+        <div className="leaderBar">
+          <div className="logo">
+            <img src="http://www.qt86.com/cache/1509073545_192429.png"/>
           </div>
+          <div className="nav-list">
+            <div className="nav-list-item selected"><i className="iconfont">&#xe657;</i></div>
+            <div className="nav-list-item"><i className="iconfont">&#xe656;</i></div>            
+          </div>
+          <div className="user-panel"></div>          
+        </div>
+        <div className="chatBody">
+          <div className="message-list"></div>
+          <div className="toolBar"></div>
+          <div className="inputBox"></div>          
         </div>
       </div>
     )
