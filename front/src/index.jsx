@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import Hello from './components/hello';
+import Main from './components/main';
 import store from './store';
 import Login from './components/login';
 import { Link, Route, BrowserRouter } from 'react-router-dom';
@@ -13,7 +13,9 @@ var rootInstance = render(
       <div>
         <Route exact path="/" component={Login}/>
         <Route path="/login" component={Login}/>
-        <Route path="/chatting" component={Hello}/>
+        <Route path="/main" component={Main}>
+        
+        </Route>
       </div>
     </BrowserRouter>
   </Provider>,

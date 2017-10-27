@@ -20,22 +20,12 @@ const mapDispatchToProps = (dispatch) => {
 
 @connect(mapStateToProps, mapDispatchToProps)
 
-export default class Hello extends Component {
+export default class Main extends Component {
 
   constructor(props) {
     super(props);
   }
-
-  actionSend() {
-    let textarea = document.querySelector('textarea');
-    let msg = textarea.value.replace('\r\n', '').trim();
-    if (!msg) { return; }
-    console.log(msg);
-    this.props.messageSend(msg);
-    console.log('messageLi1st:', this.props.messageList);
-    textarea.value = '';
-  }
-
+  
   render() {
     let messageRenderList = this.props.messageList.map((item, index) => <li key={index}> {item} </li>)
     return (
@@ -50,7 +40,7 @@ export default class Hello extends Component {
           </div>
           <div className="user-panel"></div>          
         </div>
-        <div className="chatBody">
+        <div className="mainBody">
           <div className="message-list"></div>
           <div className="toolBar"></div>
           <div className="inputBox"></div>          

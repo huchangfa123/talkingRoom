@@ -72,7 +72,7 @@ body {
   flex: 1;
 }
 
-.wrapper .chatBody {
+.wrapper .mainBody {
   display: flex;
   flex: 6;
   background-color: hsla(0, 0%, 95%, .2);
