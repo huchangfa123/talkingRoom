@@ -32,8 +32,11 @@ body {
 }
 
 .wrapper .logo {
+  height: 83px;
+  width: 100px;
   flex: 1;
   margin-left: 1rem;
+  background: url('../icon/logo.png') no-repeat
 }
 
 .wrapper .nav-list {
@@ -73,7 +76,6 @@ body {
 }
 
 .wrapper .mainBody {
-  display: flex;
   flex: 6;
   background-color: hsla(0, 0%, 95%, .2);
   filter: blur(1rem);

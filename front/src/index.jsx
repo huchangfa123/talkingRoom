@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import Main from './components/main';
 import store from './store';
 import Login from './components/login';
+import chatting from './components/chatting';
+import setting from './components/setting';
 import { Link, Route, BrowserRouter } from 'react-router-dom';
 import './assert/css/app.css';
 
@@ -13,9 +15,7 @@ var rootInstance = render(
       <div>
         <Route exact path="/" component={Login}/>
         <Route path="/login" component={Login}/>
-        <Route path="/main" component={Main}>
-        
-        </Route>
+        <Route path="/main" component={Main}/>
       </div>
     </BrowserRouter>
   </Provider>,

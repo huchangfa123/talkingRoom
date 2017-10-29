@@ -68,7 +68,7 @@ export default class Login extends Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect push to ='/chatting' />
+      return <Redirect push to ='/main' />
     }
     return (
       <div className="login">
