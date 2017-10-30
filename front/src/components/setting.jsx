@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import '../assert/css/setting.css';
 
 export default class Setting extends Component {
   constructor(props) {
@@ -9,7 +10,7 @@ export default class Setting extends Component {
 
   render() {
     return (
-      <div>
+      <div className="settingBody">
         <div className="">111</div>
         <div className="">222</div>
         <div className="">1131</div>      

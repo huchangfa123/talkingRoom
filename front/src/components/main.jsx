@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import '../assert/css/component.css';
 import '../assert/css/icon.css';
 import { connect, dispatch } from 'react-redux';
 import { send } from '../action/UserAction';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Chatting from './chatting';
 import Setting from './setting';
+// import { history } from '../index.jsx';
 
 const mapStateToProps = (state) => {
   return {
@@ -22,8 +23,11 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-
 export default class Main extends Component {
+  
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired,
+  }
 
   constructor(props) {
     super(props);
@@ -31,35 +35,36 @@ export default class Main extends Component {
       redirect: false,
       path: ''
     }
-  }
-  
-  redirectTo(path) {
-    this.setState({
-      redirect: true,
-      path
-    })
+    console.log('111', /\/setting$/.test(this.props.match.path));
   }
 
+  goChatting() {
+    this.context.router.history.push({ pathname: '/main/chatting' });
+  }
+
+  goSetting() {
+     this.context.router.history.push({ pathname: '/main/setting' });    
+  }
+  
   render() {
-    if (this.state.redirect) {
-      return <Redirect push to ={`${this.state.path}`}/>
-    }
-    let messageRenderList = this.props.messageList.map((item, index) => <li key={index}> {item} </li>)
     return (
       <div className="wrapper">
         <div className="leaderBar">
           <div className="logo"></div>
           <div className="nav-list">
-            <div className={`nav-list-item ${/\/setting$/.test(this.props.match.path)? '' : 'selected'}`}>
-              <i className="iconfont" onClick={this.redirectTo.bind(this, '/main/chatting')}>&#xe657;</i>
+            <div className={`nav-list-item ${/\/setting$/.test(this.props.match.path)? '' : 'selected'}`} onClick={this.goChatting.bind(this)} title="聊天">
+              <i className="iconfont headpic">&#xe657;</i>
             </div>
-            <div className={`nav-list-item ${/\/setting$/.test(this.props.match.path)? 'selected' : ''}`}>
-              <i className="iconfont" onClick={this.redirectTo.bind(this, '/main/setting')}>&#xe656;</i>
+            <div className={`nav-list-item ${/\/setting$/.test(this.props.match.path)? 'selected' : ''}`} onClick={this.goSetting.bind(this)} title="设置">
+              <i className="iconfont headpic">&#xe656;</i>
             </div>            
           </div>
           <div className="user-panel"></div>          
         </div>
-        <div className="mainBody">        
+        <div className="mainBody">
+          <Route exact path="/main" component={Chatting}/>
+          <Route path="/main/chatting" component={Chatting}/>
+          <Route path="/main/setting" component={Setting}/>          
         </div>
       </div>
     )

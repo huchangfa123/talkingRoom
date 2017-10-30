@@ -4,6 +4,7 @@ module.exports = {
   devtool: 'eval-source-map',
   entry: {
     app: [
+      'babel-polyfill',
       'webpack-dev-server/client?http://localhost:8080/',
       './src/index.jsx'
     ]

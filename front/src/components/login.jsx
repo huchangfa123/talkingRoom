@@ -11,13 +11,17 @@ import socketServer from '../frameworks/Socket'
   loginResult: state.loginResult
 }), {register, login})
 export default class Login extends Component {
+
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       userName: '',
       password: '',
-      isLoading: false,
-      redirect: false
+      isLoading: false
     }
   }
 
@@ -46,7 +50,7 @@ export default class Login extends Component {
     } else {
       let result = await socketServer();
       if (result) {
-        this.setState({redirect: true});
+        this.context.router.history.push('/main');
       } else {
         notification.warning('用户认证失败')
       }
@@ -67,9 +71,6 @@ export default class Login extends Component {
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect push to ='/main' />
-    }
     return (
       <div className="login">
         <div className="managerBlock">

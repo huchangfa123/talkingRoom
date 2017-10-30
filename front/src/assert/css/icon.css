@@ -1,18 +1,29 @@
 
 @font-face {
   font-family: 'iconfont';  /* project id 455627 */
-  src: url('//at.alicdn.com/t/font_455627_qczccxu5mm3d6lxr.eot');
-  src: url('//at.alicdn.com/t/font_455627_qczccxu5mm3d6lxr.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_455627_qczccxu5mm3d6lxr.woff') format('woff'),
-  url('//at.alicdn.com/t/font_455627_qczccxu5mm3d6lxr.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_455627_qczccxu5mm3d6lxr.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_455627_onrvzjoruu1ve7b9.eot');
+  src: url('//at.alicdn.com/t/font_455627_onrvzjoruu1ve7b9.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_455627_onrvzjoruu1ve7b9.woff') format('woff'),
+  url('//at.alicdn.com/t/font_455627_onrvzjoruu1ve7b9.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_455627_onrvzjoruu1ve7b9.svg#iconfont') format('svg');
 }
 
 .iconfont{
-    font-family:"iconfont" !important;
-    font-size:16px;font-style:normal;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
-    -moz-osx-font-smoothing: grayscale;
-    color: white;
+  font-family:"iconfont" !important;
+  font-size:16px;font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.headpic {
+  color: white;
+}
+
+.chatpic {
+  color: #ca4f00
+}
+
+.chattoolbar {
+  color: #000
 }
