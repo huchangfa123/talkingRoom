@@ -35,7 +35,6 @@ export default class Main extends Component {
       redirect: false,
       path: ''
     }
-    console.log('111', /\/setting$/.test(this.props.match.path));
   }
 
   goChatting() {
