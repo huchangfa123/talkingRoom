@@ -84,4 +84,5 @@
   user-select: text;
   outline: none;
   padding: 0 10px;
+  border: 1px solid #727272;
 }

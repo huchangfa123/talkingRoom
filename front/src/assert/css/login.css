@@ -46,6 +46,13 @@
   font-size: 16px;
   border-radius: 5px;
   background-color: transparent;
+  border: 1px solid #727272;
+  padding-left: 5px;
+}
+
+.input-normal input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset !important;
+  -webkit-text-fill-color: #333;
 }
 
 .input-normal span {
@@ -73,4 +80,6 @@
   border-color: #2e6da4;
   border-radius: 5px;
 }
+
+
 
