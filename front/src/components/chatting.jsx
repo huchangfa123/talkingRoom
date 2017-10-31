@@ -4,10 +4,18 @@ import { Redirect } from 'react-router-dom';
 import '../assert/css/chatting.css';
 import '../assert/css/icon.css';
 import MessageItem from './messageItem';
+import { send } from '../action/UserAction';
 
+@connect(state => ({
+  messageList: state.messageList
+}), {send})
 export default class Chatting extends Component {
   constructor(props) {
     super(props);
+  }
+
+  handleInputKeyDown = (e) => {
+    
   }
 
   render() {
@@ -53,7 +61,11 @@ export default class Chatting extends Component {
           </div>
         </div>        
         <div className="input-box">
-          <input type="text"/>
+          <input 
+            type="text"
+            placeholder="输入消息"
+            onKeyDown={this.handleInputKeyDown}
+          />
         </div>      
       </div>
     )

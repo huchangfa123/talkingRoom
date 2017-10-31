@@ -10,7 +10,7 @@ import Setting from './setting';
 
 const mapStateToProps = (state) => {
   return {
-    messageList: state.messageList
+    pageIsChange: state.pageIsChange
   }
 }
 
@@ -33,7 +33,8 @@ export default class Main extends Component {
     super(props);
     this.state = {
       redirect: false,
-      path: ''
+      path: '',
+      selected: /\/setting$/.test(this.props.match.path)
     }
   }
 
@@ -46,15 +47,18 @@ export default class Main extends Component {
   }
   
   render() {
+    console.log('33', this.props.match);
+    this.state.selected =  /\/setting$/.test(this.props.match.path);
+    console.log('22', this.state.selected);
     return (
       <div className="wrapper">
         <div className="leaderBar">
           <div className="logo"></div>
           <div className="nav-list">
-            <div className={`nav-list-item ${/\/setting$/.test(this.props.match.path)? '' : 'selected'}`} onClick={this.goChatting.bind(this)} title="聊天">
+            <div className={`nav-list-item ${this.state.selected? '' : 'selected'}`} onClick={this.goChatting.bind(this)} title="聊天">
               <i className="iconfont headpic">&#xe657;</i>
             </div>
-            <div className={`nav-list-item ${/\/setting$/.test(this.props.match.path)? 'selected' : ''}`} onClick={this.goSetting.bind(this)} title="设置">
+            <div className={`nav-list-item ${this.state.selected? 'selected' : ''}`} onClick={this.goSetting.bind(this)} title="设置">
               <i className="iconfont headpic">&#xe656;</i>
             </div>            
           </div>
