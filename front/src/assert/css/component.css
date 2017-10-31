@@ -16,6 +16,20 @@ body {
   background-color: gainsboro;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
 .wrapper {
   display: flex;
   height: 95vh;
@@ -24,6 +38,7 @@ body {
 }
 
 .wrapper .leaderBar {
+  height: 4.5rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -80,5 +95,7 @@ body {
   background: inherit;
   flex: 7;
   background-color: hsla(0, 0%, 99%, .4);
+  overflow: auto;
+  overflow-x: hidden;
 }
 

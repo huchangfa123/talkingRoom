@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import '../assert/css/chatting.css';
 import '../assert/css/icon.css';
+import MessageItem from './messageItem';
 
 export default class Chatting extends Component {
   constructor(props) {
@@ -26,7 +27,20 @@ export default class Chatting extends Component {
             </div>
           </div>
         </div>
-        <div className="message-list"></div>
+        <div className="message-list">
+          <MessageItem />
+          <MessageItem />
+          <MessageItem />
+          <MessageItem />
+          <MessageItem />
+          <MessageItem />
+          <MessageItem />
+          <MessageItem />
+          <MessageItem />
+          <MessageItem />
+          <MessageItem />
+          <MessageItem />
+        </div>
         <div className="toolbar">
           <div className="emoji" title="表情">
             <i className="iconfont">&#xe65c;</i>

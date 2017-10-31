@@ -11,10 +11,15 @@ export default class MessageItem extends Component {
     return (
       <div className="messageItem">
         <div className="message">
-          <img className="userHead" src=""/>
+          <div className="userHead">11</div>
           <div className="userText">
-            <div className="textFrom">111</div>
-            <div className="textData">222</div>
+            <div className="textFrom">
+              <span className="text-userName">huchangfa</span>
+              <span className="text-time">14:22</span>
+            </div>
+            <div className="textData">
+              haha        
+            </div>
           </div>
         </div>
       </div>
