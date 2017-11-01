@@ -7,7 +7,8 @@ import MessageItem from './messageItem';
 import { send } from '../action/UserAction';
 
 @connect(state => ({
-  messageList: state.messageList
+  messageList: state.messageList,
+  userData: state.loginResult
 }), {send})
 export default class Chatting extends Component {
   constructor(props) {
@@ -15,7 +16,20 @@ export default class Chatting extends Component {
   }
 
   handleInputKeyDown = (e) => {
-    
+    if (e.keyCode === 9) {
+      e.preventDefault();
+      return;
+    }
+    if (e.keyCode === 13 && !e.shiftKey) {
+      e.preventDefault();
+      let message = this.refs.userInput.value;
+      this.refs.userInput.value = '';
+      this.props.send({
+        user: this.props.userData.name,
+        time: new Date(),
+        message
+      });
+    }
   }
 
   render() {
@@ -65,6 +79,7 @@ export default class Chatting extends Component {
             type="text"
             placeholder="输入消息"
             onKeyDown={this.handleInputKeyDown}
+            ref="userInput"
           />
         </div>      
       </div>

@@ -37,7 +37,10 @@ class UserServices {
         const token = jwt.sign(userToken, config.jwtSecret, {
           expiresIn: 24 * 60 * 60 * 100
         });
-        return token;
+        return {
+          token,
+          userData: check
+        }
       } else {
         throw Error('密码输入错误');
       }

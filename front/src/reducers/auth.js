@@ -2,13 +2,14 @@ import { USER_LOGIN, USER_REGISTER } from '../action/UserAction';
 import config from '../config';
 
 export function loginResult(loginResult = '', action) {
-  if (action.type === USER_LOGIN) {
-    loginResult = action.data;
-  }
-  sessionStorage.setItem('accessToken', loginResult.token);
-  console.log('loginResult:', loginResult);
-  config.options.headers.Authorization = `${sessionStorage.getItem('accessToken')}`;
-  return loginResult;
+    if (action.type === USER_LOGIN) {
+      if (action.data.code === 200) {
+        sessionStorage.setItem('accessToken', action.data.data.token);
+        config.options.headers.Authorization = `${sessionStorage.getItem('accessToken')}`;
+        loginResult = action.data.data.userData;
+      }
+    }
+    return loginResult;
 }
 
 export function registerResult(registerResult = '', action) {

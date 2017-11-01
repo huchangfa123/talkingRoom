@@ -4,16 +4,28 @@ export function messageList(messageList = [], action) {
   const list = [...messageList]
   switch(action.type) {
     case SEND_MESSAGE:
-      list.push(action.message);
+      list.push({
+        type: 'OWN_MESSAGE',
+        data: action.data
+      });
       break;
     case GET_MESSAGE:
-      list.push(action.data);
+      list.push({
+        type: 'OTHERS_MESSAGE', 
+        data: action.data
+      });
       break;
     case ADD_USER:
-      list.push('a user is joining');
+      list.push({
+        type: 'TIPS_MESSAGE',
+        data: action.data
+      });
       break;
     case USER_LEAVE:
-      list.push('a user is leaving');
+      list.push({
+        type: 'TIPS_MESSAGE',
+        data: action.data
+      });
       break;
   }
   return list;

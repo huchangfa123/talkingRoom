@@ -2,10 +2,9 @@ import { addUser, userLeave } from '../action/UserAction';
 import { getNewMessage } from '../action/UserAction';
 import store from '../store';
 
-export function socketMonitor (io) {
+export default function socketMonitor (io) {
   // 新用户加入
   io.on('user.join', (data) => {
-    console.log('a user join')
     store.dispatch(addUser(data));
   });
 

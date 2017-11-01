@@ -13,7 +13,7 @@ class UserController {
     let result = await userServices.login(ctx.request.body);
     ctx.body = {
       code: 200,
-      token: result
+      data: result
     }
   }
 }

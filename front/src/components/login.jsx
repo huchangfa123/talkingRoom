@@ -48,8 +48,8 @@ export default class Login extends Component {
     if (result.code !== 200) {
       notification.warning(result.message);
     } else {
-      let result = await socketServer();
-      if (result) {
+      if (this.props.loginResult) {
+        await socketServer();
         this.context.router.history.push('/main');
       } else {
         notification.warning('用户认证失败')

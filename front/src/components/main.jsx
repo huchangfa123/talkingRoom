@@ -47,8 +47,8 @@ export default class Main extends Component {
   }
   
   render() {
-    console.log('33', this.props.match);
-    this.state.selected =  /\/setting$/.test(this.props.match.path);
+    console.log('33', this.props);
+    this.state.selected =  /\/setting$/.test(this.props.location.pathname);
     console.log('22', this.state.selected);
     return (
       <div className="wrapper">

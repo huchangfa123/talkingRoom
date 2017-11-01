@@ -1,4 +1,4 @@
-import socket from '../frameworks/Socket';
+import socketServer from '../frameworks/Socket';
 import axios from 'axios';
 import config from '../config'
 import {
@@ -23,6 +23,7 @@ export function login(data) {
         type: USER_LOGIN,
         data: result.data
       });
+      console.log('sss', result.data);
       return result.data;
     } catch (error) {
       console.log(error) 
@@ -52,30 +53,34 @@ export function register(data) {
 /**
  * 主动发送信息
  */
-export function send(message) {
-  return {
-    type: SEND_MESSAGE,
-    message
+export function send(data) {
+  return async (dispatch) => {
+    let socket = await socketServer();
+    socket.emit('send.message', data);
+    dispatch({
+      type: SEND_MESSAGE,
+      data
+    });
   }
 }
 
 /**
  * 新用户加入
  */
-export function addUser(user) {
+export function addUser(data) {
   return {
     type: ADD_USER,
-    user
+    data
   }
 }
 
 /**
  * 用户离开
  */
-export function userLeave(user) {
+export function userLeave(data) {
   return {
     type: USER_LEAVE,
-    user
+    data
   }
 }
 
