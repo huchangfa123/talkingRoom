@@ -33,6 +33,7 @@ export default class Chatting extends Component {
   }
 
   render() {
+    console.log('111:', this.props.messageList);
     return (
       <div className="chat-panel">
         <div className="chat-panel-header">
@@ -50,18 +51,17 @@ export default class Chatting extends Component {
           </div>
         </div>
         <div className="message-list">
-          <MessageItem />
-          <MessageItem />
-          <MessageItem />
-          <MessageItem />
-          <MessageItem />
-          <MessageItem />
-          <MessageItem />
-          <MessageItem />
-          <MessageItem />
-          <MessageItem />
-          <MessageItem />
-          <MessageItem />
+          {
+            this.props.messageList.map((message, index) =>(
+              <MessageItem 
+                key={index}
+                userName={message.data.user}
+                message={message.data.message}
+                date={message.data.time.getHours() + ':' + message.data.time.getMinutes()}
+                type={message.type}
+              />
+            ))
+          }
         </div>
         <div className="toolbar">
           <div className="emoji" title="表情">

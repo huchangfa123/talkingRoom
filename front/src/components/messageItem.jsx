@@ -10,17 +10,31 @@ export default class MessageItem extends Component {
   render() {
     return (
       <div className="messageItem">
-        <div className="message">
-          <div className="userHead">11</div>
-          <div className="userText">
+        <div className="message"
+          style={{ justifyContent: this.props.type === 'OTHERS_MESSAGE'? 'flex-start': 'flex-end'}}
+        >
+          {
+            this.props.type === 'OTHERS_MESSAGE' &&
+            <div className="userHead">{this.props.userName.at(0)}</div>
+          } 
+          <div className="userText"
+            style={
+              {alignItems: this.props.type === 'OTHERS_MESSAGE'? 'flex-start': 'flex-end'},
+              {}
+            }
+          >
             <div className="textFrom">
-              <span className="text-userName">huchangfa</span>
-              <span className="text-time">14:22</span>
+              <span className="text-userName">{this.props.userName}</span>
+              <span className="text-time">{this.props.date}</span>
             </div>
             <div className="textData">
-              haha        
+              {this.props.message}        
             </div>
           </div>
+           {
+            this.props.type === 'OWN_MESSAGE' &&
+            <div className="userHead">{this.props.userName.at(0)}</div>
+          } 
         </div>
       </div>
     )

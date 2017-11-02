@@ -23,7 +23,6 @@ export function login(data) {
         type: USER_LOGIN,
         data: result.data
       });
-      console.log('sss', result.data);
       return result.data;
     } catch (error) {
       console.log(error) 
