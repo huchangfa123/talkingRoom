@@ -4,7 +4,6 @@
 
 .messageItem .message {
   display: flex;
-  flex-direction: row;
   padding-bottom: 10px;
 }
 
@@ -22,7 +21,7 @@
 
 .messageItem .message .userText {
   display: flex;
-  margin-right: 45px;
+  flex: 1;
   flex-direction: column;
 }
 
@@ -47,6 +46,5 @@
   margin: 0;
   box-shadow: 3px 3px 10px #aaa;
   border-radius: 10px;
-  background-color: #f1f1f1;
   word-break: break-all;  
 }

@@ -33,7 +33,7 @@ body {
 .wrapper {
   display: flex;
   height: 95vh;
-  width: 65vw;
+  width: 45vw;
   flex-direction: column;
 }
 

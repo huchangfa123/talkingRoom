@@ -32,8 +32,15 @@ export default class Chatting extends Component {
     }
   }
 
+  formatTime(time) {
+    let hour = new Date(time).getHours();
+    let mins = new Date(time).getMinutes();
+    if (parseInt(mins) <= 9) {
+      mins = '0' + mins; 
+    }
+    return hour + ':' + mins;
+  }
   render() {
-    console.log('111:', this.props.messageList);
     return (
       <div className="chat-panel">
         <div className="chat-panel-header">
@@ -57,7 +64,7 @@ export default class Chatting extends Component {
                 key={index}
                 userName={message.data.user}
                 message={message.data.message}
-                date={message.data.time.getHours() + ':' + message.data.time.getMinutes()}
+                date={this.formatTime(message.data.time)}
                 type={message.type}
               />
             ))
