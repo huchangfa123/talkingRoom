@@ -4,11 +4,12 @@ const RoomModel = function(sequelize, DataTypes) {
     {
       id: { type: DataTypes.BIGINT(11), autoIncrement: true, primaryKey: true, unique: true },
       name: { type: DataTypes.STRING },
-      content: { type: DataTypes.STRING },
-      notice: { type: DataTypes.STRING }
+      notice: { type: DataTypes.STRING, allowNull: true }
     },
     {
       timestamps: true
     }
   );
 };
+
+export default RoomModel;

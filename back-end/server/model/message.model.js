@@ -3,11 +3,13 @@ const MessageModel = function(sequelize, DataTypes) {
     'message',
     {
       id: { type: DataTypes.BIGINT(11), autoIncrement: true, primaryKey: true, unique: true },
-      msgType: { type: DataTypes.STRING },
-      content: { type: DataTypes.STRING }
+      msgType: { type: DataTypes.STRING, allowNull: true },
+      content: { type: DataTypes.STRING, allowNull: true }
     },
     {
       timestamps: true
     }
   );
 };
+
+export default MessageModel;
