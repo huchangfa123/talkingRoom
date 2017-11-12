@@ -4,17 +4,20 @@ import '../assert/css/login.css';
 import { login, register } from '../action/UserAction';
 import notification from './notice';
 import { Redirect } from 'react-router-dom';
-import socketServer from '../frameworks/Socket'
+import socketServer from '../frameworks/Socket';
+import Main from './main';
 
-@connect(state => ({
-  registerResult: state.registerResult,
-  loginResult: state.loginResult
-}), {register, login})
+@connect(
+  state => ({
+    registerResult: state.registerResult,
+    loginResult: state.loginResult
+  }),
+  { register, login }
+)
 export default class Login extends Component {
-
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
-  }
+    router: React.PropTypes.object.isRequired
+  };
 
   constructor(props) {
     super(props);
@@ -22,6 +25,14 @@ export default class Login extends Component {
       userName: '',
       password: '',
       isLoading: false
+    };
+  }
+
+  // token没过期直接跳转进主界面
+  async componentWillUpdate(nextProps, nextState) {
+    if (sessionStorage.getItem('accessToken')) {
+      await socketServer();
+      this.context.router.history.push('/main');
     }
   }
 
@@ -43,7 +54,7 @@ export default class Login extends Component {
     let data = {
       name: this.state.userName,
       password: this.state.password
-    }
+    };
     let result = await this.props.login(data);
     if (result.code !== 200) {
       notification.warning(result.message);
@@ -52,7 +63,7 @@ export default class Login extends Component {
         await socketServer();
         this.context.router.history.push('/main');
       } else {
-        notification.warning('用户认证失败')
+        notification.warning('用户认证失败');
       }
     }
   }
@@ -61,12 +72,12 @@ export default class Login extends Component {
     let data = {
       name: this.state.userName,
       password: this.state.password
-    }
+    };
     let result = await this.props.register(data);
     if (result.code === 400) {
-      notification.error(result.message)     
+      notification.error(result.message);
     } else {
-      notification.success('注册成功')
+      notification.success('注册成功');
     }
   }
 
@@ -74,26 +85,42 @@ export default class Login extends Component {
     return (
       <div className="login">
         <div className="managerBlock">
-          <div><img className="userHead" src="http://www.17qq.com/img_qqtouxiang/22526416.jpeg" /></div>
+          <div>
+            <img className="userHead" src="http://www.17qq.com/img_qqtouxiang/22526416.jpeg" />
+          </div>
           <div className="ioBlock">
             <div className="dataBlock">
               <div className="input-normal">
                 <span>帐号:</span>
-                <input type="text" placeholder="用户名" value={this.state.userName} onChange={this.handleUserName.bind(this)}/>
+                <input
+                  type="text"
+                  placeholder="用户名"
+                  value={this.state.userName}
+                  onChange={this.handleUserName.bind(this)}
+                />
               </div>
               <div className="input-normal">
                 <span>密码:</span>
-                <input type="password" placeholder="密码" value={this.state.password} onChange={this.handlePassword.bind(this)}/>
+                <input
+                  type="password"
+                  placeholder="密码"
+                  value={this.state.password}
+                  onChange={this.handlePassword.bind(this)}
+                />
               </div>
             </div>
             <div className="clickBlock">
-              <button className="btn" onClick={this.login.bind(this)}>登录</button>
-              <button className="btn" onClick={this.registerButton.bind(this)}>注册</button>              
+              <button className="btn" onClick={this.login.bind(this)}>
+                登录
+              </button>
+              <button className="btn" onClick={this.registerButton.bind(this)}>
+                注册
+              </button>
             </div>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

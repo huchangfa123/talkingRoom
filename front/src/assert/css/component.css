@@ -22,7 +22,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 4px;
 }
 
@@ -33,7 +33,7 @@ body {
 .wrapper {
   display: flex;
   height: 95vh;
-  width: 45vw;
+  width: 75vw;
   flex-direction: column;
 }
 
@@ -42,7 +42,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color:  #faa56f;
+  background-color: #faa56f;
   flex: 1;
 }
 
@@ -52,7 +52,7 @@ body {
   flex: 1;
   margin-left: 1rem;
   margin-bottom: 1rem;
-  background: url('../icon/logo.png') no-repeat
+  background: url('../icon/logo.png') no-repeat;
 }
 
 .wrapper .nav-list {
@@ -65,7 +65,7 @@ body {
 
 .wrapper .nav-list div:first-child {
   border-top-left-radius: 1rem;
-  border-bottom-left-radius: 1rem;  
+  border-bottom-left-radius: 1rem;
 }
 
 .wrapper .nav-list div:last-child {
@@ -84,7 +84,7 @@ body {
 }
 
 .selected {
-  background-color: #efbb9a
+  background-color: #efbb9a;
 }
 
 .wrapper .user-panel {
@@ -94,8 +94,20 @@ body {
 .wrapper .mainBody {
   background: inherit;
   flex: 7;
-  background-color: hsla(0, 0%, 99%, .4);
+  background-color: hsla(0, 0%, 99%, 0.4);
   overflow: auto;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: row;
 }
 
+.wrapper .mainBody .chattingManager {
+  flex: 1;
+  border-right: 1px solid #bdbdbd;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper .mainBody .chattingBody {
+  flex: 3;
+}
