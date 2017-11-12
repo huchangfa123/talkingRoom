@@ -31,6 +31,17 @@ class UserServices {
     if (check) {
       // 验证该用户密码
       if (bcrypt.compareSync(data.password, check.password)) {
+        // 添加用户到在线表
+        let authStatus = await Auth.findOne({});
+        if (!authStatus) {
+          authStatus = await Auth.create({});
+        }
+        let hasLogin = await authStatus.hasOnlineUsers(check.id);
+        if (!hasLogin) {
+          authStatus.addOnlineUsers(check.id);
+        } else {
+          throw Error('用户已登录');
+        }
         const userToken = {
           name: check.name,
           id: check.id,
@@ -39,13 +50,6 @@ class UserServices {
         const token = jwt.sign(userToken, config.jwtSecret, {
           expiresIn: 24 * 60 * 60 * 100
         });
-        // 添加用户到在线表
-        let authStatus = await Auth.findOne({});
-        if (!authStatus) {
-          authStatus = await Auth.create({});
-        }
-        authStatus.addOnlineUsers(check.id);
-
         return {
           token,
           userData: check
@@ -56,6 +60,28 @@ class UserServices {
     } else {
       throw Error('用户不存在');
     }
+  }
+
+  async logout(data) {
+    let userData = await jwt.verify(data.accessToken, config.jwtSecret);
+    if (userData) {
+      let authStatus = await Auth.findOne({});
+      let hasLogin = await authStatus.hasOnlineUsers(userData.id);
+      if (hasLogin) {
+        await authStatus.removeOnlineUsers(userData.id);
+        return {
+          name: userData.name,
+          msg: 'success'
+        };
+      }
+    }
+    throw Error('用户未登录');
+  }
+
+  async getOnlinePeople(data) {
+    let allOnlineUsers = await Auth.findOne({});
+    let result = await allOnlineUsers.getOnlineUsers();
+    return result;
   }
 }
 

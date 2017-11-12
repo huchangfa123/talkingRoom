@@ -12,14 +12,14 @@ const Message = db.import(MessageModel);
 const RoomMessage = db.import(RoomMessageModel);
 const Auth = db.import(AuthModel);
 
-User.belongsToMany(Room, { as: 'users', through: 'RoomWithUser', foreignKey: 'id' });
-User.belongsToMany(User, { as: 'friends', through: 'UsersFriends', foreignKey: 'id' });
-Room.belongsToMany(User, { as: 'rooms', through: 'RoomWithUser', foreignKey: 'id' });
-Message.belongsTo(User, { as: 'from', foreignKey: 'id' });
-Message.belongsTo(User, { as: 'to', foreignKey: 'id' });
-RoomMessage.belongsTo(User, { as: 'from', foreignKey: 'id' });
-RoomMessage.belongsTo(Room, { as: 'to', foreignKey: 'id' });
-Auth.hasMany(User, { as: 'onlineUsers', foreignKey: 'id' });
+User.belongsToMany(Room, { as: 'users', through: 'RoomWithUser' });
+User.belongsToMany(User, { as: 'friends', through: 'UsersFriends' });
+Room.belongsToMany(User, { as: 'rooms', through: 'RoomWithUser' });
+Message.belongsTo(User, { as: 'from' });
+Message.belongsTo(User, { as: 'to' });
+RoomMessage.belongsTo(User, { as: 'from' });
+RoomMessage.belongsTo(Room, { as: 'to' });
+Auth.hasMany(User, { as: 'onlineUsers' });
 
 db.sync();
 module.exports = {
