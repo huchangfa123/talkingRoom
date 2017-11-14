@@ -8,6 +8,7 @@ import Chatting from './chatting';
 import Setting from './setting';
 import ManagerHead from './managerHeader';
 import ManagerBody from './managerBody';
+
 // import { history } from '../index.jsx';
 
 const mapStateToProps = state => {

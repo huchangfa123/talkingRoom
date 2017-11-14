@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import { messageList, registerResult, loginResult } from '../reducers';
+import { messageList, registerResult, loginResult, ui } from '../reducers';
 import { routerReducer } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise';
@@ -14,6 +14,7 @@ function create() {
     messageList,
     registerResult,
     loginResult,
+    ui,
     routing: routerReducer
   });
 
