@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../assert/css/icon.css';
 import '../assert/css/managerHeader.css';
-import { openIconMenu, closeIconMenu } from '../action/UiAction';
 import IconMenu from './iconMenu';
+import { closeAllWindows } from '../util/ui';
+import actions from '../action/UiAction';
 
-@connect(null, { openIconMenu, closeIconMenu })
+@connect(null, { openIconMenu: actions.openIconMenu })
 export default class ManagerHeader extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +15,9 @@ export default class ManagerHeader extends Component {
   toolClick() {
     this.props.openIconMenu();
     document.addEventListener('click', e => {
-      this.props.closeIconMenu();
+      if (e.target.parentNode.className !== 'toolBtn') {
+        closeAllWindows();
+      }
     });
   }
 
@@ -28,7 +31,7 @@ export default class ManagerHeader extends Component {
           <input type="text" />
         </div>
         <div className="toolBtn">
-          <i className="iconfont chatpic" onClick={this.toolClick.bind(this)}>
+          <i className="iconfont chatpic" style={{ cursor: 'pointer' }} onClick={this.toolClick.bind(this)}>
             &#xe63b;
           </i>
           <IconMenu />

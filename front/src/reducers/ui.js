@@ -1,4 +1,3 @@
-import { OPEN_ICONMENU, CLOSE_ICONMENU } from '../action/UiAction';
 import config from '../config';
 
 const initState = {
@@ -7,12 +6,12 @@ const initState = {
 
 export function ui(state = initState, action) {
   switch (action.type) {
-    case OPEN_ICONMENU: {
+    case 'OpenIconMenu': {
       state.showIconMenu = true;
       return state;
     }
 
-    case CLOSE_ICONMENU: {
+    case 'CloseIconMenu': {
       state.showIconMenu = false;
       return state;
     }
