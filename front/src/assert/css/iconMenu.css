@@ -4,5 +4,20 @@
   z-index: 999;
   width: 200px;
   height: 200px;
-  background-color: #db7617;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.iconMenu div {
+  flex: 1;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  padding-left: 10%;
+  cursor: pointer;
+}
+
+.iconMenu div:hover {
+  background-color: #eeeeee;
 }

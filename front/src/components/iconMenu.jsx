@@ -16,7 +16,18 @@ export default class IconMenu extends Component {
             className="iconMenu"
             style={{ opacity, transform: `scale(${scale})`, display: opacity === 0 ? 'none' : 'flex' }}
           >
-            123
+            <div>
+              <span>创建群组</span>
+            </div>
+            <div>
+              <span>加入群组</span>
+            </div>
+            <div>
+              <span>关于作者</span>
+            </div>
+            <div>
+              <span>登出</span>
+            </div>
           </div>
         )}
       </Motion>
