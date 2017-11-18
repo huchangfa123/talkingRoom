@@ -78,6 +78,31 @@ class UserServices {
     throw Error('用户未登录');
   }
 
+  async ifLogin(data) {
+    let userData = await User.findOne({ name: data.name });
+    let authStatus = await Auth.findOne({});
+    let hasLogin = await authStatus.hasOnlineUsers(userData.id);
+    if (hasLogin) {
+      const userToken = {
+        name: userData.name,
+        id: userData.id,
+        date: new Date()
+      };
+      const token = jwt.sign(userToken, config.jwtSecret, {
+        expiresIn: 24 * 60 * 60 * 100
+      });
+      return {
+        hasLogin: true,
+        token,
+        userData
+      };
+    } else {
+      return {
+        hasLogin: false
+      };
+    }
+  }
+
   async getOnlinePeople(data) {
     let allOnlineUsers = await Auth.findOne({});
     let result = await allOnlineUsers.getOnlineUsers();

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect, dispatch, bindActionCreators } from 'react-redux';
 import '../assert/css/login.css';
-import { login, register } from '../action/UserAction';
+import { login, register, ifLogin } from '../action/UserAction';
 import notification from './notice';
 import { Redirect } from 'react-router-dom';
 import socketServer from '../frameworks/Socket';
@@ -12,7 +12,7 @@ import Main from './main';
     registerResult: state.registerResult,
     loginResult: state.loginResult
   }),
-  { register, login }
+  { register, login, ifLogin }
 )
 export default class Login extends Component {
   static contextTypes = {
@@ -48,6 +48,15 @@ export default class Login extends Component {
     this.setState({
       password: value
     });
+  }
+
+  async componentDidUpdate(prevProps, prevState) {
+    const data = await this.state.userName;
+    let result = await this.props.ifLogin(data);
+    if (this.props.loginResult) {
+      await socketServer();
+      this.context.router.history.push('/main');
+    }
   }
 
   async login() {

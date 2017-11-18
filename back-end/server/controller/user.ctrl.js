@@ -32,6 +32,14 @@ class UserController {
       data: result
     };
   }
+
+  async ifLogin(ctx, next) {
+    let result = await userServices.ifLogin(ctx.request.body);
+    ctx.body = {
+      code: 200,
+      data: result
+    };
+  }
 }
 
 export default new UserController();

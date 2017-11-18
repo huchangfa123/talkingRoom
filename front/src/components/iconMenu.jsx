@@ -10,10 +10,7 @@ export default class IconMenu extends Component {
   render() {
     const { show } = this.props;
     return (
-      <Motion
-        defaultStyle={{ scale: 0, opacity: 0 }}
-        style={{ scale: spring(show ? 1 : 0), opacity: spring(show ? 1 : 0) }}
-      >
+      <Motion defaultStyle={{ opacity: 0 }} style={{ opacity: spring(show ? 1 : 0) }}>
         {({ scale, opacity }) => (
           <div
             className="iconMenu"

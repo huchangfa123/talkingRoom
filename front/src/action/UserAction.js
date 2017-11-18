@@ -28,6 +28,21 @@ export function login(data) {
   };
 }
 
+export function ifLogin(data) {
+  return async dispatch => {
+    try {
+      const result = await postData('/user/ifLogin', data);
+      dispatch({
+        type: USER_LOGIN,
+        data: result.data
+      });
+      return result.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
 /**
  * 用户注册
  */
