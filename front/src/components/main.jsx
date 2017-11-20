@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import '../assert/css/component.css';
+import '../assert/css/main.css';
 import '../assert/css/icon.css';
 import { connect, dispatch } from 'react-redux';
 import { send } from '../action/UserAction';
@@ -8,12 +8,14 @@ import Chatting from './chatting';
 import Setting from './setting';
 import ManagerHead from './managerHeader';
 import ManagerBody from './managerBody';
+import BarHeader from './barHeader';
+import SideBar from './sideBar';
 
 // import { history } from '../index.jsx';
 
 const mapStateToProps = state => {
   return {
-    pageIsChange: state.pageIsChange
+    sideBarType: state.ui.sideBarType
   };
 };
 
@@ -49,9 +51,9 @@ export default class Main extends Component {
   }
 
   render() {
-    console.log('33', this.props);
     this.state.selected = /\/setting$/.test(this.props.location.pathname);
-    console.log('22', this.state.selected);
+    const { sideBarType } = this.props;
+    console.log('lala', sideBarType);
     return (
       <div className="wrapper">
         <div className="leaderBar">
@@ -76,8 +78,7 @@ export default class Main extends Component {
         </div>
         <div className="mainBody">
           <div className="chattingManager">
-            <ManagerHead />
-            <ManagerBody />
+            {sideBarType === null ? <ManagerBody /> : <SideBar type={sideBarType} />}
           </div>
           <div className="chattingBody">
             <Route exact path="/main" component={Chatting} />

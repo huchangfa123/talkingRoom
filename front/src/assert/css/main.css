@@ -104,8 +104,6 @@ body {
 .wrapper .mainBody .chattingManager {
   flex: 1;
   border-right: 1px solid #bdbdbd;
-  display: flex;
-  flex-direction: column;
 }
 
 .wrapper .mainBody .chattingBody {

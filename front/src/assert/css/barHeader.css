@@ -1,2 +1,20 @@
 .BarHeader {
+  flex: 2;
+  width: 100%;
+  background-color: #e0864c;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.BarHeader i {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.BarHeader span {
+  font-size: 16px;
+  color: white;
+  margin-left: 20px;
+  font-weight: 700;
 }

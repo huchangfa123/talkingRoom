@@ -1,7 +1,8 @@
 import config from '../config';
 
 const initState = {
-  showIconMenu: false
+  showIconMenu: false,
+  sideBarType: null
 };
 
 export function ui(state = initState, action) {
@@ -13,6 +14,21 @@ export function ui(state = initState, action) {
 
     case 'CloseIconMenu': {
       state.showIconMenu = false;
+      return state;
+    }
+
+    case 'JoinGroupSide': {
+      state.sideBarType = 'joinGroup';
+      return state;
+    }
+
+    case 'CreateGroupSide': {
+      state.sideBarType = 'createGroup';
+      return state;
+    }
+
+    case 'CloseSideBar': {
+      state.sideBarType = null;
       return state;
     }
 

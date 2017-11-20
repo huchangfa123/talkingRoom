@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { spring, Motion } from 'react-motion';
 import '../assert/css/iconMenu.css';
+import ui from '../action/UiAction';
 
 @connect(state => ({
   show: state.ui.showIconMenu || false
 }))
 export default class IconMenu extends Component {
+  createGroup() {
+    ui.createGroupSide();
+  }
+
   render() {
     const { show } = this.props;
     return (
@@ -16,7 +21,7 @@ export default class IconMenu extends Component {
             className="iconMenu"
             style={{ opacity, transform: `scale(${scale})`, display: opacity === 0 ? 'none' : 'flex' }}
           >
-            <div>
+            <div onClick={this.createGroup.bind(this)}>
               <span>创建群组</span>
             </div>
             <div>
