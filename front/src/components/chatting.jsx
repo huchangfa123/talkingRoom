@@ -18,11 +18,6 @@ export default class Chatting extends Component {
     super(props);
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    console.log('123213121');
-    return false;
-  }
-
   handleInputKeyDown = e => {
     if (e.keyCode === 9) {
       e.preventDefault();

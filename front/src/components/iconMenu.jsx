@@ -12,6 +12,10 @@ export default class IconMenu extends Component {
     ui.createGroupSide();
   }
 
+  joinGroup() {
+    ui.joinGroupSide();
+  }
+
   render() {
     const { show } = this.props;
     return (
@@ -24,7 +28,7 @@ export default class IconMenu extends Component {
             <div onClick={this.createGroup.bind(this)}>
               <span>创建群组</span>
             </div>
-            <div>
+            <div onClick={this.joinGroup.bind(this)}>
               <span>加入群组</span>
             </div>
             <div>

@@ -30,6 +30,12 @@ body {
   background-color: transparent;
 }
 
+.mainWindow {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
 .wrapper {
   display: flex;
   height: 95vh;
@@ -104,6 +110,7 @@ body {
 .wrapper .mainBody .chattingManager {
   flex: 1;
   border-right: 1px solid #bdbdbd;
+  position: relative;
 }
 
 .wrapper .mainBody .chattingBody {

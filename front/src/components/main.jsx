@@ -10,6 +10,7 @@ import ManagerHead from './managerHeader';
 import ManagerBody from './managerBody';
 import BarHeader from './barHeader';
 import SideBar from './sideBar';
+import MaskLayout from './maskLayout';
 
 // import { history } from '../index.jsx';
 
@@ -55,35 +56,38 @@ export default class Main extends Component {
     const { sideBarType } = this.props;
     console.log('lala', sideBarType);
     return (
-      <div className="wrapper">
-        <div className="leaderBar">
-          <div className="logo" />
-          <div className="nav-list">
-            <div
-              className={`nav-list-item ${this.state.selected ? '' : 'selected'}`}
-              onClick={this.goChatting.bind(this)}
-              title="聊天"
-            >
-              <i className="iconfont headpic">&#xe657;</i>
+      <div className="mainWindow">
+        <MaskLayout />
+        <div className="wrapper">
+          <div className="leaderBar">
+            <div className="logo" />
+            <div className="nav-list">
+              <div
+                className={`nav-list-item ${this.state.selected ? '' : 'selected'}`}
+                onClick={this.goChatting.bind(this)}
+                title="聊天"
+              >
+                <i className="iconfont headpic">&#xe657;</i>
+              </div>
+              <div
+                className={`nav-list-item ${this.state.selected ? 'selected' : ''}`}
+                onClick={this.goSetting.bind(this)}
+                title="设置"
+              >
+                <i className="iconfont headpic">&#xe656;</i>
+              </div>
             </div>
-            <div
-              className={`nav-list-item ${this.state.selected ? 'selected' : ''}`}
-              onClick={this.goSetting.bind(this)}
-              title="设置"
-            >
-              <i className="iconfont headpic">&#xe656;</i>
+            <div className="user-panel" />
+          </div>
+          <div className="mainBody">
+            <div className="chattingManager">
+              {sideBarType === null || sideBarType === 'back' ? <ManagerBody /> : <SideBar />}
             </div>
-          </div>
-          <div className="user-panel" />
-        </div>
-        <div className="mainBody">
-          <div className="chattingManager">
-            {sideBarType === null ? <ManagerBody /> : <SideBar type={sideBarType} />}
-          </div>
-          <div className="chattingBody">
-            <Route exact path="/main" component={Chatting} />
-            <Route path="/main/chatting" component={Chatting} />
-            <Route path="/main/setting" component={Setting} />
+            <div className="chattingBody">
+              <Route exact path="/main" component={Chatting} />
+              <Route path="/main/chatting" component={Chatting} />
+              <Route path="/main/setting" component={Setting} />
+            </div>
           </div>
         </div>
       </div>

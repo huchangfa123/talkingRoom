@@ -1,0 +1,14 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import FloatPanel from './floatPanel';
+
+export default class GroupMessage extends Component {
+  render() {
+    const { show } = this.props;
+    return (
+      <FloatPanel title="群信息" show={show}>
+        <div>lalla</div>
+      </FloatPanel>
+    );
+  }
+}

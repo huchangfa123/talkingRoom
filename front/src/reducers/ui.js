@@ -2,7 +2,10 @@ import config from '../config';
 
 const initState = {
   showIconMenu: false,
-  sideBarType: null
+  sideBarType: null,
+  showMaskLayout: false,
+  showGroupMessage: false,
+  showGroupNotice: false
 };
 
 export function ui(state = initState, action) {
@@ -29,6 +32,36 @@ export function ui(state = initState, action) {
 
     case 'CloseSideBar': {
       state.sideBarType = null;
+      return state;
+    }
+
+    case 'ShowMaskLayout': {
+      state.showMaskLayout = true;
+      return state;
+    }
+
+    case 'CloseMaskLayout': {
+      state.closeMaskLayout = false;
+      return state;
+    }
+
+    case 'ShowGroupMessage': {
+      state.showGroupMessage = true;
+      return state;
+    }
+
+    case 'CloseGroupMessage': {
+      state.showGroupMessage = false;
+      return state;
+    }
+
+    case 'ShowGroupNotice': {
+      state.showGroupNotice = true;
+      return state;
+    }
+
+    case 'CloseGroupNotice': {
+      state.showGroupNotice = false;
       return state;
     }
 
