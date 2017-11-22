@@ -17,12 +17,12 @@ const actions = {
   closeMaskLayout: () => dispatch({ type: 'CloseMaskLayout' }),
 
   // groupMessage
-  showGroupMessage: () => dispatch({ type: 'showGroupMessage' }),
-  closeGroupMessage: () => dispatch({ type: 'closeGroupMessage' }),
+  showGroupMessage: () => dispatch({ type: 'ShowGroupMessage' }),
+  closeGroupMessage: () => dispatch({ type: 'CloseGroupMessage' }),
 
   // groupNotice
-  showGroupNotice: () => dispatch({ type: 'showGroupNotice' }),
-  closeGroupNotice: () => dispatch({ type: 'closeGroupNotice' })
+  showGroupNotice: () => dispatch({ type: 'ShowGroupNotice' }),
+  closeGroupNotice: () => dispatch({ type: 'CloseGroupNotice' })
 };
 
 export default actions;

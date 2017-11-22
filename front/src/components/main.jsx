@@ -11,6 +11,7 @@ import ManagerBody from './managerBody';
 import BarHeader from './barHeader';
 import SideBar from './sideBar';
 import MaskLayout from './maskLayout';
+import { closeAllWindows } from '../util/ui';
 
 // import { history } from '../index.jsx';
 
@@ -33,6 +34,14 @@ export default class Main extends Component {
   static contextTypes = {
     router: React.PropTypes.object.isRequired
   };
+
+  componentWillMount(nextProps, nextState) {
+    document.addEventListener('click', e => {
+      if (e.target.parentNode.className !== 'toolBtn') {
+        closeAllWindows();
+      }
+    });
+  }
 
   constructor(props) {
     super(props);

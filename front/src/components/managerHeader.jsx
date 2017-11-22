@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import '../assert/css/icon.css';
 import '../assert/css/managerHeader.css';
 import IconMenu from './iconMenu';
-import { closeAllWindows } from '../util/ui';
 import actions from '../action/UiAction';
 
 @connect(null, { openIconMenu: actions.openIconMenu })
@@ -14,11 +13,6 @@ export default class ManagerHeader extends Component {
 
   toolClick() {
     this.props.openIconMenu();
-    document.addEventListener('click', e => {
-      if (e.target.parentNode.className !== 'toolBtn') {
-        closeAllWindows();
-      }
-    });
   }
 
   render() {

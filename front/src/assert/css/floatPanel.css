@@ -1,4 +1,7 @@
 .floatPanel {
+  width: 40%;
+  height: 100%;
+  position: absolute;
   z-index: 11;
   display: flex;
   flex-direction: column;
@@ -6,8 +9,14 @@
 
 .floatPanel .floatHeader {
   flex: 2;
+  background-color: white;
+}
+
+.floatPanel .floatHeader i {
+  cursor: pointer;
 }
 
 .floatPanel .floatBody {
   flex: 17;
+  background-color: white;
 }

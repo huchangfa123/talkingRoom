@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Motion, spring } from 'react-motion';
 import ui from '../action/UiAction';
+import '../assert/css/floatPanel.css';
 
 export default class FloatPanel extends Component {
   handleCloseClick() {
@@ -17,7 +18,7 @@ export default class FloatPanel extends Component {
           <div className="floatPanel" style={style}>
             <div className="floatHeader">
               <span>{title}</span>
-              <i className="icon" onClick={this.handleCloseClick}>
+              <i className="iconfont closepic" onClick={this.handleCloseClick.bind(this)}>
                 &#xe627;
               </i>
             </div>

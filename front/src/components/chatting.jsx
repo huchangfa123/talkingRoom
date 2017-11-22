@@ -5,6 +5,8 @@ import '../assert/css/chatting.css';
 import '../assert/css/icon.css';
 import MessageItem from './messageItem';
 import { send } from '../action/UserAction';
+import ui from '../action/UiAction';
+import GroupMessage from './groupMessage';
 
 @connect(
   state => ({
@@ -43,9 +45,17 @@ export default class Chatting extends Component {
     }
     return hour + ':' + mins;
   }
+
+  showGroupMessage() {
+    console.log('1111111111111111111');
+    ui.showGroupMessage();
+    ui.showMaskLayout();
+  }
+
   render() {
     return (
       <div className="chat-panel">
+        <GroupMessage />
         <div className="chat-panel-header">
           <div className="userHeadDiv">
             <img src="http://www.17qq.com/img_qqtouxiang/22526416.jpeg" className="userHead" />
@@ -58,7 +68,7 @@ export default class Chatting extends Component {
               </i>
             </div>
             <div>
-              <i title="群信息" className="iconfont chatpic">
+              <i title="群信息" className="iconfont chatpic" onClick={this.showGroupMessage.bind(this)}>
                 &#xe682;
               </i>
             </div>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Motion, spring } from 'react-motion';
 import '../assert/css/sideBar.css';
+import '../assert/css/icon.css';
 import BarHeader from './barHeader';
 @connect(state => ({
   sideBarType: state.ui.sideBarType || null
@@ -27,7 +28,14 @@ export default class SideBar extends Component {
           <div className="sideBar" style={style}>
             <BarHeader title={title} />
             <div className="sideBody">
-              <span>123</span>
+              <div className="groupAvatar" />
+              <div className="editBody">
+                <div className="content" contentEditable />
+                <div className="checkBtn">
+                  <span>20</span>
+                  <i className="iconfont chatpic">&#xe6d4;</i>
+                </div>
+              </div>
             </div>
           </div>
         )}

@@ -5,9 +5,45 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background-color: #375452;
+  background-color: rgba(253, 248, 239, 0.1);
 }
 
 .sideBar .sideBody {
   flex: 17;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sideBar .sideBody .groupAvatar {
+  width: 100%;
+  height: 50%;
+}
+
+.sideBar .sideBody .editBody {
+  width: 90%;
+  margin-top: 10px;
+  height: 30px;
+  border-bottom: 2px solid #e0864c;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.sideBar .sideBody .editBody .content {
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+  font-size: 16px;
+  word-wrap: break-word;
+  color: #696969;
+  outline: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sideBar .sideBody .editBody span {
+  margin-right: 10px;
+  font-size: 16px;
+  color: grey;
 }

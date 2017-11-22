@@ -41,7 +41,7 @@ export function ui(state = initState, action) {
     }
 
     case 'CloseMaskLayout': {
-      state.closeMaskLayout = false;
+      state.showMaskLayout = false;
       return state;
     }
 
