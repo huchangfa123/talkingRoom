@@ -5,6 +5,7 @@ import config from '../../config';
 
 const User = models.User;
 const Auth = models.Auth;
+const Room = models.Room;
 
 class UserServices {
   async register(data) {
@@ -79,9 +80,14 @@ class UserServices {
   }
 
   async ifLogin(data) {
-    let userData = await User.findOne({ name: data.name });
+    let userData = await User.findOne({ where: { name: data.name } });
     let authStatus = await Auth.findOne({});
-    let hasLogin = await authStatus.hasOnlineUsers(userData.id);
+    let hasLogin = null;
+    if (authStatus) {
+      hasLogin = await authStatus.hasOnlineUsers(userData.id);
+    } else {
+      await Auth.create({});
+    }
     if (hasLogin) {
       const userToken = {
         name: userData.name,
@@ -107,6 +113,52 @@ class UserServices {
     let allOnlineUsers = await Auth.findOne({});
     let result = await allOnlineUsers.getOnlineUsers();
     return result;
+  }
+
+  async createRoom(data) {
+    const userData = await jwt.verify(data.accessToken, config.jwtSecret);
+    const { name, avatar } = data;
+    let hasRoom = await Room.findOne({ where: { name } });
+    if (hasRoom) {
+      throw Error('该房间已存在!');
+    } else {
+      let newRoom = await Room.create({
+        name,
+        avatar
+      });
+      await newRoom.addUsers(userData.id);
+      return {
+        msg: '创建成功!'
+      };
+    }
+  }
+
+  async joinRoom(data) {
+    const userData = await jwt.verify(data.accessToken, config.jwtSecret);
+    const { name } = data;
+    let RoomData = await Room.findOne({ where: { name } });
+    if (!RoomData) {
+      throw Error('不存在该房间!');
+    } else {
+      let hasUser = RoomData.hasUsers(userData.id);
+      if (hasUser) {
+        throw Error('已加入该房间!');
+      } else {
+        RoomData.addUsers(userData.id);
+        return {
+          msg: '加入成功!'
+        };
+      }
+    }
+  }
+
+  async getMyRooms(data) {
+    const userData = await jwt.verify(data.accessToken, config.jwtSecret);
+    let user = await User.findOne({ id: userData.id });
+    let Rooms = await user.getRooms();
+    return {
+      Rooms
+    };
   }
 }
 

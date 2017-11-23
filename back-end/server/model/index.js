@@ -12,9 +12,9 @@ const Message = db.import(MessageModel);
 const RoomMessage = db.import(RoomMessageModel);
 const Auth = db.import(AuthModel);
 
-User.belongsToMany(Room, { as: 'users', through: 'RoomWithUser' });
+User.belongsToMany(Room, { as: 'Rooms', through: 'RoomWithUser' });
+Room.belongsToMany(User, { as: 'Users', through: 'RoomWithUser' });
 User.belongsToMany(User, { as: 'friends', through: 'UsersFriends' });
-Room.belongsToMany(User, { as: 'rooms', through: 'RoomWithUser' });
 Message.belongsTo(User, { as: 'from' });
 Message.belongsTo(User, { as: 'to' });
 RoomMessage.belongsTo(User, { as: 'from' });

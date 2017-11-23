@@ -4,7 +4,8 @@ const RoomModel = function(sequelize, DataTypes) {
     {
       id: { type: DataTypes.BIGINT(11), autoIncrement: true, primaryKey: true, unique: true },
       name: { type: DataTypes.STRING },
-      notice: { type: DataTypes.STRING, allowNull: true }
+      notice: { type: DataTypes.STRING, allowNull: true },
+      avatar: { type: DataTypes.STRING, allowNull: true }
     },
     {
       timestamps: true

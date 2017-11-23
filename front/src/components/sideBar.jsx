@@ -21,7 +21,6 @@ export default class SideBar extends Component {
       title = '创建群组';
     }
 
-    console.log('111', type);
     return (
       <Motion defaultStyle={{ left: -340 }} style={{ left: spring(type ? 0 : -340) }}>
         {style => (
@@ -32,7 +31,7 @@ export default class SideBar extends Component {
               <div className="editBody">
                 <div className="content" contentEditable />
                 <div className="checkBtn">
-                  <span>20</span>
+                  <span>10</span>
                   <i className="iconfont chatpic">&#xe6d4;</i>
                 </div>
               </div>

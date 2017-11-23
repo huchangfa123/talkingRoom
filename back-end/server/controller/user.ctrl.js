@@ -40,6 +40,33 @@ class UserController {
       data: result
     };
   }
+
+  async createRoom(ctx, next) {
+    const data = Object.assign({ accessToken: ctx.headers.authorization }, ctx.request.body);
+    let result = await userServices.createRoom(data);
+    ctx.body = {
+      code: 200,
+      result
+    };
+  }
+
+  async joinRoom(ctx, next) {
+    const data = Object.assign({ accessToken: ctx.headers.authorization }, ctx.request.body);
+    let result = await userServices.joinRoom(data);
+    ctx.body = {
+      code: 200,
+      result
+    };
+  }
+
+  async getMyRooms(ctx, next) {
+    const data = Object.assign({ accessToken: ctx.headers.authorization }, ctx.request.body);
+    let result = await userServices.getMyRooms(data);
+    ctx.body = {
+      code: 200,
+      result
+    };
+  }
 }
 
 export default new UserController();
