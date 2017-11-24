@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import '../assert/css/managerBody.css';
 import ManagerHeader from './managerHeader';
 import { Motion, spring } from 'react-motion';
+import ManagerItem from './managerItem';
 
 export default class ManagerBody extends Component {
   constructor(props) {
@@ -15,7 +16,9 @@ export default class ManagerBody extends Component {
       <div>
         <div className="managerBody">
           <ManagerHeader />
-          <div className="managerItem" />
+          <div className="managerContent">
+            <ManagerItem name="123" time="12:30" content="dasasdasdasdasssssssssssssssssssssssssssssssssssssda" />
+          </div>
         </div>
       </div>
     );

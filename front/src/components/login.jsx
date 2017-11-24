@@ -51,7 +51,10 @@ export default class Login extends Component {
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    const data = await this.state.userName;
+    const data = {
+      name: this.state.userName,
+      password: this.state.password
+    };
     let result = await this.props.ifLogin(data);
     if (this.props.loginResult) {
       await socketServer();

@@ -47,7 +47,6 @@ export default class Chatting extends Component {
   }
 
   showGroupMessage() {
-    console.log('1111111111111111111');
     ui.showGroupMessage();
     ui.showMaskLayout();
   }

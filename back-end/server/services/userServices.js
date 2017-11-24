@@ -81,32 +81,33 @@ class UserServices {
 
   async ifLogin(data) {
     let userData = await User.findOne({ where: { name: data.name } });
-    let authStatus = await Auth.findOne({});
-    let hasLogin = null;
-    if (authStatus) {
-      hasLogin = await authStatus.hasOnlineUsers(userData.id);
-    } else {
-      await Auth.create({});
+    if (bcrypt.compareSync(data.password, userData.password)) {
+      let authStatus = await Auth.findOne({});
+      let hasLogin = null;
+      if (authStatus) {
+        hasLogin = await authStatus.hasOnlineUsers(userData.id);
+      } else {
+        await Auth.create({});
+      }
+      if (hasLogin) {
+        const userToken = {
+          name: userData.name,
+          id: userData.id,
+          date: new Date()
+        };
+        const token = jwt.sign(userToken, config.jwtSecret, {
+          expiresIn: 24 * 60 * 60 * 100
+        });
+        return {
+          hasLogin: true,
+          token,
+          userData
+        };
+      }
     }
-    if (hasLogin) {
-      const userToken = {
-        name: userData.name,
-        id: userData.id,
-        date: new Date()
-      };
-      const token = jwt.sign(userToken, config.jwtSecret, {
-        expiresIn: 24 * 60 * 60 * 100
-      });
-      return {
-        hasLogin: true,
-        token,
-        userData
-      };
-    } else {
-      return {
-        hasLogin: false
-      };
-    }
+    return {
+      hasLogin: false
+    };
   }
 
   async getOnlinePeople(data) {
