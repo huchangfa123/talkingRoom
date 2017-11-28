@@ -18,6 +18,7 @@ export default class ManagerBody extends Component {
           <ManagerHeader />
           <div className="managerContent">
             <ManagerItem name="123" time="12:30" content="dasasdasdasdasssssssssssssssssssssssssssssssssssssda" />
+            <ManagerItem name="222" time="12:30" content="dasasdasdasdasssssssssssssssssssssssssssssssssssssda" />
           </div>
         </div>
       </div>
