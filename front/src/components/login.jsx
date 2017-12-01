@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { connect, dispatch, bindActionCreators } from 'react-redux';
 import '../assert/css/login.css';
-import { login, register, ifLogin } from '../action/UserAction';
+import { login, register, autoLogin } from '../action/UserAction';
 import notification from './notice';
 import { Redirect } from 'react-router-dom';
 import socketServer from '../frameworks/Socket';
 import Main from './main';
+import cookie from 'js-cookie';
 
 @connect(
   state => ({
     registerResult: state.registerResult,
     loginResult: state.loginResult
   }),
-  { register, login, ifLogin }
+  { register, login, autoLogin }
 )
 export default class Login extends Component {
   static contextTypes = {
@@ -26,14 +27,6 @@ export default class Login extends Component {
       password: '',
       isLoading: false
     };
-  }
-
-  // token没过期直接跳转进主界面
-  async componentWillUpdate(nextProps, nextState) {
-    if (sessionStorage.getItem('accessToken')) {
-      await socketServer();
-      this.context.router.history.push('/main');
-    }
   }
 
   handleUserName(e) {
@@ -50,15 +43,16 @@ export default class Login extends Component {
     });
   }
 
-  async componentDidUpdate(prevProps, prevState) {
-    const data = {
-      name: this.state.userName,
-      password: this.state.password
-    };
-    let result = await this.props.ifLogin(data);
-    if (this.props.loginResult) {
-      await socketServer();
-      this.context.router.history.push('/main');
+  async componentWillMount(prevProps, prevState) {
+    const token = cookie.get('accessToken');
+    if (token) {
+      let result = await this.props.autoLogin();
+      if (this.props.loginResult) {
+        await socketServer();
+        this.context.router.history.push('/main');
+      } else {
+        notification.warning('用户认证失败');
+      }
     }
   }
 

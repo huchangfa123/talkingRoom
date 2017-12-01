@@ -1,7 +1,7 @@
 import socketServer from '../frameworks/Socket';
 import axios from 'axios';
 import config from '../config';
-import { postData } from '../api/fetchData';
+import { postData, getData } from '../api/fetchData';
 
 export const SEND_MESSAGE = 'send-message';
 export const ADD_USER = 'add-user';
@@ -28,10 +28,10 @@ export function login(data) {
   };
 }
 
-export function ifLogin(data) {
+export function autoLogin() {
   return async dispatch => {
     try {
-      const result = await postData('/user/ifLogin', data);
+      const result = await getData('/user/myInfo');
       dispatch({
         type: USER_LOGIN,
         data: result.data

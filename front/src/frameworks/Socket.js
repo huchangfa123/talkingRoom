@@ -7,7 +7,8 @@ let io = null;
 export default async function getSocket() {
   try {
     if (!io) {
-      io = await Socket(config.location, {query: 'accessToken=' + config.options.headers['Authorization']});
+      console.log('sss', config.options.headers);
+      io = await Socket(config.location, { query: 'accessToken=' + config.options.headers['Authorization'] });
       io.on('connect', () => {
         console.log('连接成功');
       });
@@ -18,6 +19,6 @@ export default async function getSocket() {
     return {
       code: 400,
       error
-    }
+    };
   }
 }

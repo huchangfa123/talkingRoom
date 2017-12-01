@@ -67,6 +67,14 @@ class UserController {
       result
     };
   }
+
+  async getUserData(ctx, next) {
+    let result = await userServices.getUserData({ accessToken: ctx.headers.authorization });
+    ctx.body = {
+      code: 200,
+      data: result
+    };
+  }
 }
 
 export default new UserController();

@@ -38,11 +38,11 @@ class UserServices {
           authStatus = await Auth.create({});
         }
         let hasLogin = await authStatus.hasOnlineUsers(check.id);
-        if (!hasLogin) {
-          authStatus.addOnlineUsers(check.id);
-        } else {
-          throw Error('用户已登录');
-        }
+        // if (!hasLogin) {
+        //   authStatus.addOnlineUsers(check.id);
+        // } else {
+        //   throw Error('用户已登录');
+        // }
         const userToken = {
           name: check.name,
           id: check.id,
@@ -108,6 +108,21 @@ class UserServices {
     return {
       hasLogin: false
     };
+  }
+
+  async getUserData(data) {
+    let baseData = await jwt.verify(data.accessToken, config.jwtSecret);
+    if (baseData) {
+      const user = await User.findOne({
+        where: { id: baseData.id }
+      });
+      return {
+        token: data.accessToken,
+        userData: user
+      };
+    } else {
+      throw Error('token已过期');
+    }
   }
 
   async getOnlinePeople(data) {
