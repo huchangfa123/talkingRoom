@@ -35,14 +35,6 @@ export default class Main extends Component {
     router: React.PropTypes.object.isRequired
   };
 
-  componentWillMount(nextProps, nextState) {
-    document.addEventListener('click', e => {
-      if (e.target.parentNode.className !== 'toolBtn') {
-        closeAllWindows();
-      }
-    });
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -58,6 +50,14 @@ export default class Main extends Component {
 
   goSetting() {
     this.context.router.history.push({ pathname: '/main/setting' });
+  }
+
+  async componentWillMount() {
+    const mainBody = await document.getElementsByClassName('mainWindow');
+    mainBody[0].addEventListener('click', e => {
+      console.log(e);
+      closeAllWindows();
+    });
   }
 
   render() {

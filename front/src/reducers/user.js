@@ -1,32 +1,38 @@
-import { SEND_MESSAGE, GET_MESSAGE, ADD_USER, USER_LEAVE } from '../action/UserAction';
+const initState = {
+  messageList: []
+};
 
-export function messageList(messageList = [], action) {
-  const list = [...messageList]
-  switch(action.type) {
-    case SEND_MESSAGE:
-      list.push({
+export function user(state = initState, action) {
+  switch (action.type) {
+    case 'send-message': {
+      state.messageList.push({
         type: 'OWN_MESSAGE',
         data: action.data
       });
-      break;
-    case GET_MESSAGE:
-      list.push({
-        type: 'OTHERS_MESSAGE', 
+      return state;
+    }
+    case 'get-message': {
+      state.messageList.push({
+        type: 'OTHERS_MESSAGE',
         data: action.data
       });
-      break;
-    case ADD_USER:
-      list.push({
+      return state;
+    }
+    case 'add-user': {
+      state.messageList.push({
         type: 'TIPS_MESSAGE',
         data: action.data
       });
-      break;
-    case USER_LEAVE:
-      list.push({
+      return state;
+    }
+    case 'user-leave': {
+      state.messageList.push({
         type: 'TIPS_MESSAGE',
         data: action.data
       });
-      break;
+      return state;
+    }
+    default:
+      return state;
   }
-  return list;
 }

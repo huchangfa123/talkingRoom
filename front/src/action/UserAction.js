@@ -3,12 +3,13 @@ import axios from 'axios';
 import config from '../config';
 import { postData, getData } from '../api/fetchData';
 
-export const SEND_MESSAGE = 'send-message';
-export const ADD_USER = 'add-user';
-export const USER_LEAVE = ' user-leave';
-export const GET_MESSAGE = 'get-message';
-export const USER_LOGIN = 'user-login';
-export const USER_REGISTER = 'user-register';
+const SEND_MESSAGE = 'send-message';
+const ADD_USER = 'add-user';
+const USER_LEAVE = ' user-leave';
+const GET_MESSAGE = 'get-message';
+const USER_LOGIN = 'user-login';
+const USER_REGISTER = 'user-register';
+const USER_ROOMS = 'user-rooms';
 
 /**
  * 用户登录
@@ -102,5 +103,19 @@ export function getNewMessage(data) {
   return {
     type: GET_MESSAGE,
     data
+  };
+}
+
+/**
+ * 获取用户房间列表
+ */
+export function getRoomList(data) {
+  return async dispatch => {
+    let result = await getData('/user/myRooms');
+    dispatch({
+      type: USER_ROOMS,
+      data: result
+    });
+    return result;
   };
 }

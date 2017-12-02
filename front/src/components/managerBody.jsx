@@ -4,7 +4,9 @@ import '../assert/css/managerBody.css';
 import ManagerHeader from './managerHeader';
 import { Motion, spring } from 'react-motion';
 import ManagerItem from './managerItem';
-
+@connect(state => {
+  itemList: state.itemList;
+})
 export default class ManagerBody extends Component {
   constructor(props) {
     super(props);

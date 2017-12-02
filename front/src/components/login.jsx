@@ -46,7 +46,9 @@ export default class Login extends Component {
   async componentWillMount(prevProps, prevState) {
     const token = cookie.get('accessToken');
     if (token) {
+      console.log(1111);
       let result = await this.props.autoLogin();
+      console.log('222', this.props.loginResult);
       if (this.props.loginResult) {
         await socketServer();
         this.context.router.history.push('/main');

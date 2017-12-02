@@ -10,7 +10,7 @@ import GroupMessage from './groupMessage';
 
 @connect(
   state => ({
-    messageList: state.messageList,
+    messageList: state.user.messageList,
     userData: state.loginResult
   }),
   { send }
@@ -47,11 +47,13 @@ export default class Chatting extends Component {
   }
 
   showGroupMessage() {
+    console.log(22222222);
     ui.showGroupMessage();
     ui.showMaskLayout();
   }
 
   render() {
+    console.log('lalal', this.props.messageList);
     return (
       <div className="chat-panel">
         <GroupMessage />

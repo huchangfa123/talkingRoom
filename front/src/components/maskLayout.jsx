@@ -8,7 +8,6 @@ import '../assert/css/maskLayout.css';
 export default class MaskLayout extends Component {
   render() {
     const { show } = this.props;
-    console.log('lalal', show);
     return <div className="maskLayout" style={{ display: show ? 'block' : 'none' }} />;
   }
 }
