@@ -43,17 +43,19 @@ export default class Chatting extends Component {
     if (parseInt(mins) <= 9) {
       mins = '0' + mins;
     }
+    if (parseInt(hour) <= 9) {
+      hout = '0' + hour;
+    }
     return hour + ':' + mins;
   }
 
   showGroupMessage() {
-    console.log(22222222);
     ui.showGroupMessage();
     ui.showMaskLayout();
   }
 
   render() {
-    console.log('lalal', this.props.messageList);
+    console.log('1111', this.props.messageList);
     return (
       <div className="chat-panel">
         <GroupMessage />

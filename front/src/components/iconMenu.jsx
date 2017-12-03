@@ -5,7 +5,7 @@ import '../assert/css/iconMenu.css';
 import ui from '../action/UiAction';
 
 @connect(state => ({
-  show: state.ui.showIconMenu || false
+  show: state.ui.showIconMenu
 }))
 export default class IconMenu extends Component {
   createGroup() {
@@ -18,6 +18,7 @@ export default class IconMenu extends Component {
 
   render() {
     const { show } = this.props;
+    console.log(111111, show);
     return (
       <Motion defaultStyle={{ opacity: 0 }} style={{ opacity: spring(show ? 1 : 0) }}>
         {({ scale, opacity }) => (

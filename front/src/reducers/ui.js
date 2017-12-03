@@ -1,4 +1,5 @@
 import config from '../config';
+import _ from 'lodash';
 
 const initState = {
   showIconMenu: false,
@@ -12,57 +13,57 @@ export function ui(state = initState, action) {
   switch (action.type) {
     case 'OpenIconMenu': {
       state.showIconMenu = true;
-      return state;
+      return _.cloneDeep(state);
     }
 
     case 'CloseIconMenu': {
       state.showIconMenu = false;
-      return state;
+      return _.cloneDeep(state);
     }
 
     case 'JoinGroupSide': {
       state.sideBarType = 'joinGroup';
-      return state;
+      return _.cloneDeep(state);
     }
 
     case 'CreateGroupSide': {
       state.sideBarType = 'createGroup';
-      return state;
+      return _.cloneDeep(state);
     }
 
     case 'CloseSideBar': {
       state.sideBarType = null;
-      return state;
+      return _.cloneDeep(state);
     }
 
     case 'ShowMaskLayout': {
       state.showMaskLayout = true;
-      return state;
+      return _.cloneDeep(state);
     }
 
     case 'CloseMaskLayout': {
       state.showMaskLayout = false;
-      return state;
+      return _.cloneDeep(state);
     }
 
     case 'ShowGroupMessage': {
       state.showGroupMessage = true;
-      return state;
+      return _.cloneDeep(state);
     }
 
     case 'CloseGroupMessage': {
       state.showGroupMessage = false;
-      return state;
+      return _.cloneDeep(state);
     }
 
     case 'ShowGroupNotice': {
       state.showGroupNotice = true;
-      return state;
+      return _.cloneDeep(state);
     }
 
     case 'CloseGroupNotice': {
       state.showGroupNotice = false;
-      return state;
+      return _.cloneDeep(state);
     }
 
     default:

@@ -2,7 +2,6 @@ import config from '../config';
 import cookie from 'js-cookie';
 
 export function loginResult(loginResult = false, action) {
-  console.log('33333333333333', action);
   if (action.type === 'user-login' && action.data.data.token) {
     if (action.data.code === 200) {
       cookie.set('accessToken', action.data.data.token, { expires: 1 });

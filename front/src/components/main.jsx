@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import '../assert/css/main.css';
 import '../assert/css/icon.css';
 import { connect, dispatch } from 'react-redux';
-import { send } from '../action/UserAction';
+import { autoLogin } from '../action/UserAction';
 import { Route, Switch } from 'react-router-dom';
 import Chatting from './chatting';
 import Setting from './setting';
@@ -12,24 +12,17 @@ import BarHeader from './barHeader';
 import SideBar from './sideBar';
 import MaskLayout from './maskLayout';
 import { closeAllWindows } from '../util/ui';
+import { loginResult } from '../reducers/auth';
+import socketServer from '../frameworks/Socket';
 
 // import { history } from '../index.jsx';
-
-const mapStateToProps = state => {
-  return {
-    sideBarType: state.ui.sideBarType
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    messageSend: message => {
-      dispatch(send(message));
-    }
-  };
-};
-
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+  state => ({
+    sideBarType: state.ui.sideBarType,
+    loginResult: state.loginResult
+  }),
+  { autoLogin }
+)
 export default class Main extends Component {
   static contextTypes = {
     router: React.PropTypes.object.isRequired
@@ -50,6 +43,17 @@ export default class Main extends Component {
 
   goSetting() {
     this.context.router.history.push({ pathname: '/main/setting' });
+  }
+
+  async componentDidMount() {
+    if (!this.props.loginResult) {
+      await this.props.autoLogin();
+      if (!this.props.loginResult) {
+        this.context.router.history.push('/');
+      } else {
+        await socketServer();
+      }
+    }
   }
 
   async componentWillMount() {
