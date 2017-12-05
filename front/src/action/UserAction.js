@@ -10,6 +10,8 @@ const GET_MESSAGE = 'get-message';
 const USER_LOGIN = 'user-login';
 const USER_REGISTER = 'user-register';
 const USER_ROOMS = 'user-rooms';
+const CREATE_ROOM = 'create-room';
+const JOIN_ROOM = 'join-room';
 
 /**
  * 用户登录
@@ -114,6 +116,34 @@ export function getRoomList(data) {
     let result = await getData('/user/myRooms');
     dispatch({
       type: USER_ROOMS,
+      data: result
+    });
+    return result;
+  };
+}
+
+/**
+ * 创建房间
+ */
+export function createRoom(data) {
+  return async dispatch => {
+    let result = await postData('/user/createRoom', data);
+    dispatch({
+      type: CREATE_ROOM,
+      data: result
+    });
+    return result;
+  };
+}
+
+/**
+ * 加入房间
+ */
+export function joinRoom(data) {
+  return async dispatch => {
+    let result = await postData('/user/joinRoom', data);
+    dispatch({
+      type: JOIN_ROOM,
       data: result
     });
     return result;

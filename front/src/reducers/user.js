@@ -35,6 +35,22 @@ export function user(state = initState, action) {
       });
       return _.cloneDeep(state);
     }
+    case 'user-rooms': {
+      state.itemList = action.data;
+      return _.cloneDeep(state);
+    }
+    case 'create-room': {
+      if (action.data.code === 200) {
+        state.itemList = action.data.result.data;
+      }
+      return _.cloneDeep(state);
+    }
+    case 'join-room': {
+      if (action.data.code === 200) {
+        state.itemList = action.data.result.data;
+      }
+      return _.cloneDeep(state);
+    }
     default:
       return state;
   }

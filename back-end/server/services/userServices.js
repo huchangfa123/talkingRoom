@@ -72,7 +72,7 @@ class UserServices {
         await authStatus.removeOnlineUsers(userData.id);
         return {
           name: userData.name,
-          msg: 'success'
+          message: 'success'
         };
       }
     }
@@ -133,6 +133,7 @@ class UserServices {
 
   async createRoom(data) {
     const userData = await jwt.verify(data.accessToken, config.jwtSecret);
+    const user = await User.findById(userData.id);
     const { name, avatar } = data;
     let hasRoom = await Room.findOne({ where: { name } });
     if (hasRoom) {
@@ -143,8 +144,10 @@ class UserServices {
         avatar
       });
       await newRoom.addUsers(userData.id);
+      let Rooms = await user.getRooms();
       return {
-        msg: '创建成功!'
+        message: '创建成功!',
+        data: Rooms
       };
     }
   }
@@ -161,8 +164,11 @@ class UserServices {
         throw Error('已加入该房间!');
       } else {
         RoomData.addUsers(userData.id);
+        let user = await user.findById(userData.id);
+        const Rooms = await user.getRooms();
         return {
-          msg: '加入成功!'
+          message: '加入成功!',
+          data: Rooms
         };
       }
     }
@@ -170,7 +176,7 @@ class UserServices {
 
   async getMyRooms(data) {
     const userData = await jwt.verify(data.accessToken, config.jwtSecret);
-    let user = await User.findOne({ id: userData.id });
+    let user = await User.findOne({ where: { id: userData.id } });
     let Rooms = await user.getRooms();
     return {
       Rooms
