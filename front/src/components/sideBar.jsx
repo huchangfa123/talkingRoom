@@ -26,6 +26,7 @@ export default class SideBar extends Component {
     this.setState({
       roomName: value
     });
+    console.log(333, this.state.roomName);
   }
 
   async joinRoomEnsure() {
@@ -59,10 +60,15 @@ export default class SideBar extends Component {
             <div className="sideBody">
               <div className="groupAvatar" />
               <div className="editBody">
-                <div className="content" onChange={this.handleRoomName.bind(this)} contentEditable />
+                <input className="content" onChange={this.handleRoomName.bind(this)} />
                 <div className="checkBtn">
                   <span>10</span>
-                  <i className="iconfont chatpic">&#xe6d4;</i>
+                  <i
+                    className="iconfont chatpic ensure-btn"
+                    onClick={type === 'joinGroup' ? this.joinRoomEnsure.bind(this) : this.creatRoomEnsure.bind(this)}
+                  >
+                    &#xe6d4;
+                  </i>
                 </div>
               </div>
             </div>

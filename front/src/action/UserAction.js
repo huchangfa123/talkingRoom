@@ -132,7 +132,7 @@ export function createRoom(data) {
       type: CREATE_ROOM,
       data: result
     });
-    return result;
+    return result.data;
   };
 }
 
@@ -146,6 +146,6 @@ export function joinRoom(data) {
       type: JOIN_ROOM,
       data: result
     });
-    return result;
+    return result.data;
   };
 }

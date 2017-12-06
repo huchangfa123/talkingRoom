@@ -135,6 +135,9 @@ class UserServices {
     const userData = await jwt.verify(data.accessToken, config.jwtSecret);
     const user = await User.findById(userData.id);
     const { name, avatar } = data;
+    if (!name) {
+      throw Error('房间名不能为空!');
+    }
     let hasRoom = await Room.findOne({ where: { name } });
     if (hasRoom) {
       throw Error('该房间已存在!');
