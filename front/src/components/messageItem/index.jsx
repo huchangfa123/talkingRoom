@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import '../assert/css/messageItem.css';
+import './messageItem.css';
 
 export default class MessageItem extends Component {
   constructor(props) {

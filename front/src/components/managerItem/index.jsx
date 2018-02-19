@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../assert/css/managerItem.css';
+import './managerItem.css';
 
 export default class ManagerItem extends Component {
   render() {

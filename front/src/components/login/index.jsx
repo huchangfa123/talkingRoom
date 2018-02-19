@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect, dispatch, bindActionCreators } from 'react-redux';
-import '../assert/css/login.css';
-import { login, register, autoLogin } from '../action/UserAction';
-import notification from './notice';
+import './login.css';
+import { login, register, autoLogin } from '../../action/UserAction';
+import notification from '../notice';
 import { Redirect } from 'react-router-dom';
-import socketServer from '../frameworks/Socket';
-import Main from './main';
+import socketServer from '../../frameworks/Socket';
+import Main from '../main';
 import cookie from 'js-cookie';
 
 @connect(

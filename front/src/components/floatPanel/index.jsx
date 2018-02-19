@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Motion, spring } from 'react-motion';
-import ui from '../action/UiAction';
-import '../assert/css/floatPanel.css';
+import ui from '../../action/UiAction';
+import './floatPanel.css';
+
+/**
+ * 群信息类型悬浮框统一组件
+*/
 
 export default class FloatPanel extends Component {
   handleCloseClick() {

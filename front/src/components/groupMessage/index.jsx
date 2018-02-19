@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import FloatPanel from './floatPanel';
-import ui from '../action/UiAction';
+import FloatPanel from '../floatPanel';
+import ui from '../../action/UiAction';
 
 @connect(state => ({
   show: state.ui.showGroupMessage

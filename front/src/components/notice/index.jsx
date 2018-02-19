@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import '../assert/css/notice.css'
+import './notice.css'
 
 class Notice extends React.Component{
    constructor(props) {

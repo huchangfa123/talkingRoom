@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import '../assert/css/setting.css';
+import './setting.css';
 
 export default class Setting extends Component {
   constructor(props) {

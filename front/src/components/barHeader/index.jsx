@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import '../assert/css/barHeader.css';
-import '../assert/css/icon.css';
-import ui from '../action/UiAction';
+import './barHeader.css';
+import '../../assert/css/icon.css';
+import ui from '../../action/UiAction';
 
+/**
+ * 左边悬浮框头部
+ */
 export default class BarHead extends Component {
   constructor(props) {
     super(props);

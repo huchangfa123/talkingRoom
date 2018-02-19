@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import '../assert/css/chatting.css';
-import '../assert/css/icon.css';
-import MessageItem from './messageItem';
-import { send } from '../action/UserAction';
-import ui from '../action/UiAction';
-import GroupMessage from './groupMessage';
+import './chatting.css';
+import '../../assert/css/icon.css';
+import MessageItem from '../messageItem';
+import { send } from '../../action/UserAction';
+import ui from '../../action/UiAction';
+import GroupMessage from '../groupMessage';
 
 @connect(
   state => ({

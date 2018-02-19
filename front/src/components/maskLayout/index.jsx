@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import '../assert/css/maskLayout.css';
+import './maskLayout.css';
 
 @connect(state => ({
   show: state.ui.showMaskLayout

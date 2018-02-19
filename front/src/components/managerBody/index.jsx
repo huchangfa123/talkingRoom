@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import '../assert/css/managerBody.css';
-import ManagerHeader from './managerHeader';
+import './managerBody.css';
+import ManagerHeader from '../managerHeader';
 import { Motion, spring } from 'react-motion';
-import ManagerItem from './managerItem';
-import { getRoomList } from '../action/UserAction';
+import ManagerItem from '../managerItem';
+import { getRoomList } from '../../action/UserAction';
 
 @connect(
   state => ({

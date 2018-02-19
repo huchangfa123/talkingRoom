@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import '../assert/css/icon.css';
-import '../assert/css/managerHeader.css';
-import IconMenu from './iconMenu';
-import actions from '../action/UiAction';
+import '../../assert/css/icon.css';
+import './managerHeader.css';
+import IconMenu from '../iconMenu';
+import actions from '../../action/UiAction';
 
 @connect(null, { openIconMenu: actions.openIconMenu })
 export default class ManagerHeader extends Component {

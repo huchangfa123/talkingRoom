@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { spring, Motion } from 'react-motion';
-import '../assert/css/iconMenu.css';
-import ui from '../action/UiAction';
+import './iconMenu.css';
+import ui from '../../action/UiAction';
 
 @connect(state => ({
   show: state.ui.showIconMenu

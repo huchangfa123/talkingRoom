@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Motion, spring } from 'react-motion';
-import '../assert/css/sideBar.css';
-import '../assert/css/icon.css';
-import BarHeader from './barHeader';
-import { joinRoom, createRoom } from '../action/UserAction';
-import notification from './notice';
+import './sideBar.css';
+import '../../assert/css/icon.css';
+import BarHeader from '../barHeader';
+import { joinRoom, createRoom } from '../../action/UserAction';
+import notification from '../notice';
 
 @connect(
   state => ({

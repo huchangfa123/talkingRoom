@@ -1,19 +1,19 @@
 import React, { Component, PropTypes } from 'react';
-import '../assert/css/main.css';
-import '../assert/css/icon.css';
+import './main.css';
+import '../../assert/css/icon.css';
 import { connect, dispatch } from 'react-redux';
-import { autoLogin } from '../action/UserAction';
+import { autoLogin } from '../../action/UserAction';
 import { Route, Switch } from 'react-router-dom';
-import Chatting from './chatting';
-import Setting from './setting';
-import ManagerHead from './managerHeader';
-import ManagerBody from './managerBody';
-import BarHeader from './barHeader';
-import SideBar from './sideBar';
-import MaskLayout from './maskLayout';
-import { closeAllWindows } from '../util/ui';
-import { loginResult } from '../reducers/auth';
-import socketServer from '../frameworks/Socket';
+import Chatting from '../chatting';
+import Setting from '../setting';
+import ManagerHead from '../managerHeader';
+import ManagerBody from '../managerBody';
+import BarHeader from '../barHeader';
+import SideBar from '../sideBar';
+import MaskLayout from '../maskLayout';
+import { closeAllWindows } from '../../util/ui';
+import { loginResult } from '../../reducers/auth';
+import socketServer from '../../frameworks/Socket';
 
 // import { history } from '../index.jsx';
 @connect(
