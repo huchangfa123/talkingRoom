@@ -130,7 +130,7 @@ export function createRoom(data) {
     let result = await postData('/user/createRoom', data);
     dispatch({
       type: CREATE_ROOM,
-      data: result
+      data: result.data
     });
     return result.data;
   };

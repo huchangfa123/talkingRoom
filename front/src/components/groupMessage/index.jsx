@@ -3,8 +3,11 @@ import { connect } from 'react-redux';
 import FloatPanel from '../floatPanel';
 import ui from '../../action/UiAction';
 
+/**
+ * 结合floatPanel的群信息右边弹框组件
+ */
 @connect(state => ({
-  show: state.ui.showGroupMessage
+  show: state.ui.getIn(['showGroupMessage'])
 }))
 export default class GroupMessage extends Component {
   render() {

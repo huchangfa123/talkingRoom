@@ -8,7 +8,7 @@ import { getRoomList } from '../../action/UserAction';
 
 @connect(
   state => ({
-    itemList: state.user.itemList
+    roomList: state.user.getIn(['roomList'])
   }),
   { getRoomList }
 )
@@ -23,8 +23,9 @@ export default class ManagerBody extends Component {
   }
 
   render() {
-    console.log('222', this.props.itemList);
+    // console.log('222', this.props.roomList);
     // let { sideBarType } = this.props;
+    console.log('roomlist', this.props.roomList)
     return (
       <div>
         <div className="managerBody">

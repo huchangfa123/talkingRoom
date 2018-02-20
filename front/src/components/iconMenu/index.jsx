@@ -4,8 +4,11 @@ import { spring, Motion } from 'react-motion';
 import './iconMenu.css';
 import ui from '../../action/UiAction';
 
+/*
+* 点击点点点出来的菜单栏
+*/
 @connect(state => ({
-  show: state.ui.showIconMenu
+  show: state.ui.getIn(['showIconMenu'])
 }))
 export default class IconMenu extends Component {
   createGroup() {

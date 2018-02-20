@@ -18,7 +18,7 @@ import socketServer from '../../frameworks/Socket';
 // import { history } from '../index.jsx';
 @connect(
   state => ({
-    sideBarType: state.ui.sideBarType,
+    sideBarType: state.ui.getIn(['sideBarType']),
     loginResult: state.loginResult
   }),
   { autoLogin }

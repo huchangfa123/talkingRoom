@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Motion, spring } from 'react-motion';
 import ui from '../../action/UiAction';
 import './floatPanel.css';

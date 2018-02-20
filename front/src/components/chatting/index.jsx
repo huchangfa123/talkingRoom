@@ -8,9 +8,13 @@ import { send } from '../../action/UserAction';
 import ui from '../../action/UiAction';
 import GroupMessage from '../groupMessage';
 
+
+/**
+ * 聊天主界面
+ */
 @connect(
   state => ({
-    messageList: state.user.messageList,
+    messageList: state.user.getIn(['messageList']),
     userData: state.loginResult
   }),
   { send }

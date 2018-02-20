@@ -1,69 +1,58 @@
 import config from '../config';
-import _ from 'lodash';
+import immutable from 'immutable'
 
-const initState = {
+const initState = immutable.fromJS({
   showIconMenu: false,
   sideBarType: null,
   showMaskLayout: false,
   showGroupMessage: false,
   showGroupNotice: false
-};
+});
 
 export function ui(state = initState, action) {
   switch (action.type) {
     case 'OpenIconMenu': {
-      state.showIconMenu = true;
-      return _.cloneDeep(state);
+      return state.set('showIconMenu', true);
     }
 
     case 'CloseIconMenu': {
-      state.showIconMenu = false;
-      return _.cloneDeep(state);
+      return state.set('showIconMenu', false);
     }
 
     case 'JoinGroupSide': {
-      state.sideBarType = 'joinGroup';
-      return _.cloneDeep(state);
+      return state.set('sideBarType', 'joinGroup');      
     }
 
     case 'CreateGroupSide': {
-      state.sideBarType = 'createGroup';
-      return _.cloneDeep(state);
+      return state.set('sideBarType', 'createGroup');
     }
 
     case 'CloseSideBar': {
-      state.sideBarType = null;
-      return _.cloneDeep(state);
+      return state.set('sideBarType', null);
     }
 
     case 'ShowMaskLayout': {
-      state.showMaskLayout = true;
-      return _.cloneDeep(state);
+      return state.set('showMaskLayout', true);
     }
 
     case 'CloseMaskLayout': {
-      state.showMaskLayout = false;
-      return _.cloneDeep(state);
+      return state.set('showMaskLayout', false);
     }
 
     case 'ShowGroupMessage': {
-      state.showGroupMessage = true;
-      return _.cloneDeep(state);
+      return state.set('showGroupMessage', true);
     }
 
     case 'CloseGroupMessage': {
-      state.showGroupMessage = false;
-      return _.cloneDeep(state);
+      return state.set('showGroupMessage', false);
     }
 
     case 'ShowGroupNotice': {
-      state.showGroupNotice = true;
-      return _.cloneDeep(state);
+      return state.set('showGroupNotice', true);
     }
 
     case 'CloseGroupNotice': {
-      state.showGroupNotice = false;
-      return _.cloneDeep(state);
+      return state.set('showGroupNotice', false);
     }
 
     default:

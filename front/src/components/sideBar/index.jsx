@@ -6,10 +6,11 @@ import '../../assert/css/icon.css';
 import BarHeader from '../barHeader';
 import { joinRoom, createRoom } from '../../action/UserAction';
 import notification from '../notice';
+import ui from '../../action/UiAction'
 
 @connect(
   state => ({
-    sideBarType: state.ui.sideBarType || null
+    sideBarType: state.ui.getIn(['sideBarType'])
   }),
   { joinRoom, createRoom }
 )
@@ -30,16 +31,23 @@ export default class SideBar extends Component {
   }
 
   async joinRoomEnsure() {
-    let result = await this.props.joinRoom(this.state.roomName);
+    let result = await this.props.joinRoom({name: this.state.roomName});
     if (result.code !== 200) {
       notification.warning(result.message);
+    } else {
+      await ui.sideBarClose()      
+      notification.success('加入成功!') 
     }
   }
 
   async creatRoomEnsure() {
-    let result = await this.props.createRoom(this.state.roomName);
+    let result = await this.props.createRoom({name: this.state.roomName, avatar: null});
+    console.log('createRoom', result)
     if (result.code !== 200) {
       notification.warning(result.message);
+    } else {
+      await ui.sideBarClose()
+      notification.success('创建成功!')
     }
   }
 

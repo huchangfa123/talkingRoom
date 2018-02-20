@@ -1,55 +1,47 @@
-import _ from 'lodash';
+import immutable from 'immutable'
 
-const initState = {
+const initState = immutable.fromJS({
   messageList: [],
-  itemList: []
-};
+  roomList: []
+});
 
 export function user(state = initState, action) {
   switch (action.type) {
     case 'send-message': {
-      state.messageList.push({
+      return state.updateIn(['messageList'], list => list.push({
         type: 'OWN_MESSAGE',
         data: action.data
-      });
-      return _.cloneDeep(state);
+      }))
     }
     case 'get-message': {
-      state.messageList.push({
+      return state.updateIn(['messageList'], list => list.push({
         type: 'OTHERS_MESSAGE',
         data: action.data
-      });
-      return _.cloneDeep(state);
+      }))
     }
     case 'add-user': {
-      state.messageList.push({
+      return state.updateIn(['messageList'], list => list.push({
         type: 'TIPS_MESSAGE',
         data: action.data
-      });
-      return _.cloneDeep(state);
+      }))
     }
     case 'user-leave': {
-      state.messageList.push({
+      return state.updateIn(['messageList'], list => list.push({
         type: 'TIPS_MESSAGE',
         data: action.data
-      });
-      return _.cloneDeep(state);
+      }))
     }
     case 'user-rooms': {
-      state.itemList = action.data;
-      return _.cloneDeep(state);
+      console.log('user-rooms', action.data)
+      return state.set('roomList', action.data)
     }
     case 'create-room': {
-      if (action.data.code === 200) {
-        state.itemList = action.data.result.data;
-      }
-      return _.cloneDeep(state);
+      console.log('create-room', action.data)
+      return state.set('roomList', action.data.result.data)
     }
     case 'join-room': {
-      if (action.data.code === 200) {
-        state.itemList = action.data.result.data;
-      }
-      return _.cloneDeep(state);
+      console.log('join-room', action.data.result.data)      
+      return state.set('roomList', action.data.result.data)
     }
     default:
       return state;
