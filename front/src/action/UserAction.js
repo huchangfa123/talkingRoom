@@ -114,9 +114,10 @@ export function getNewMessage(data) {
 export function getRoomList(data) {
   return async dispatch => {
     let result = await getData('/user/myRooms');
+    console.log('llllresult', result)
     dispatch({
       type: USER_ROOMS,
-      data: result
+      data: result.data.rooms
     });
     return result;
   };

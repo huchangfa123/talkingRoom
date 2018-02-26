@@ -14,14 +14,24 @@ import MaskLayout from '../maskLayout';
 import { closeAllWindows } from '../../util/ui';
 import { loginResult } from '../../reducers/auth';
 import socketServer from '../../frameworks/Socket';
+import { getRoomList } from '../../action/UserAction'
+
+class defaultChattingPage extends Component {
+  render() {
+    return (
+      <div />
+    )
+  }
+}
 
 // import { history } from '../index.jsx';
 @connect(
   state => ({
     sideBarType: state.ui.getIn(['sideBarType']),
-    loginResult: state.loginResult
+    loginResult: state.loginResult,
+    getInRoom: state.ui.getIn(['getInRoom'])
   }),
-  { autoLogin }
+  { autoLogin, getRoomList }
 )
 export default class Main extends Component {
   static contextTypes = {
@@ -44,18 +54,20 @@ export default class Main extends Component {
   goSetting() {
     this.context.router.history.push({ pathname: '/main/setting' });
   }
-
+　
+  // 为调试方便设置的在主聊天页面的自动登录，一旦有token自动登录
   async componentDidMount() {
     if (!this.props.loginResult) {
       await this.props.autoLogin();
       if (!this.props.loginResult) {
         this.context.router.history.push('/');
       } else {
-        await socketServer();
+        // await socketServer();
+        await this.props.getRoomList();
       }
     }
   }
-
+　
   async componentWillMount() {
     const mainBody = await document.getElementsByClassName('mainWindow');
     mainBody[0].addEventListener('click', e => {
@@ -97,8 +109,8 @@ export default class Main extends Component {
               {sideBarType === null || sideBarType === 'back' ? <ManagerBody /> : <SideBar />}
             </div>
             <div className="chattingBody">
-              <Route exact path="/main" component={Chatting} />
-              <Route path="/main/chatting" component={Chatting} />
+              <Route exact path="/main" component={defaultChattingPage} />
+              <Route path="/main/chatting" component={this.props.getInRoom? Chatting : defaultChattingPage} />
               <Route path="/main/setting" component={Setting} />
             </div>
           </div>

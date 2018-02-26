@@ -7,7 +7,7 @@ import MessageItem from '../messageItem';
 import { send } from '../../action/UserAction';
 import ui from '../../action/UiAction';
 import GroupMessage from '../groupMessage';
-
+import { formatTime } from '../../util/format'
 
 /**
  * 聊天主界面
@@ -40,18 +40,6 @@ export default class Chatting extends Component {
       });
     }
   };
-
-  formatTime(time) {
-    let hour = new Date(time).getHours();
-    let mins = new Date(time).getMinutes();
-    if (parseInt(mins) <= 9) {
-      mins = '0' + mins;
-    }
-    if (parseInt(hour) <= 9) {
-      hout = '0' + hour;
-    }
-    return hour + ':' + mins;
-  }
 
   showGroupMessage() {
     ui.showGroupMessage();
@@ -87,7 +75,7 @@ export default class Chatting extends Component {
               key={index}
               userName={message.data.user}
               message={message.data.message}
-              date={this.formatTime(message.data.time)}
+              date={formatTime(message.data.time)}
               type={message.type}
             />
           ))}

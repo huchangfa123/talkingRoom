@@ -64,7 +64,7 @@ class UserController {
     let result = await userServices.getMyRooms(data);
     ctx.body = {
       code: 200,
-      result
+      rooms: result.Rooms
     };
   }
 

@@ -38,11 +38,8 @@ class UserServices {
           authStatus = await Auth.create({});
         }
         let hasLogin = await authStatus.hasOnlineUsers(check.id);
-        // if (!hasLogin) {
-        //   authStatus.addOnlineUsers(check.id);
-        // } else {
-        //   throw Error('用户已登录');
-        // }
+
+        // 用户token设置
         const userToken = {
           name: check.name,
           id: check.id,
@@ -51,6 +48,8 @@ class UserServices {
         const token = jwt.sign(userToken, config.jwtSecret, {
           expiresIn: 24 * 60 * 60 * 100
         });
+
+        // 用户房间信息
         return {
           token,
           userData: check

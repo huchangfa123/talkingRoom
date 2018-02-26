@@ -1,10 +1,23 @@
 import React, { Component } from 'react';
 import './managerItem.css';
+import ui from '../../action/UiAction'
+import socketServer from '../../frameworks/Socket'
 
 export default class ManagerItem extends Component {
+
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  };
+
+  async handleClick() {
+    await ui.getInRoom();
+    this.context.router.history.push(`/main/chatting/${this.props.id}`);
+    await socketServer()
+  }
+
   render() {
     return (
-      <div className="managerItem">
+      <div className="managerItem" onClick={this.handleClick.bind(this)}>
         <div className="itemPic">
           {this.props.pic ? (
             <img src={this.props.pic} />

@@ -5,6 +5,7 @@ import ManagerHeader from '../managerHeader';
 import { Motion, spring } from 'react-motion';
 import ManagerItem from '../managerItem';
 import { getRoomList } from '../../action/UserAction';
+import { formatTime } from '../../util/format';
 
 @connect(
   state => ({
@@ -17,22 +18,24 @@ export default class ManagerBody extends Component {
     super(props);
   }
 
-  async componentWillUpdate(nextProps, nextState) {
-    let result = await this.props.getRoomList();
-    console.log('result', result);
-  }
-
   render() {
-    // console.log('222', this.props.roomList);
-    // let { sideBarType } = this.props;
     console.log('roomlist', this.props.roomList)
     return (
       <div>
         <div className="managerBody">
           <ManagerHeader />
           <div className="managerContent">
-            <ManagerItem name="123" time="12:30" content="dasasdasdasdasssssssssssssssssssssssssssssssssssssda" />
-            <ManagerItem name="222" time="12:30" content="dasasdasdasdasssssssssssssssssssssssssssssssssssssda" />
+            {
+              this.props.roomList.map((room, index) => (
+                <ManagerItem 
+                  key={index}
+                  name={room.name} 
+                  time={formatTime(room.updatedAt)}
+                  id={room.id}
+                  content="21312312"
+                />
+              ))
+            }
           </div>
         </div>
       </div>

@@ -6,7 +6,8 @@ const initState = immutable.fromJS({
   sideBarType: null,
   showMaskLayout: false,
   showGroupMessage: false,
-  showGroupNotice: false
+  showGroupNotice: false,
+  getInRoom: false
 });
 
 export function ui(state = initState, action) {
@@ -53,6 +54,14 @@ export function ui(state = initState, action) {
 
     case 'CloseGroupNotice': {
       return state.set('showGroupNotice', false);
+    }
+
+    case 'GetInRoom': {
+      return state.set('getInRoom', true);
+    }
+
+    case 'GetOutRoom': {
+      return state.set('getInRoom', false);
     }
 
     default:

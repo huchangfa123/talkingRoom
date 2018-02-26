@@ -22,7 +22,11 @@ const actions = {
 
   // groupNotice
   showGroupNotice: () => dispatch({ type: 'ShowGroupNotice' }),
-  closeGroupNotice: () => dispatch({ type: 'CloseGroupNotice' })
-};
+  closeGroupNotice: () => dispatch({ type: 'CloseGroupNotice' }),
+
+  // getInRoom
+  getInRoom: () => dispatch({ type: 'GetInRoom'}),
+  getOutRoom: () => dispatch({ type: 'GetOutRoom'})  
+}
 
 export default actions;

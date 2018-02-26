@@ -7,13 +7,14 @@ import { Redirect } from 'react-router-dom';
 import socketServer from '../../frameworks/Socket';
 import Main from '../main';
 import cookie from 'js-cookie';
+import { getRoomList } from '../../action/UserAction'
 
 @connect(
   state => ({
     registerResult: state.registerResult,
     loginResult: state.loginResult
   }),
-  { register, login, autoLogin }
+  { register, login, autoLogin, getRoomList }
 )
 export default class Login extends Component {
   static contextTypes = {
@@ -45,19 +46,19 @@ export default class Login extends Component {
 
   async componentWillMount(prevProps, prevState) {
     const token = cookie.get('accessToken');
+    // 如果cookie有token自动登录
     if (token) {
-      console.log(1111);
       let result = await this.props.autoLogin();
-      console.log('222', this.props.loginResult);
       if (this.props.loginResult) {
-        await socketServer();
+        await this.props.getRoomList();
         this.context.router.history.push('/main');
       } else {
         notification.warning('用户认证失败');
       }
     }
   }
-
+　
+  // 没有token在cookie的时候，手动登录
   async login() {
     let data = {
       name: this.state.userName,
@@ -67,8 +68,9 @@ export default class Login extends Component {
     if (result.code !== 200) {
       notification.warning(result.message);
     } else {
+      // 登录成功就获取房间信息
       if (this.props.loginResult) {
-        await socketServer();
+        await this.props.getRoomList();        
         this.context.router.history.push('/main');
       } else {
         notification.warning('用户认证失败');
