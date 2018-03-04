@@ -3,16 +3,6 @@ import axios from 'axios';
 import config from '../config';
 import { postData, getData } from '../api/fetchData';
 
-const SEND_MESSAGE = 'send-message';
-const ADD_USER = 'add-user';
-const USER_LEAVE = ' user-leave';
-const GET_MESSAGE = 'get-message';
-const USER_LOGIN = 'user-login';
-const USER_REGISTER = 'user-register';
-const USER_ROOMS = 'user-rooms';
-const CREATE_ROOM = 'create-room';
-const JOIN_ROOM = 'join-room';
-
 /**
  * 用户登录
  */
@@ -21,7 +11,7 @@ export function login(data) {
     try {
       const result = await postData('/user/login', data);
       dispatch({
-        type: USER_LOGIN,
+        type: 'userLogin',
         data: result.data
       });
       return result.data;
@@ -36,7 +26,7 @@ export function autoLogin() {
     try {
       const result = await getData('/user/myInfo');
       dispatch({
-        type: USER_LOGIN,
+        type: 'userLogin',
         data: result.data
       });
       return result.data;
@@ -54,7 +44,7 @@ export function register(data) {
     try {
       const result = await postData('/user/register', data);
       dispatch({
-        type: USER_REGISTER,
+        type: 'userRegister',
         data: result.data
       });
       return result.data;
@@ -72,7 +62,7 @@ export function send(data) {
     let socket = await socketServer();
     socket.emit('send.message', data);
     dispatch({
-      type: SEND_MESSAGE,
+      type: 'sendMessage',
       data
     });
   };
@@ -83,7 +73,7 @@ export function send(data) {
  */
 export function addUser(data) {
   return {
-    type: ADD_USER,
+    type: 'addUser',
     data
   };
 }
@@ -93,7 +83,7 @@ export function addUser(data) {
  */
 export function userLeave(data) {
   return {
-    type: USER_LEAVE,
+    type: 'userLeave',
     data
   };
 }
@@ -103,7 +93,7 @@ export function userLeave(data) {
  */
 export function getNewMessage(data) {
   return {
-    type: GET_MESSAGE,
+    type: 'getMessage',
     data
   };
 }
@@ -116,7 +106,7 @@ export function getRoomList(data) {
     let result = await getData('/user/myRooms');
     console.log('llllresult', result)
     dispatch({
-      type: USER_ROOMS,
+      type: 'userRooms',
       data: result.data.rooms
     });
     return result;
@@ -130,7 +120,7 @@ export function createRoom(data) {
   return async dispatch => {
     let result = await postData('/user/createRoom', data);
     dispatch({
-      type: CREATE_ROOM,
+      type: 'createRoom',
       data: result.data
     });
     return result.data;
@@ -144,9 +134,17 @@ export function joinRoom(data) {
   return async dispatch => {
     let result = await postData('/user/joinRoom', data);
     dispatch({
-      type: JOIN_ROOM,
+      type: 'joinRoom',
       data: result
     });
     return result.data;
   };
+}
+
+export function choiceOtherRoom() {
+  return dispatch => {
+    dispatch({
+      type: 'resetRoomData'
+    })
+  }
 }

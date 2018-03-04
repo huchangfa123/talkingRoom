@@ -33,7 +33,9 @@ export default class Chatting extends Component {
       e.preventDefault();
       let message = this.refs.userInput.value;
       this.refs.userInput.value = '';
+      console.log('userData', this.props.userData)
       this.props.send({
+        userId: this.props.userData.id,
         user: this.props.userData.name,
         time: new Date(),
         message
@@ -71,14 +73,16 @@ export default class Chatting extends Component {
         </div>
         <div className="message-list">
           {this.props.messageList.map((message, index) => (
-            <MessageItem
-              key={index}
-              userName={message.data.user}
-              message={message.data.message}
-              date={formatTime(message.data.time)}
-              type={message.type}
-            />
-          ))}
+              message.type !== 'TIPS_MESSAGE' && message.data.userId !== this.props.userData.id || message.type === 'OWN_MESSAGE' ?
+              <MessageItem
+                key={index}
+                userName={message.data.user}
+                message={message.data.message}
+                date={formatTime(message.data.time)}
+                type={message.type}
+              /> : ''
+            )
+          )}
         </div>
         <div className="toolbar">
           <div className="emoji" title="表情">

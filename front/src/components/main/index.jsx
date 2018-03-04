@@ -14,7 +14,8 @@ import MaskLayout from '../maskLayout';
 import { closeAllWindows } from '../../util/ui';
 import { loginResult } from '../../reducers/auth';
 import socketServer from '../../frameworks/Socket';
-import { getRoomList } from '../../action/UserAction'
+import { getRoomList } from '../../action/UserAction';
+import ui from '../../action/UiAction'
 
 class defaultChattingPage extends Component {
   render() {
@@ -24,7 +25,6 @@ class defaultChattingPage extends Component {
   }
 }
 
-// import { history } from '../index.jsx';
 @connect(
   state => ({
     sideBarType: state.ui.getIn(['sideBarType']),
@@ -47,7 +47,8 @@ export default class Main extends Component {
     };
   }
 
-  goChatting() {
+  async goChatting() {
+    await ui.getOutRoom();
     this.context.router.history.push({ pathname: '/main/chatting' });
   }
 
@@ -62,7 +63,6 @@ export default class Main extends Component {
       if (!this.props.loginResult) {
         this.context.router.history.push('/');
       } else {
-        // await socketServer();
         await this.props.getRoomList();
       }
     }

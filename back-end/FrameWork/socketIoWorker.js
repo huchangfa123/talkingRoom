@@ -30,19 +30,20 @@ function CreatSocketServer(server) {
     // 用户加入
     client.on('join', function (msg) {
       client.join(roomId)
-      io.to(roomId).emit('有人加入了房间')
+      io.to(roomId).emit('join', '有人加入了房间')
       console.log('加入了房间', msg);
     });
 
     // 用户发送信息
     client.on('send.message', function (msg) {
-      io.to(roomId).emit(msg)
+      console.log('message from:', roomId)
+      io.to(roomId).emit('send.message', msg)
       console.log('client:', msg);
     });
 
     // 用户断开连接
     client.on('leave', function (msg) {
-      client.emit('disconnect')
+      client.emit('leave', 'disconnect')
     })
 
     // 用户离开房间    

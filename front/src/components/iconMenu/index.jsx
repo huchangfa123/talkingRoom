@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { spring, Motion } from 'react-motion';
 import './iconMenu.css';
 import ui from '../../action/UiAction';
+import cookie from 'js-cookie';
 
 /*
 * 点击点点点出来的菜单栏
@@ -11,12 +12,21 @@ import ui from '../../action/UiAction';
   show: state.ui.getIn(['showIconMenu'])
 }))
 export default class IconMenu extends Component {
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  };
+
   createGroup() {
     ui.createGroupSide();
   }
 
   joinGroup() {
     ui.joinGroupSide();
+  }
+
+  logout() {
+    cookie.remove('accessToken', { path: '' })
+    this.context.router.history.push('/login');
   }
 
   render() {
@@ -38,7 +48,7 @@ export default class IconMenu extends Component {
             <div>
               <span>关于作者</span>
             </div>
-            <div>
+            <div onClick={this.logout.bind(this)}>
               <span>登出</span>
             </div>
           </div>
