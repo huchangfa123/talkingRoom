@@ -33,7 +33,6 @@ export default class Chatting extends Component {
       e.preventDefault();
       let message = this.refs.userInput.value;
       this.refs.userInput.value = '';
-      console.log('userData', this.props.userData)
       this.props.send({
         msgType: 'text',
         userId: this.props.userData.id,
@@ -50,7 +49,6 @@ export default class Chatting extends Component {
   }
 
   render() {
-    console.log('1111', this.props.messageList);
     return (
       <div className="chat-panel">
         <GroupMessage />

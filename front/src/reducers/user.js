@@ -32,15 +32,12 @@ export function user(state = initState, action) {
       }))
     }
     case 'userRooms': {
-      console.log('user-rooms', action.data)
       return state.set('roomList', action.data)
     }
     case 'createRoom': {
-      console.log('create-room', action.data)
       return state.set('roomList', action.data.result.data)
     }
     case 'joinRoom': {
-      console.log('join-room', action.data.result.data)      
       return state.set('roomList', action.data.result.data)
     }
     case 'resetRoomData': {

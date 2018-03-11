@@ -79,7 +79,6 @@ export default class Main extends Component {
   render() {
     this.state.selected = /\/setting$/.test(this.props.location.pathname);
     const { sideBarType } = this.props;
-    console.log('lala', sideBarType);
     return (
       <div className="mainWindow">
         <MaskLayout />

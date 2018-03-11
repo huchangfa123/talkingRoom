@@ -9,8 +9,6 @@ const store = create();
 
 export default store;
 
-console.log(11111111111111111)
-console.log(user.toString())
 function create() {
   const reducer = combineReducers({
     user,

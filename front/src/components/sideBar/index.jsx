@@ -6,7 +6,7 @@ import '../../assert/css/icon.css';
 import BarHeader from '../barHeader';
 import { joinRoom, createRoom } from '../../action/UserAction';
 import notification from '../notice';
-import ui from '../../action/UiAction'
+import ui from '../../action/UiAction';
 
 @connect(
   state => ({
@@ -27,7 +27,6 @@ export default class SideBar extends Component {
     this.setState({
       roomName: value
     });
-    console.log(333, this.state.roomName);
   }
 
   async joinRoomEnsure() {
@@ -42,7 +41,6 @@ export default class SideBar extends Component {
 
   async creatRoomEnsure() {
     let result = await this.props.createRoom({name: this.state.roomName, avatar: null});
-    console.log('createRoom', result)
     if (result.code !== 200) {
       notification.warning(result.message);
     } else {

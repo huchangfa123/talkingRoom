@@ -19,7 +19,6 @@ export default class ManagerBody extends Component {
   }
 
   render() {
-    console.log('roomlist', this.props.roomList)
     return (
       <div>
         <div className="managerBody">

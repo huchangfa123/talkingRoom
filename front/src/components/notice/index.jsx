@@ -5,7 +5,6 @@ import './notice.css'
 class Notice extends React.Component{
    constructor(props) {
      super(props);
-     console.log('props:', this.props);
    }
    render() {
      const { message, type="info" } = this.props;

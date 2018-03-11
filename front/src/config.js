@@ -1,5 +1,6 @@
 import cookie from 'js-cookie';
-export default {
+
+let data =  {
   location: 'http://localhost:3000',
   apiUrl: 'http://localhost:3000/api/v1/',
   options: {
@@ -8,3 +9,9 @@ export default {
     }
   }
 };
+
+export default data;
+
+export function setToken(token) {
+  data.options.headers.Authorization = token
+}

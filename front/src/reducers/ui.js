@@ -1,4 +1,3 @@
-import config from '../config';
 import immutable from 'immutable'
 
 const initState = immutable.fromJS({

@@ -1,11 +1,18 @@
 import axios from 'axios';
 import config from '../config';
 
-const token = config.options.headers.Authorization || '';
+
+let token = config.options.headers.Authorization || '';
 
 axios.defaults.baseURL = config.apiUrl;
 axios.defaults.headers['authorization'] = token;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+
+export function resetToken(newToken) {
+  token = newToken;
+  axios.defaults.headers['authorization'] = newToken;
+  return
+}
 
 export const getData = (url, param, options = {}) => {
   return axios.get(`${url}`, options);
