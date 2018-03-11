@@ -13,4 +13,5 @@ router.post('/joinRoom', userController.joinRoom);
 router.get('/myRooms', userController.getMyRooms);
 router.get('/myInfo', userController.getUserData);
 
+
 export default router;

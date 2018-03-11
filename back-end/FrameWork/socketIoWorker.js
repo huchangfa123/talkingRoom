@@ -1,6 +1,7 @@
 import SocketIo from 'socket.io';
 import config from '../config';
 import jwt from 'jsonwebtoken';
+import MessageServices from '../server/services/messageServices' 
 
 function CreatSocketServer(server) {
   // 创建socketIo服务实例
@@ -35,8 +36,10 @@ function CreatSocketServer(server) {
     });
 
     // 用户发送信息
-    client.on('send.message', function (msg) {
+    client.on('send.message', async function (msg) {
       console.log('message from:', roomId)
+      console.log('message:', msg)
+      await MessageServices.saveMessage(Object.assign(msg, {roomId}))
       io.to(roomId).emit('send.message', msg)
       console.log('client:', msg);
     });

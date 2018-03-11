@@ -35,6 +35,7 @@ export default class Chatting extends Component {
       this.refs.userInput.value = '';
       console.log('userData', this.props.userData)
       this.props.send({
+        msgType: 'text',
         userId: this.props.userData.id,
         user: this.props.userData.name,
         time: new Date(),

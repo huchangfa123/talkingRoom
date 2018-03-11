@@ -8,9 +8,9 @@
 }
 
 .managerBody .managerContent {
-  flex: 17;
+  flex:17;
   display: flex;
   flex-direction: column;
   width: 100%;
-  overflow: auto;
+  overflow-y: scroll;
 }
