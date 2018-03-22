@@ -11,6 +11,7 @@ class UserController {
 
   async login(ctx, next) {
     let result = await userServices.login(ctx.request.body);
+    ctx.setAuthCookies(result.userData.id, result.userData.name)
     ctx.body = {
       code: 200,
       data: result
@@ -35,6 +36,7 @@ class UserController {
 
   async ifLogin(ctx, next) {
     let result = await userServices.ifLogin(ctx.request.body);
+    ctx.setAuthCookies(result.userData.id, result.userData.name)
     ctx.body = {
       code: 200,
       data: result
@@ -42,7 +44,6 @@ class UserController {
   }
 
   async createRoom(ctx, next) {
-    const data = Object.assign({ accessToken: ctx.headers.authorization }, ctx.request.body);
     let result = await userServices.createRoom(data);
     ctx.body = {
       code: 200,
@@ -51,7 +52,6 @@ class UserController {
   }
 
   async joinRoom(ctx, next) {
-    const data = Object.assign({ accessToken: ctx.headers.authorization }, ctx.request.body);
     let result = await userServices.joinRoom(data);
     ctx.body = {
       code: 200,
@@ -60,7 +60,6 @@ class UserController {
   }
 
   async getMyRooms(ctx, next) {
-    const data = Object.assign({ accessToken: ctx.headers.authorization }, ctx.request.body);
     let result = await userServices.getMyRooms(data);
     ctx.body = {
       code: 200,

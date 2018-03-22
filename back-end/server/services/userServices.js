@@ -37,21 +37,8 @@ class UserServices {
         if (!authStatus) {
           authStatus = await Auth.create({});
         }
-        let hasLogin = await authStatus.hasOnlineUsers(check.id);
-
-        // 用户token设置
-        const userToken = {
-          name: check.name,
-          id: check.id,
-          date: new Date()
-        };
-        const token = jwt.sign(userToken, config.jwtSecret, {
-          expiresIn: 24 * 60 * 60 * 100
-        });
-
-        // 用户房间信息
+        await authStatus.hasOnlineUsers(check.id);
         return {
-          token,
           userData: check
         };
       } else {
@@ -89,17 +76,8 @@ class UserServices {
         await Auth.create({});
       }
       if (hasLogin) {
-        const userToken = {
-          name: userData.name,
-          id: userData.id,
-          date: new Date()
-        };
-        const token = jwt.sign(userToken, config.jwtSecret, {
-          expiresIn: 24 * 60 * 60 * 100
-        });
         return {
           hasLogin: true,
-          token,
           userData
         };
       }

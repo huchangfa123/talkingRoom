@@ -5,6 +5,7 @@ import bodyparser from 'koa-bodyparser';
 import logger from 'koa-logger';
 import api from './server/routers';
 import onerror from './server/middlewares/onError';
+import { setCtxCookies, setCtxUser } from './server/middlewares/setCtx';
 import jwt from 'koa-jwt';
 import config from './config';
 import cors from '@koa/cors';
@@ -15,6 +16,8 @@ app.use(cors());
 app.use(onerror());
 app.use(bodyparser());
 app.use(logger());
+app.use(setCtxCookies());
+app.use(setCtxUser());
 
 app.use(api.routes(), api.allowedMethods());
 app.use(jwt({

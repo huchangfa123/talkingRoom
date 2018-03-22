@@ -1,11 +1,11 @@
 import cookie from 'js-cookie';
 
 let data =  {
-  location: 'http://localhost:3000',
-  apiUrl: 'http://localhost:3000/api/v1/',
+  location: 'http://localhost:3006',
+  apiUrl: 'http://localhost:3006/api/v1/',
   options: {
     headers: {
-      Authorization: `${cookie.get('accessToken')}`
+      XSRF_TOKEN: `${cookie.get('XSRF_TOKEN')}`
     }
   }
 };
@@ -13,5 +13,5 @@ let data =  {
 export default data;
 
 export function setToken(token) {
-  data.options.headers.Authorization = token
+  data.options.headers.XSRF_TOKEN = token
 }
