@@ -9,7 +9,6 @@ let data =  {
     }
   }
 };
-console.log('headers', data.options.headers.XSRF_TOKEN)
 export default data;
 
 export function setToken(token) {

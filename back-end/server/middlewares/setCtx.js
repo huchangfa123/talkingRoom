@@ -3,9 +3,11 @@ import bcrypt from 'bcryptjs';
 import config from '../../config';
 import _ from 'underscore';
 import { SHA256 } from 'crypto-js';
+import redis from '../utils/redis';
 
 function setCtxUser() {
   return async function(ctx, next) {
+    console.log('我聊天的时候有进来这里')
     const token = ctx.cookies.get('ACCESS_TOKEN')
     // 设置的header不能有大写和下划线
     const xsrf = ctx.request.headers['xsrftoken']
@@ -15,11 +17,15 @@ function setCtxUser() {
         let baseData = await jwt.verify(token, config.jwtSecret);
         if (!xsrf || xsrf.toString() !== baseData.xsrf.toString()) {
           throw Error('用户身份验证失败')
+        } else {
+          redis.set(xsrf, true);
+          redis.expire(xsrf, 60 * 60 * 24);
         }
         ctx.request.header.authorization = `Bearer ${token}`
         ctx.user = {
           id: baseData.id,
-          name: baseData.name
+          name: baseData.name,
+          xsrf: baseData.xsrf
         }
       } else {
         throw Error('用户身份验证失败')

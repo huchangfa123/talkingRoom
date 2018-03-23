@@ -8,7 +8,12 @@ export default async function getSocket() {
   try {
     // 如果没创建io实例则重新创建，一旦创建了io实例就直接返回io实例
     if (!io) {
-      io = await Socket(config.location, { query: 'XSRF_TOKEN=' + config.options.headers['XSRF_TOKEN'] });
+      io = await Socket(config.location,
+        { 
+          extraHeaders: {
+            xsrftoken: config.options.headers['XSRF_TOKEN']
+          } 
+      });
       io.on('connect', () => {
         console.log('连接成功');
         io.emit('join', 'lala')

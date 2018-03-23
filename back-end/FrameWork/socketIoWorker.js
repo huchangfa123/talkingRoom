@@ -1,24 +1,19 @@
 import SocketIo from 'socket.io';
 import config from '../config';
 import jwt from 'jsonwebtoken';
-import MessageServices from '../server/services/messageServices' 
+import MessageServices from '../server/services/messageServices';
+import redis from '../server/utils/redis';
 
 function CreatSocketServer(server) {
   // 创建socketIo服务实例
   const io = SocketIo(server);
   // 给实例添加token判断
-  io.use(function (socket, next) {
-    let accessToken = socket.handshake.query.accessToken;
-    if (!accessToken) {
-      return next(new Error('Authentication error'));
+  io.use(async function (socket, next) {
+    let result = await redis.get(socket.handshake.headers.xsrftoken)
+    if (result) {
+      return next()
     } else {
-      jwt.verify(accessToken, config.jwtSecret, function (err, decoded) {
-        if (err) {
-          return next(new Error('Authentication error'));
-        } else {
-          return next();
-        }
-      })
+      return next(new Error('Authentication error'));
     }
   });
 　
