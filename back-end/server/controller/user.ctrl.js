@@ -19,7 +19,8 @@ class UserController {
   }
 
   async logout(ctx, next) {
-    let result = await userServices.logout({ accessToken: ctx.headers.authorization });
+    let result = await userServices.logout(ctx.user);
+    ctx.clearCookies();
     ctx.body = {
       code: 200,
       data: result
@@ -44,7 +45,7 @@ class UserController {
   }
 
   async createRoom(ctx, next) {
-    let result = await userServices.createRoom(data);
+    let result = await userServices.createRoom(Object.assign(ctx.request.body, { id: ctx.user.id }));
     ctx.body = {
       code: 200,
       result
@@ -52,7 +53,7 @@ class UserController {
   }
 
   async joinRoom(ctx, next) {
-    let result = await userServices.joinRoom(data);
+    let result = await userServices.joinRoom(Object.assign(ctx.request.body, { id: ctx.user.id }));
     ctx.body = {
       code: 200,
       result
@@ -60,7 +61,7 @@ class UserController {
   }
 
   async getMyRooms(ctx, next) {
-    let result = await userServices.getMyRooms(data);
+    let result = await userServices.getMyRooms({id: ctx.user.id});
     ctx.body = {
       code: 200,
       rooms: result.Rooms
@@ -68,7 +69,7 @@ class UserController {
   }
 
   async getUserData(ctx, next) {
-    let result = await userServices.getUserData({ accessToken: ctx.headers.authorization });
+    let result = await userServices.getUserData({ id: ctx.user.id });
     ctx.body = {
       code: 200,
       data: result

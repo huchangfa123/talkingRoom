@@ -7,7 +7,6 @@ export function loginResult(loginResult = false, action) {
   if (action.type === 'userLogin') {
     if (action.data.code === 200) {
       const token = cookie.get('XSRF_TOKEN');
-      console.log('asdasda', token)
       setToken(token)
       resetToken(token)
       loginResult = action.data.data.userData;

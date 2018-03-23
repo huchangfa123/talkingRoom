@@ -50,23 +50,20 @@ class UserServices {
   }
 
   async logout(data) {
-    let userData = await jwt.verify(data.accessToken, config.jwtSecret);
-    if (userData) {
-      let authStatus = await Auth.findOne({});
-      let hasLogin = await authStatus.hasOnlineUsers(userData.id);
-      if (hasLogin) {
-        await authStatus.removeOnlineUsers(userData.id);
-        return {
-          name: userData.name,
-          message: 'success'
-        };
-      }
+    let authStatus = await Auth.findOne({});
+    let hasLogin = await authStatus.hasOnlineUsers(data.id);
+    if (hasLogin) {
+      await authStatus.removeOnlineUsers(data.id);
+      return {
+        name: data.name,
+        message: 'success'
+      };
     }
-    throw Error('用户未登录');
+    throw Error('请先登录')
   }
 
   async ifLogin(data) {
-    let userData = await User.findOne({ where: { name: data.name } });
+    let userData = await User.findOne({ where: { id: data.id } });
     if (bcrypt.compareSync(data.password, userData.password)) {
       let authStatus = await Auth.findOne({});
       let hasLogin = null;
@@ -88,18 +85,12 @@ class UserServices {
   }
 
   async getUserData(data) {
-    let baseData = await jwt.verify(data.accessToken, config.jwtSecret);
-    if (baseData) {
-      const user = await User.findOne({
-        where: { id: baseData.id }
-      });
-      return {
-        token: data.accessToken,
-        userData: user
-      };
-    } else {
-      throw Error('token已过期');
-    }
+    const user = await User.findOne({
+      where: { id: data.id }
+    });
+    return {
+      userData: user
+    };
   }
 
   async getOnlinePeople(data) {
@@ -109,9 +100,8 @@ class UserServices {
   }
 
   async createRoom(data) {
-    const userData = await jwt.verify(data.accessToken, config.jwtSecret);
-    const user = await User.findById(userData.id);
-    const { name, avatar } = data;
+    const { name, avatar, id } = data;
+    const user = await User.findById(id);
     if (!name) {
       throw Error('房间名不能为空!');
     }
@@ -123,7 +113,7 @@ class UserServices {
         name,
         avatar
       });
-      await newRoom.addUsers(userData.id);
+      await newRoom.addUsers(id);
       let Rooms = await user.getRooms();
       return {
         message: '创建成功!',
@@ -133,18 +123,17 @@ class UserServices {
   }
 
   async joinRoom(data) {
-    const userData = await jwt.verify(data.accessToken, config.jwtSecret);
-    const { name } = data;
+    const { name, id } = data;
     let RoomData = await Room.findOne({ where: { name } });
     if (!RoomData) {
       throw Error('不存在该房间!');
     } else {
-      let hasUser = RoomData.hasUsers(userData.id);
+      let hasUser = RoomData.hasUsers(id);
       if (hasUser) {
         throw Error('已加入该房间!');
       } else {
-        RoomData.addUsers(userData.id);
-        let user = await user.findById(userData.id);
+        RoomData.addUsers(id);
+        let user = await user.findById(id);
         const Rooms = await user.getRooms();
         return {
           message: '加入成功!',
@@ -155,8 +144,7 @@ class UserServices {
   }
 
   async getMyRooms(data) {
-    const userData = await jwt.verify(data.accessToken, config.jwtSecret);
-    let user = await User.findOne({ where: { id: userData.id } });
+    let user = await User.findOne({ where: { id: data.id } });
     let Rooms = await user.getRooms();
     return {
       Rooms

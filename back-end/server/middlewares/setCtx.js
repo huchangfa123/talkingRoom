@@ -7,17 +7,23 @@ import { SHA256 } from 'crypto-js';
 function setCtxUser() {
   return async function(ctx, next) {
     const token = ctx.cookies.get('ACCESS_TOKEN')
-    const xsrf = ctx.request.headers['XSRF_TOKEN']
-
-    if(token) {
-      let baseData = await jwt.verify(token, config.jwtSecret);
-      ctx.request.header.authorization = `Bearer ${token}`
-      ctx.user = {
-        id: baseData.id,
-        name: baseData.name
+    // 设置的header不能有大写和下划线
+    const xsrf = ctx.request.headers['xsrftoken']
+    // 不是登录或者注册的时候，要检查xsrftoken
+    if (!/(\/login)|(\/register)/.test(ctx.url)) {
+      if(token) {
+        let baseData = await jwt.verify(token, config.jwtSecret);
+        if (!xsrf || xsrf.toString() !== baseData.xsrf.toString()) {
+          throw Error('用户身份验证失败')
+        }
+        ctx.request.header.authorization = `Bearer ${token}`
+        ctx.user = {
+          id: baseData.id,
+          name: baseData.name
+        }
+      } else {
+        throw Error('用户身份验证失败')
       }
-    } else {
-      throw Error()
     }
     await next();
   }
