@@ -10,7 +10,8 @@ class MessageController {
   }
 
   async getRoomMessage(ctx, next) {
-    let result = await MessageService.getRoomMessage(ctx.request.body)
+    console.log('query', ctx.params)
+    let result = await MessageService.getRoomMessage(ctx.params)
     ctx.body = {
       code: 200,
       data: result

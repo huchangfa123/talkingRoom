@@ -128,12 +128,12 @@ class UserServices {
     if (!RoomData) {
       throw Error('不存在该房间!');
     } else {
-      let hasUser = RoomData.hasUsers(id);
+      let hasUser = await RoomData.hasUsers(id);
       if (hasUser) {
         throw Error('已加入该房间!');
       } else {
         RoomData.addUsers(id);
-        let user = await user.findById(id);
+        let user = await User.findById(id);
         const Rooms = await user.getRooms();
         return {
           message: '加入成功!',

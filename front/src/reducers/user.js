@@ -8,28 +8,36 @@ const initState = immutable.fromJS({
 export function user(state = initState, action) {
   switch (action.type) {
     case 'sendMessage': {
-      return state.updateIn(['messageList'], list => list.push({
+      let messageList = state.get('messageList')
+      messageList.push({
         type: 'OWN_MESSAGE',
         data: action.data
-      }))
+      })
+      return state.set('messageList', messageList)
     }
     case 'getMessage': {
-      return state.updateIn(['messageList'], list => list.push({
-        type: 'OTHERS_MESSAGE',
+      let messageList = state.get('messageList')
+      messageList.push({
+        type: 'OTHER_MESSAGE',
         data: action.data
-      }))
+      })
+      return state.set('messageList', messageList)
     }
     case 'addUser': {
-      return state.updateIn(['messageList'], list => list.push({
+      let messageList = state.get('messageList')
+      messageList.push({
         type: 'TIPS_MESSAGE',
         data: action.data
-      }))
+      })
+      return state.set('messageList', messageList)
     }
     case 'userLeave': {
-      return state.updateIn(['messageList'], list => list.push({
+      let messageList = state.get('messageList')
+      messageList.push({
         type: 'TIPS_MESSAGE',
         data: action.data
-      }))
+      })
+      return state.set('messageList', messageList)
     }
     case 'userRooms': {
       return state.set('roomList', action.data)
@@ -38,10 +46,14 @@ export function user(state = initState, action) {
       return state.set('roomList', action.data.result.data)
     }
     case 'joinRoom': {
+      console.log('action.data.result', action.data)
       return state.set('roomList', action.data.result.data)
     }
     case 'resetRoomData': {
       return state.set('messageList', [])
+    }
+    case 'getRoomMessage': {
+      return state.set('messageList', action.data.data)
     }
     default:
       return state;

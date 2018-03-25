@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './managerItem.css';
-import ui from '../../action/UiAction'
+import ui from '../../action/UiAction';
+import { getRoomMessage } from '../../action/UserAction';
 import socketServer from '../../frameworks/Socket'
-
+@connect(null, { getRoomMessage })
 export default class ManagerItem extends Component {
 
   static contextTypes = {
@@ -10,6 +12,7 @@ export default class ManagerItem extends Component {
   };
 
   async handleClick() {
+    await this.props.getRoomMessage({id: this.props.id})
     await ui.getInRoom();
     this.context.router.history.push(`/main/chatting/${this.props.id}`);
     await socketServer()

@@ -13,11 +13,11 @@ class MessageServices {
       console.log('data.type', data)
       const roomMessage = await RoomMessage.create({
         msgType: data.msgType,
-        content: data.message,
-        time: data.time
+        content: data.content,
+        createdAt: new Date(data.createdAt)
       })
       // sequlize　设置外键方法　setxxx (xxx：as定义的属性名)
-      await roomMessage.setFrom(data.userId)
+      await roomMessage.setFrom(data.From.id)
       await roomMessage.setTo(data.roomId)
     } catch (error) {
       console.log(error)
@@ -27,8 +27,10 @@ class MessageServices {
 
   async getRoomMessage(data) {
     try {
-      const roomMessage = await RoomMessage.findAll({ where: {'toId': data.roomId} })
+      console.log('data', data)
+      const roomMessage = await RoomMessage.findAll({ where: {'toId': data.id}, include: ['From'] })
       return roomMessage
+
     } catch (error) {
       console.log(error)
       throw Error('获取失败!')

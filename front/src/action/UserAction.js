@@ -134,10 +134,25 @@ export function joinRoom(data) {
     let result = await postData('/user/joinRoom', data);
     dispatch({
       type: 'joinRoom',
-      data: result
+      data: result.data
     });
     return result.data;
   };
+}
+
+/**
+ * 获取房间信息
+ */
+export function getRoomMessage(data) {
+  return async dispatch => {
+    console.log('data22222222222222222222')
+    let result = await getData(`/message/${data.id}`);
+    dispatch({
+      type: 'getRoomMessage',
+      data: result.data
+    })
+    return result.data
+  }
 }
 
 export function choiceOtherRoom() {

@@ -34,11 +34,13 @@ export default class Chatting extends Component {
       let message = this.refs.userInput.value;
       this.refs.userInput.value = '';
       this.props.send({
+        From: {
+          id: this.props.userData.id,
+          name: this.props.userData.name
+        },
         msgType: 'text',
-        userId: this.props.userData.id,
-        user: this.props.userData.name,
-        time: new Date(),
-        message
+        createdAt: new Date(),
+        content: message
       });
     }
   };
@@ -49,6 +51,7 @@ export default class Chatting extends Component {
   }
 
   render() {
+    console.log('asdasdasd', this.props.messageList)
     return (
       <div className="chat-panel">
         <GroupMessage />
@@ -72,13 +75,13 @@ export default class Chatting extends Component {
         </div>
         <div className="message-list">
           {this.props.messageList.map((message, index) => (
-              message.type !== 'TIPS_MESSAGE' && message.data.userId !== this.props.userData.id || message.type === 'OWN_MESSAGE' ?
+              message.msgType !== 'TIPS_MESSAGE' && message.From.id !== this.props.userData.id || message.msgType === 'OWN_MESSAGE' ?
               <MessageItem
                 key={index}
-                userName={message.data.user}
-                message={message.data.message}
-                date={formatTime(message.data.time)}
-                type={message.type}
+                userName={message.From.name}
+                message={message.content}
+                date={formatTime(message.createdAt)}
+                type={message.msgType}
               /> : ''
             )
           )}
