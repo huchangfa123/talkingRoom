@@ -14,7 +14,11 @@ export default class GroupMessage extends Component {
     const { show } = this.props;
     return (
       <FloatPanel title="群信息" show={show}>
-        <div>lalla</div>
+        <div className="group-info">
+          <div className="content"></div>
+          <div className="userlist"></div>
+        </div>
+        <div className="group-exit"></div>
       </FloatPanel>
     );
   }
