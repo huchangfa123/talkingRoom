@@ -24,6 +24,11 @@ export default class Chatting extends Component {
     super(props);
   }
 
+  handleOnScroller(){
+    let scrollbox = document.getElementsByClassName('message-list');
+    scrollbox[0].scrollTop = scrollbox[0].scrollHeight;
+  }
+
   handleInputKeyDown = e => {
     if (e.keyCode === 9) {
       e.preventDefault();
@@ -38,12 +43,21 @@ export default class Chatting extends Component {
           id: this.props.userData.id,
           name: this.props.userData.name
         },
-        msgType: 'text',
+        msgType: 'NORMAL_MESSAGE',
+        contentType: 'text',
         createdAt: new Date(),
         content: message
       });
     }
   };
+
+  componentDidMount(){
+    this.handleOnScroller();
+  }
+
+  componentDidUpdate(){
+    this.handleOnScroller();    
+  }
 
   showGroupMessage() {
     ui.showGroupMessage();
@@ -51,7 +65,7 @@ export default class Chatting extends Component {
   }
 
   render() {
-    console.log('asdasdasd', this.props.messageList)
+    console.log('asdasdasd', this.props.userData.id)
     return (
       <div className="chat-panel">
         <GroupMessage />
@@ -75,13 +89,13 @@ export default class Chatting extends Component {
         </div>
         <div className="message-list">
           {this.props.messageList.map((message, index) => (
-              message.msgType !== 'TIPS_MESSAGE' && message.From.id !== this.props.userData.id || message.msgType === 'OWN_MESSAGE' ?
+              message.msgType !== 'TIPS_MESSAGE' ?
               <MessageItem
                 key={index}
                 userName={message.From.name}
                 message={message.content}
                 date={formatTime(message.createdAt)}
-                type={message.msgType}
+                type={ message.From.id !== this.props.userData.id? 'OTHERS_MESSAGE' : 'OWN_MESSAGE'}
               /> : ''
             )
           )}

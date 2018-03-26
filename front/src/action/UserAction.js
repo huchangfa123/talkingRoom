@@ -61,10 +61,10 @@ export function send(data) {
   return async dispatch => {
     let socket = await socketServer();
     socket.emit('send.message', data);
-    dispatch({
-      type: 'sendMessage',
-      data
-    });
+    // dispatch({
+    //   type: 'sendMessage',
+    //   data
+    // });
   };
 }
 

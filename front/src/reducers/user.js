@@ -7,26 +7,15 @@ const initState = immutable.fromJS({
 
 export function user(state = initState, action) {
   switch (action.type) {
-    case 'sendMessage': {
-      let messageList = state.get('messageList')
-      messageList.push({
-        type: 'OWN_MESSAGE',
-        data: action.data
-      })
-      return state.set('messageList', messageList)
-    }
     case 'getMessage': {
       let messageList = state.get('messageList')
-      messageList.push({
-        type: 'OTHER_MESSAGE',
-        data: action.data
-      })
-      return state.set('messageList', messageList)
+      messageList.push(action.data)
+      return state.set('messageList', JSON.parse(JSON.stringify(messageList)))
     }
     case 'addUser': {
       let messageList = state.get('messageList')
       messageList.push({
-        type: 'TIPS_MESSAGE',
+        msgType: 'TIPS_MESSAGE',
         data: action.data
       })
       return state.set('messageList', messageList)
@@ -34,7 +23,7 @@ export function user(state = initState, action) {
     case 'userLeave': {
       let messageList = state.get('messageList')
       messageList.push({
-        type: 'TIPS_MESSAGE',
+        msgType: 'TIPS_MESSAGE',
         data: action.data
       })
       return state.set('messageList', messageList)

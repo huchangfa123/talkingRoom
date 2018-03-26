@@ -9,6 +9,7 @@ export default class MessageItem extends Component {
 
   render() {
     let isOtherMessage = this.props.type === 'OTHERS_MESSAGE';
+    console.log('isOtherMessage', isOtherMessage)
     return (
       <div className="messageItem"> 
         <div className="message"
@@ -18,7 +19,7 @@ export default class MessageItem extends Component {
           }}
         >
           {
-            this.props.type === 'OTHERS_MESSAGE' &&
+            isOtherMessage &&
             <div className="userHead">{this.props.userName.at(0)}</div>
           }
           <div className="userText"
@@ -41,7 +42,7 @@ export default class MessageItem extends Component {
             </div>
           </div>
           {
-            this.props.type === 'OWN_MESSAGE' &&
+            !isOtherMessage &&
             <div className="userHead" 
               style={{
                 marginRight: 0,

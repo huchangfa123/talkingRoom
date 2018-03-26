@@ -13,7 +13,9 @@ class MessageServices {
       console.log('data.type', data)
       const roomMessage = await RoomMessage.create({
         msgType: data.msgType,
+        contentType: data.contentType,
         content: data.content,
+        time: new Date(data.createdAt),
         createdAt: new Date(data.createdAt)
       })
       // sequlize　设置外键方法　setxxx (xxx：as定义的属性名)
