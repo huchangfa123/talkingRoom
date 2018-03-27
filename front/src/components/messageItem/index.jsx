@@ -20,7 +20,7 @@ export default class MessageItem extends Component {
         >
           {
             isOtherMessage &&
-            <div className="userHead">{this.props.userName.at(0)}</div>
+            <div className="userHead" style={{backgroundColor: `${this.props.avatar}`}}>{this.props.userName.at(0)}</div>
           }
           <div className="userText"
             style={{
@@ -46,7 +46,8 @@ export default class MessageItem extends Component {
             <div className="userHead" 
               style={{
                 marginRight: 0,
-                marginLeft: '5px'
+                marginLeft: '5px',
+                backgroundColor: `${this.props.avatar}`
               }}
             >{this.props.userName.at(0)}</div>
           } 

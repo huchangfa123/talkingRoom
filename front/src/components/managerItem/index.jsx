@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './managerItem.css';
 import ui from '../../action/UiAction';
-import { getRoomMessage } from '../../action/UserAction';
+import { getRoomMessage, setCurrentRoom } from '../../action/UserAction';
 import socketServer from '../../frameworks/Socket'
-@connect(null, { getRoomMessage })
+@connect(null, { getRoomMessage, setCurrentRoom })
 export default class ManagerItem extends Component {
 
   static contextTypes = {
@@ -12,6 +12,7 @@ export default class ManagerItem extends Component {
   };
 
   async handleClick() {
+    await this.props.setCurrentRoom(this.props.id)
     await this.props.getRoomMessage({id: this.props.id})
     await ui.getInRoom();
     this.context.router.history.push(`/main/chatting/${this.props.id}`);
@@ -33,7 +34,7 @@ export default class ManagerItem extends Component {
                 textAlign: 'center',
                 height: '40px',
                 borderRadius: '50%',
-                backgroundColor: '#153535'
+                backgroundColor: `${this.props.avatar}`
               }}
             >
               {this.props.name.charAt(0)}

@@ -31,6 +31,7 @@ export default class ManagerBody extends Component {
                   name={room.name} 
                   time={formatTime(room.updatedAt)}
                   id={room.id}
+                  avatar={room.avatar}
                   content="21312312"
                 />
               ))

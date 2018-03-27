@@ -2,7 +2,8 @@ import immutable from 'immutable'
 
 const initState = immutable.fromJS({
   messageList: [],
-  roomList: []
+  roomList: [],
+  curSelectedRoom: {}
 });
 
 export function user(state = initState, action) {
@@ -43,6 +44,16 @@ export function user(state = initState, action) {
     }
     case 'getRoomMessage': {
       return state.set('messageList', action.data.data)
+    }
+    case 'setCurRoom': {
+      let roomList = state.get('roomList')
+      let curRoom = {}
+      for(let room of roomList) {
+        if(room.id === action.data) {
+          curRoom = room;
+        }
+      }
+      return state.set('curSelectedRoom', curRoom)
     }
     default:
       return state;

@@ -14,6 +14,7 @@ export default function socketMonitor (io) {
   });
 
   io.on('send.message', (data) => {
+    console.log('message.data',data)
     store.dispatch(getNewMessage(data));
   });
 }

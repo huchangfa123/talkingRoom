@@ -14,6 +14,7 @@ import { formatTime } from '../../util/format'
  */
 @connect(
   state => ({
+    curSelectedRoom: state.user.getIn(['curSelectedRoom']),
     messageList: state.user.getIn(['messageList']),
     userData: state.loginResult
   }),
@@ -41,8 +42,10 @@ export default class Chatting extends Component {
       this.props.send({
         From: {
           id: this.props.userData.id,
-          name: this.props.userData.name
+          name: this.props.userData.name,
+          avatar: this.props.userData.avatar
         },
+        roomId: this.props.curSelectedRoom.id,
         msgType: 'NORMAL_MESSAGE',
         contentType: 'text',
         createdAt: new Date(),
@@ -65,14 +68,25 @@ export default class Chatting extends Component {
   }
 
   render() {
-    console.log('asdasdasd', this.props.userData.id)
+    console.log('asdasdasd', this.props.curSelectedRoom)
     return (
       <div className="chat-panel">
         <GroupMessage />
         <div className="chat-panel-header">
           <div className="userHeadDiv">
-            <img src="http://www.17qq.com/img_qqtouxiang/22526416.jpeg" className="userHead" />
-            <p>huchangfa</p>
+            <div
+              style={{
+                marginLeft: '5px',
+                color: 'white',
+                width: '40px',
+                lineHeight: '40px',
+                textAlign: 'center',
+                height: '40px',
+                borderRadius: '50%',
+                backgroundColor: `${this.props.curSelectedRoom.avatar}`
+              }}
+            >{this.props.curSelectedRoom.name.charAt(0)}</div>
+            <p>{this.props.curSelectedRoom.name}</p>
           </div>
           <div className="buttonDiv">
             <div>
@@ -93,6 +107,7 @@ export default class Chatting extends Component {
               <MessageItem
                 key={index}
                 userName={message.From.name}
+                avatar={message.From.avatar}
                 message={message.content}
                 date={formatTime(message.createdAt)}
                 type={ message.From.id !== this.props.userData.id? 'OTHERS_MESSAGE' : 'OWN_MESSAGE'}

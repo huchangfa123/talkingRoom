@@ -16,7 +16,6 @@ export default async function getSocket() {
       });
       io.on('connect', () => {
         console.log('连接成功');
-        io.emit('join', 'lala')
       });
       SocketMonitor(io);
     }

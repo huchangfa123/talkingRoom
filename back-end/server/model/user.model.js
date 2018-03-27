@@ -5,7 +5,7 @@ const UserModel = function(sequelize, DataTypes) {
       id: { type: DataTypes.BIGINT(11), autoIncrement: true, primaryKey: true, unique: true },
       name: { type: DataTypes.STRING },
       password: { type: DataTypes.STRING },
-      userHeadPic: { type: DataTypes.STRING, allowNull: true, defaultValue: null },
+      avatar: { type: DataTypes.STRING, allowNull: true, defaultValue: null },
       birth: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }
     },
     {

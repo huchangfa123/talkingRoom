@@ -145,7 +145,6 @@ export function joinRoom(data) {
  */
 export function getRoomMessage(data) {
   return async dispatch => {
-    console.log('data22222222222222222222')
     let result = await getData(`/message/${data.id}`);
     dispatch({
       type: 'getRoomMessage',
@@ -159,6 +158,20 @@ export function choiceOtherRoom() {
   return dispatch => {
     dispatch({
       type: 'resetRoomData'
+    })
+  }
+}
+
+/**
+ * 设置当前房前以及加入当前房间的socket服务
+*/
+export function setCurrentRoom(roomId) {
+  return async dispatch => {
+    let socket = await socketServer();
+    socket.emit('join', {roomId})
+    dispatch({
+      type: 'setCurRoom',
+      data: roomId
     })
   }
 }

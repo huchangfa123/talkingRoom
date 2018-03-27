@@ -2,6 +2,7 @@ import models from '../model';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import config from '../../config';
+import { createColorCode } from '../utils/conveninentMothod';
 
 const User = models.User;
 const Auth = models.Auth;
@@ -16,10 +17,11 @@ class UserServices {
       throw Error('该用户名已注册');
     }
     let password = bcrypt.hashSync(data.password, 10);
-    console.log(password);
+    let avatar = createColorCode();
     let result = await User.create({
       name: data.name,
-      password
+      password,
+      avatar
     });
     return result;
   }
@@ -100,7 +102,7 @@ class UserServices {
   }
 
   async createRoom(data) {
-    const { name, avatar, id } = data;
+    let { name, avatar, id } = data;
     const user = await User.findById(id);
     if (!name) {
       throw Error('房间名不能为空!');
@@ -109,6 +111,7 @@ class UserServices {
     if (hasRoom) {
       throw Error('该房间已存在!');
     } else {
+      if (!avatar) { avatar = createColorCode() }
       let newRoom = await Room.create({
         name,
         avatar
@@ -149,6 +152,10 @@ class UserServices {
     return {
       Rooms
     };
+  }
+
+  async getRoomData(roomId) {
+    
   }
 }
 
