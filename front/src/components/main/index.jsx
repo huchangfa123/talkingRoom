@@ -63,7 +63,7 @@ export default class Main extends Component {
       if (!this.props.loginResult) {
         this.context.router.history.push('/');
       } else {
-        await this.props.getRoomList();
+        await this.props.getRoomList({userData: this.props.loginResult});
       }
     }
   }

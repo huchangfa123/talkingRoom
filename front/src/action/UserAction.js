@@ -75,7 +75,8 @@ export function addUser(data) {
   return {
     type: 'addUser',
     data,
-    roomId: data.roomId
+    roomId: data.roomId,
+    user: data.user
   };
 }
 
@@ -109,7 +110,7 @@ export function getRoomList(data) {
     let socket = await socketServer();
     console.log('result', result)
     for(let room of result.data.rooms) {
-      socket.emit('join', {roomId: room.id})
+      socket.emit('join', {roomId: room.id, user: data.userData})
     }
     dispatch({
       type: 'setRoomsAndMessagesList',

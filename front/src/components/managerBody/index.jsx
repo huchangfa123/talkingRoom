@@ -4,14 +4,13 @@ import './managerBody.css';
 import ManagerHeader from '../managerHeader';
 import { Motion, spring } from 'react-motion';
 import ManagerItem from '../managerItem';
-import { getRoomList } from '../../action/UserAction';
 import { formatTime } from '../../util/format';
 
 @connect(
   state => ({
     roomList: state.user.getIn(['roomList'])
   }),
-  { getRoomList }
+  null
 )
 export default class ManagerBody extends Component {
   constructor(props) {

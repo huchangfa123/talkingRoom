@@ -50,7 +50,7 @@ export default class Login extends Component {
     if (token) {
       let result = await this.props.autoLogin();
       if (this.props.loginResult) {
-        await this.props.getRoomList();
+        await this.props.getRoomList({userData: this.props.loginResult});
         this.context.router.history.push('/main');
       } else {
         notification.warning('用户认证失败');
@@ -70,7 +70,7 @@ export default class Login extends Component {
     } else {
       // 登录成功就获取房间信息
       if (this.props.loginResult) {
-        await this.props.getRoomList();        
+        await this.props.getRoomList({userData: this.props.loginResult});
         this.context.router.history.push('/main');
       } else {
         notification.warning('用户认证失败');

@@ -20,6 +20,12 @@ export function user(state = initState, action) {
     }
     case 'addUser': {
       return state.updateIn(
+        ['roomList'], 
+        roomList => {
+          const roomIndex = roomList.findIndex(g => g.get('id') === action.roomId)
+          return roomList.updateIn([roomIndex, 'onlineUsers'], m => m.push(immutable.fromJS(action.user)))
+        }
+      ).updateIn(
         ['messageList'],
         messageList => {
           const roomIndex = messageList.findIndex(g => g.get('roomId') === action.roomId)
@@ -45,23 +51,24 @@ export function user(state = initState, action) {
 
     case 'setRoomsAndMessagesList': {
       let messageList = []
+      let roomList = []
       for(let room of action.data) {
         messageList.push({
           roomId: room.id,
           messages: []
         })
+        roomList.push(Object.assign(room, {onlineUsers: []}))
       }
-      return state.set('roomList', immutable.fromJS(action.data))
+      return state.set('roomList', immutable.fromJS(roomList))
                   .set('messageList', immutable.fromJS(messageList))
     }
 
     case 'createRoom': {
-      return state.set('roomList', action.data.result.data)
+      return state.set('roomList', immutable.fromJS(action.data.result.data))
     }
 
     case 'joinRoom': {
-      console.log('action.data.result', action.data)
-      return state.set('roomList', action.data.result.data)
+      return state.set('roomList', immutable.fromJS(action.data.result.data))
     }
 
     case 'getRoomMessage': {
