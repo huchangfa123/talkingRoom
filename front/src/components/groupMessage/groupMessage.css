@@ -1,0 +1,54 @@
+.group-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 5px;
+  color: #727272;
+  overflow: auto;
+}
+
+.group-info .content {
+  display: block;
+  margin: 10px 0;
+}
+
+.group-info .userlist {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.group-info .userlist .userItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px 0;
+  max-width: 80px;
+  text-align: center;
+  justify-content: flex-start;
+}
+
+.group-info .userlist .userItem span {
+  font-size: 12px;
+  margin: 0 2px;
+}
+
+
+.group-exit {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.group-exit button {
+  width: 100px;
+  height: 36px;
+  background-color: #f44336;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
