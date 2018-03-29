@@ -9,7 +9,6 @@ export default class MessageItem extends Component {
 
   render() {
     let isOtherMessage = this.props.type === 'OTHERS_MESSAGE';
-    console.log('isOtherMessage', isOtherMessage)
     return (
       <div className="messageItem"> 
         <div className="message"

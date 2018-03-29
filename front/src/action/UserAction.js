@@ -74,7 +74,8 @@ export function send(data) {
 export function addUser(data) {
   return {
     type: 'addUser',
-    data
+    data,
+    roomId: data.roomId
   };
 }
 
@@ -84,7 +85,8 @@ export function addUser(data) {
 export function userLeave(data) {
   return {
     type: 'userLeave',
-    data
+    data,
+    roomId: data.roomId
   };
 }
 
@@ -104,8 +106,13 @@ export function getNewMessage(data) {
 export function getRoomList(data) {
   return async dispatch => {
     let result = await getData('/user/myRooms');
+    let socket = await socketServer();
+    console.log('result', result)
+    for(let room of result.data.rooms) {
+      socket.emit('join', {roomId: room.id})
+    }
     dispatch({
-      type: 'userRooms',
+      type: 'setRoomsAndMessagesList',
       data: result.data.rooms
     });
     return result;
@@ -148,7 +155,8 @@ export function getRoomMessage(data) {
     let result = await getData(`/message/${data.id}`);
     dispatch({
       type: 'getRoomMessage',
-      data: result.data
+      data: result.data,
+      roomId: data.id
     })
     return result.data
   }
@@ -167,8 +175,6 @@ export function choiceOtherRoom() {
 */
 export function setCurrentRoom(roomId) {
   return async dispatch => {
-    let socket = await socketServer();
-    socket.emit('join', {roomId})
     dispatch({
       type: 'setCurRoom',
       data: roomId

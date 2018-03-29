@@ -23,14 +23,14 @@ function CreatSocketServer(server) {
     // 用户加入
     client.on('join', function (msg) {
       client.join(msg.roomId)
-      io.to(msg.roomId).emit('join', '有人加入了房间')
+      io.to(msg.roomId).emit('join', msg)
       console.log('加入了房间', msg);
     });
 
     // 用户发送信息
     client.on('send.message', async function (msg) {
       await MessageServices.saveMessage(Object.assign(msg))
-      console.log('信息内容:', msg)
+      console.log('信息内容:', msg.roomId)
       io.to(msg.roomId).emit('send.message', msg)
     });
 

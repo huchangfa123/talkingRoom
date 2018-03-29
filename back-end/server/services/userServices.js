@@ -153,10 +153,6 @@ class UserServices {
       Rooms
     };
   }
-
-  async getRoomData(roomId) {
-    
-  }
 }
 
 export default new UserServices();

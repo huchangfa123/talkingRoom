@@ -192,7 +192,7 @@
     "hosted-git-info": "^2.5.0",
     "https-browserify": "^0.0.1",
     "ieee754": "^1.1.8",
-    "immutable": "^3.8.2",
+    "immutable": "^4.0.0",
     "indexof": "^0.0.1",
     "inherits": "^2.0.3",
     "interpret": "^1.0.4",

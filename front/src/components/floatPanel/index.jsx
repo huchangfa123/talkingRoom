@@ -16,7 +16,7 @@ export default class FloatPanel extends Component {
   render() {
     const { show, title } = this.props;
     return (
-      <Motion defaultStyle={{ right: -340 }} style={{ right: spring(show ? 0 : -340) }}>
+      <Motion defaultStyle={{ right: -500 }} style={{ right: spring(show ? 0 : -500) }}>
         {style => (
           <div className="floatPanel" style={style}>
             <div className="floatHeader">

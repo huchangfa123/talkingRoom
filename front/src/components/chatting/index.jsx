@@ -45,7 +45,7 @@ export default class Chatting extends Component {
           name: this.props.userData.name,
           avatar: this.props.userData.avatar
         },
-        roomId: this.props.curSelectedRoom.id,
+        roomId: this.props.curSelectedRoom.get('id'),
         msgType: 'NORMAL_MESSAGE',
         contentType: 'text',
         createdAt: new Date(),
@@ -68,7 +68,8 @@ export default class Chatting extends Component {
   }
 
   render() {
-    console.log('asdasdasd', this.props.curSelectedRoom)
+    const roomIndex = this.props.messageList.findIndex(g => g.get('roomId') === this.props.curSelectedRoom.get('id'))
+    let messages = this.props.messageList.get(roomIndex).get('messages')
     return (
       <div className="chat-panel">
         <GroupMessage />
@@ -83,10 +84,10 @@ export default class Chatting extends Component {
                 textAlign: 'center',
                 height: '40px',
                 borderRadius: '50%',
-                backgroundColor: `${this.props.curSelectedRoom.avatar}`
+                backgroundColor: `${this.props.curSelectedRoom.get('avatar')}`
               }}
-            >{this.props.curSelectedRoom.name.charAt(0)}</div>
-            <p>{this.props.curSelectedRoom.name}</p>
+            >{this.props.curSelectedRoom.get('name').charAt(0)}</div>
+            <p>{this.props.curSelectedRoom.get('name')}</p>
           </div>
           <div className="buttonDiv">
             <div>
@@ -102,15 +103,15 @@ export default class Chatting extends Component {
           </div>
         </div>
         <div className="message-list">
-          {this.props.messageList.map((message, index) => (
-              message.msgType !== 'TIPS_MESSAGE' ?
+          {messages.map((message, index) => (
+              message.get('msgType') !== 'TIPS_MESSAGE' ?
               <MessageItem
                 key={index}
-                userName={message.From.name}
-                avatar={message.From.avatar}
-                message={message.content}
-                date={formatTime(message.createdAt)}
-                type={ message.From.id !== this.props.userData.id? 'OTHERS_MESSAGE' : 'OWN_MESSAGE'}
+                userName={message.get('From').get('name')}
+                avatar={message.get('From').get('avatar')}
+                message={message.get('content')}
+                date={formatTime(message.get('createdAt'))}
+                type={ message.get('From').get('id') !== this.props.userData.id? 'OTHERS_MESSAGE' : 'OWN_MESSAGE'}
               /> : ''
             )
           )}

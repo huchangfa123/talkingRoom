@@ -19,6 +19,12 @@ export default class ManagerBody extends Component {
   }
 
   render() {
+    this.props.roomList.map((room, index) => {
+      console.log(index, room.get('name'))
+      console.log(index, room.get('updatedAt'))
+      console.log(index, room.get('id'))
+      console.log(index, room.get('avatar'))      
+    })
     return (
       <div>
         <div className="managerBody">
@@ -28,10 +34,10 @@ export default class ManagerBody extends Component {
               this.props.roomList.map((room, index) => (
                 <ManagerItem 
                   key={index}
-                  name={room.name} 
-                  time={formatTime(room.updatedAt)}
-                  id={room.id}
-                  avatar={room.avatar}
+                  name={room.get('name')} 
+                  time={formatTime(room.get('updatedAt'))}
+                  id={room.get('id')}
+                  avatar={room.get('avatar')}
                   content="21312312"
                 />
               ))
