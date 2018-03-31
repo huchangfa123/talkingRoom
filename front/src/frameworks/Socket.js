@@ -11,7 +11,8 @@ export default async function getSocket() {
       io = await Socket(config.location,
         { 
           extraHeaders: {
-            xsrftoken: config.options.headers['XSRF_TOKEN']
+            xsrftoken: config.options.headers['XSRF_TOKEN'],
+            userid: config.user.id
           } 
       });
       io.on('connect', () => {

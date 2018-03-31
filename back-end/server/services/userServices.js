@@ -95,6 +95,8 @@ class UserServices {
     const user = await User.findOne({
       where: { id: data.id }
     });
+    let authStatus = await Auth.findOne({});
+    await authStatus.addOnlineUsers(data.id);
     return {
       userData: user
     };
@@ -165,6 +167,14 @@ class UserServices {
       })
     }
     return result
+  }
+
+  async getOutRooms(data){
+    let authStatus = await Auth.findOne({});
+    let hasLogin = await authStatus.hasOnlineUsers(data.id);
+    if (hasLogin) {
+      await authStatus.removeOnlineUsers(data.id);
+    }
   }
 
   async getRoomsOnlineUser(data) {

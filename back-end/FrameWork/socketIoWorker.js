@@ -40,10 +40,9 @@ function CreatSocketServer(server) {
     })
 
     // 用户断开连接    
-    client.on('disconnect', function (msg) {
-      console.log('user disconnect', msg)
-      client.leave(msg.roomId)
-      io.to(msg.roomId).emit('user.leave', msg);
+    client.on('disconnect', async function (msg) {
+      await userServices.getOutRooms({id: client.handshake.headers.userid})
+      io.emit('user.leave', {userId: client.handshake.headers.userid});
     });
   });
 }

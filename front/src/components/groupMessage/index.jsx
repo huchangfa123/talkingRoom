@@ -14,8 +14,6 @@ import './groupMessage.css'
 export default class GroupMessage extends Component {
   render() {
     const { show } = this.props;
-    console.log(123123123123, this.props.curSelectedRoom.get('onlineUsers').get(0).get('avatar'))
-    this.props.curSelectedRoom.get('onlineUsers').findIndex(g => console.log('curname', g.get('name')))
     return (
       <FloatPanel title="群信息" show={show}>
         <div className="group-info">

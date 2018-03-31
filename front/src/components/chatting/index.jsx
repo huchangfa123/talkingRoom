@@ -95,8 +95,8 @@ export default class Chatting extends Component {
                 &#xe6e3;
               </i>
             </div>
-            <div>
-              <i title="群信息" className="iconfont chatpic" onClick={this.showGroupMessage.bind(this)}>
+            <div onClick={this.showGroupMessage.bind(this)}>
+              <i title="群信息" className="iconfont chatpic">
                 &#xe682;
               </i>
             </div>

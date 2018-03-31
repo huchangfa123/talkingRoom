@@ -7,10 +7,15 @@ let data =  {
     headers: {
       XSRF_TOKEN: `${cookie.get('XSRF_TOKEN')}`
     }
-  }
+  },
+  user: {}
 };
 export default data;
 
 export function setToken(token) {
   data.options.headers.XSRF_TOKEN = token
+}
+
+export function setUser(user) {
+  data.user = user;
 }

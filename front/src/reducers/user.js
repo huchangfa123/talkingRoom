@@ -24,10 +24,7 @@ export function user(state = initState, action) {
         roomList => {
           const roomIndex = roomList.findIndex(g => g.get('id') === action.roomId)
           return roomList.updateIn([roomIndex, 'onlineUsers'], m => {
-            console.log('action.user.id', action.user.id)
-            m.findIndex(user => console.log(user.get('id')))
             let userIndex = m.findIndex(user => user.get('id') === action.user.id)
-            console.log('userIndex', userIndex)
             if (userIndex === -1) {
               return m.push(immutable.fromJS(action.user))
             } 
@@ -47,21 +44,27 @@ export function user(state = initState, action) {
     }
     
     case 'userLeave': {
+      console.log('action.data.userId', action.data.userId)
       return state.updateIn(
         ['messageList'],
-        messageList => {
-          const roomIndex = messageList.findIndex(g => g.get('roomId') === action.roomId)
-          return messageList.updateIn([roomIndex, 'messages'], m => m.push(immutable.fromJS({
+        messageList => messageList.map((item, index) => {
+          return item.updateIn(['messages'], messages => messages.push(immutable.fromJS({
             msgType: 'TIPS_MESSAGE',
             data: action.data
           })))
-        }
+        })
+      ).updateIn(
+        ['roomList'],
+        roomList => roomList.map((room, index) => {
+          return room.updateIn(['onlineUsers'], 
+            onlineUsers => onlineUsers.delete(onlineUsers.findIndex(user => user.get('id') === action.data.userId))
+          )
+        })
       )
     }
 
     case 'setRoomsAndMessagesList': {
       let messageList = []
-      let roomList = []
       console.log('action.data', action.data)
       for(let room of action.data) {
         messageList.push({
@@ -100,7 +103,6 @@ export function user(state = initState, action) {
 
     case 'setCurRoom': {
       let roomList = state.get('roomList')
-      let curRoom = {}
       const roomIndex = roomList.findIndex(g => g.get('id') === action.data)
       return state.set('curSelectedRoom', roomList.get(roomIndex))
     }

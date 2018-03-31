@@ -94,8 +94,7 @@ export function addUser(data) {
 export function userLeave(data) {
   return {
     type: 'userLeave',
-    data,
-    roomId: data.roomId
+    data
   };
 }
 
