@@ -36,6 +36,13 @@ export function autoLogin() {
   };
 }
 
+export function logout() {
+  return async dispatch => {
+    const result = await getData('/user/logout');
+    return result;
+  }
+}
+
 /**
  * 用户注册
  */
@@ -72,6 +79,7 @@ export function send(data) {
  * 新用户加入
  */
 export function addUser(data) {
+  console.log('addUser', data)
   return {
     type: 'addUser',
     data,
@@ -108,14 +116,13 @@ export function getRoomList(data) {
   return async dispatch => {
     let result = await getData('/user/myRooms');
     let socket = await socketServer();
-    console.log('result', result)
-    for(let room of result.data.rooms) {
-      socket.emit('join', {roomId: room.id, user: data.userData})
-    }
     dispatch({
       type: 'setRoomsAndMessagesList',
       data: result.data.rooms
     });
+    for(let room of result.data.rooms) {
+      socket.emit('join', {roomId: room.id, user: data.userData})
+    }
     return result;
   };
 }
@@ -126,10 +133,14 @@ export function getRoomList(data) {
 export function createRoom(data) {
   return async dispatch => {
     let result = await postData('/user/createRoom', data);
-    dispatch({
-      type: 'createRoom',
-      data: result.data
-    });
+    if (result.data.code === 200) {
+      dispatch({
+        type: 'createRoom',
+        data: result.data
+      });
+      let socket = await socketServer();
+      socket.emit('join', {roomId: result.id, user: data.userData});
+    }
     return result.data;
   };
 }
@@ -140,10 +151,14 @@ export function createRoom(data) {
 export function joinRoom(data) {
   return async dispatch => {
     let result = await postData('/user/joinRoom', data);
-    dispatch({
-      type: 'joinRoom',
-      data: result.data
-    });
+    if (result.data.code === 200) {
+      dispatch({
+        type: 'joinRoom',
+        data: result.data
+      });
+      let socket = await socketServer();
+      socket.emit('join', {roomId: result.id, user: data.userData})
+    }
     return result.data;
   };
 }

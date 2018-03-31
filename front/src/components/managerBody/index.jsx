@@ -18,12 +18,6 @@ export default class ManagerBody extends Component {
   }
 
   render() {
-    this.props.roomList.map((room, index) => {
-      console.log(index, room.get('name'))
-      console.log(index, room.get('updatedAt'))
-      console.log(index, room.get('id'))
-      console.log(index, room.get('avatar'))      
-    })
     return (
       <div>
         <div className="managerBody">

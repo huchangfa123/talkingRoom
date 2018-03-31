@@ -64,7 +64,7 @@ class UserController {
     let result = await userServices.getMyRooms({id: ctx.user.id});
     ctx.body = {
       code: 200,
-      rooms: result.Rooms
+      rooms: result
     };
   }
 

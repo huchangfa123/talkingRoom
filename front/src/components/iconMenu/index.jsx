@@ -4,13 +4,14 @@ import { spring, Motion } from 'react-motion';
 import './iconMenu.css';
 import ui from '../../action/UiAction';
 import cookie from 'js-cookie';
+import { logout } from '../../action/UserAction'
 
 /*
 * 点击点点点出来的菜单栏
 */
 @connect(state => ({
   show: state.ui.getIn(['showIconMenu'])
-}))
+}), { logout })
 export default class IconMenu extends Component {
   static contextTypes = {
     router: React.PropTypes.object.isRequired
@@ -24,7 +25,8 @@ export default class IconMenu extends Component {
     ui.joinGroupSide();
   }
 
-  logout() {
+  async logout() {
+    await this.props.logout()
     cookie.remove('accessToken', { path: '' })
     this.context.router.history.push('/login');
   }

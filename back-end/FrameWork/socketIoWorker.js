@@ -2,7 +2,9 @@ import SocketIo from 'socket.io';
 import config from '../config';
 import jwt from 'jsonwebtoken';
 import MessageServices from '../server/services/messageServices';
+import UserServices from '../server/services/userServices';
 import redis from '../server/utils/redis';
+import userServices from '../server/services/userServices';
 
 function CreatSocketServer(server) {
   // 创建socketIo服务实例
@@ -18,31 +20,28 @@ function CreatSocketServer(server) {
   });
 　
   io.on('connection', function (client) {
-    console.log('a client is connection!');
 
     // 用户加入
-    client.on('join', function (msg) {
+    client.on('join', async function (msg) {
       client.join(msg.roomId)
       io.to(msg.roomId).emit('join', msg)
-      console.log('加入了房间', msg);
     });
 
     // 用户发送信息
     client.on('send.message', async function (msg) {
       await MessageServices.saveMessage(Object.assign(msg))
-      console.log('信息内容:', msg.roomId)
       io.to(msg.roomId).emit('send.message', msg)
     });
 
-    // 用户断开连接
+    // 用户退出房间
     client.on('leave', function (msg) {
-      console.log('我 leave')      
-      client.emit('leave', 'disconnect')
+      client.leave(msg.roomId)
+      client.emit('user.leave', msg)
     })
 
-    // 用户离开房间    
+    // 用户断开连接    
     client.on('disconnect', function (msg) {
-      console.log('我 disconnect')
+      console.log('user disconnect', msg)
       client.leave(msg.roomId)
       io.to(msg.roomId).emit('user.leave', msg);
     });

@@ -23,7 +23,16 @@ export function user(state = initState, action) {
         ['roomList'], 
         roomList => {
           const roomIndex = roomList.findIndex(g => g.get('id') === action.roomId)
-          return roomList.updateIn([roomIndex, 'onlineUsers'], m => m.push(immutable.fromJS(action.user)))
+          return roomList.updateIn([roomIndex, 'onlineUsers'], m => {
+            console.log('action.user.id', action.user.id)
+            m.findIndex(user => console.log(user.get('id')))
+            let userIndex = m.findIndex(user => user.get('id') === action.user.id)
+            console.log('userIndex', userIndex)
+            if (userIndex === -1) {
+              return m.push(immutable.fromJS(action.user))
+            } 
+            return m;
+          })
         }
       ).updateIn(
         ['messageList'],
@@ -36,6 +45,7 @@ export function user(state = initState, action) {
         }
       )
     }
+    
     case 'userLeave': {
       return state.updateIn(
         ['messageList'],
@@ -52,19 +62,23 @@ export function user(state = initState, action) {
     case 'setRoomsAndMessagesList': {
       let messageList = []
       let roomList = []
+      console.log('action.data', action.data)
       for(let room of action.data) {
         messageList.push({
           roomId: room.id,
           messages: []
         })
-        roomList.push(Object.assign(room, {onlineUsers: []}))
       }
-      return state.set('roomList', immutable.fromJS(roomList))
-                  .set('messageList', immutable.fromJS(messageList))
+      return state.set('messageList', immutable.fromJS(messageList))
+                  .set('roomList', immutable.fromJS(action.data))
     }
 
     case 'createRoom': {
-      return state.set('roomList', immutable.fromJS(action.data.result.data))
+      return state.updateIn(
+        ['roomList'],
+        roomList => roomList.push(immutable.fromJS(Object.assign(action.data.result.data, {onlineUsers: []})))
+      )
+      // return state.set('roomList', immutable.fromJS(action.data.result.data))
     }
 
     case 'joinRoom': {

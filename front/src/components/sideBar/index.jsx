@@ -10,7 +10,8 @@ import ui from '../../action/UiAction';
 
 @connect(
   state => ({
-    sideBarType: state.ui.getIn(['sideBarType'])
+    sideBarType: state.ui.getIn(['sideBarType']),
+    userData: state.loginResult
   }),
   { joinRoom, createRoom }
 )
@@ -30,7 +31,7 @@ export default class SideBar extends Component {
   }
 
   async joinRoomEnsure() {
-    let result = await this.props.joinRoom({name: this.state.roomName});
+    let result = await this.props.joinRoom({name: this.state.roomName, userData: this.props.userData});
     if (result.code !== 200) {
       notification.warning(result.message);
     } else {
@@ -40,7 +41,8 @@ export default class SideBar extends Component {
   }
 
   async creatRoomEnsure() {
-    let result = await this.props.createRoom({name: this.state.roomName, avatar: null});
+    let result = await this.props.createRoom({name: this.state.roomName, avatar: null, userData: this.props.userData});
+    console.log('result', result.code)
     if (result.code !== 200) {
       notification.warning(result.message);
     } else {

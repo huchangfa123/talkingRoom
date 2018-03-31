@@ -39,7 +39,8 @@ class UserServices {
         if (!authStatus) {
           authStatus = await Auth.create({});
         }
-        await authStatus.hasOnlineUsers(check.id);
+        console.log('userData.id', check.id)
+        await authStatus.addOnlineUsers(check.id);
         return {
           userData: check
         };
@@ -54,6 +55,7 @@ class UserServices {
   async logout(data) {
     let authStatus = await Auth.findOne({});
     let hasLogin = await authStatus.hasOnlineUsers(data.id);
+    console.log('hasLogin',hasLogin)
     if (hasLogin) {
       await authStatus.removeOnlineUsers(data.id);
       return {
@@ -70,7 +72,9 @@ class UserServices {
       let authStatus = await Auth.findOne({});
       let hasLogin = null;
       if (authStatus) {
-        hasLogin = await authStatus.hasOnlineUsers(userData.id);
+        console.log('userData.id', userData.id)
+        hasLogin = await authStatus.addOnlineUsers(userData.id);
+        console.log('result', hasLogin)
       } else {
         await Auth.create({});
       }
@@ -84,6 +88,7 @@ class UserServices {
     return {
       hasLogin: false
     };
+      console.log('1111', room)
   }
 
   async getUserData(data) {
@@ -117,10 +122,9 @@ class UserServices {
         avatar
       });
       await newRoom.addUsers(id);
-      let Rooms = await user.getRooms();
       return {
         message: '创建成功!',
-        data: Rooms
+        data: newRoom
       };
     }
   }
@@ -136,11 +140,9 @@ class UserServices {
         throw Error('已加入该房间!');
       } else {
         RoomData.addUsers(id);
-        let user = await User.findById(id);
-        const Rooms = await user.getRooms();
         return {
           message: '加入成功!',
-          data: Rooms
+          data: RoomData
         };
       }
     }
@@ -149,9 +151,33 @@ class UserServices {
   async getMyRooms(data) {
     let user = await User.findOne({ where: { id: data.id } });
     let Rooms = await user.getRooms();
-    return {
-      Rooms
-    };
+    let result = []
+    for (let room of Rooms) {
+      let onlineUsers = await this.getRoomsOnlineUser({roomId: room.id})
+      result.push({
+        id: room.id,
+        avatar: room.avatar,
+        createdAt: room.createdAt,
+        name: room.name,
+        notice: room.notice,
+        updatedAt: room.updatedAt,
+        onlineUsers
+      })
+    }
+    return result
+  }
+
+  async getRoomsOnlineUser(data) {
+    let result = []
+    let { roomId } = data;
+    let AuthList = await Auth.findOne({})
+    let onlineUsers = await AuthList.getOnlineUsers();
+    for(let user of onlineUsers) {
+      if (user.hasRooms(roomId)) {
+        result.push(user);
+      }
+    }
+    return result;
   }
 }
 

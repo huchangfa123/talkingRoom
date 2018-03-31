@@ -20,6 +20,7 @@ Message.belongsTo(User, { as: 'To' });
 RoomMessage.belongsTo(User, { as: 'From' });
 RoomMessage.belongsTo(Room, { as: 'To' });
 Auth.hasMany(User, { as: 'OnlineUsers' });
+User.belongsTo(Auth)
 
 db.sync();
 module.exports = {

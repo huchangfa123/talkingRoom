@@ -10,6 +10,7 @@ export default function socketMonitor (io) {
 
   // 用户离开
   io.on('user.leave', (data) => {
+    console.log('user.leave', data)
     store.dispatch(userLeave(data));
   });
 
