@@ -99,6 +99,16 @@ export function userLeave(data) {
 }
 
 /**
+ * 用户退出房间
+ */
+export function userLeaveRoom(data) {
+  return {
+    type: 'userLeaveRoom',
+    data
+  }
+} 
+
+/**
  * 获取新消息
  */
 export function getNewMessage(data) {
@@ -132,13 +142,14 @@ export function getRoomList(data) {
 export function createRoom(data) {
   return async dispatch => {
     let result = await postData('/user/createRoom', data);
+    console.log('result', result)
     if (result.data.code === 200) {
       dispatch({
         type: 'createRoom',
         data: result.data
       });
       let socket = await socketServer();
-      socket.emit('join', {roomId: result.id, user: data.userData});
+      socket.emit('join', {roomId: result.data.data.id, user: data.userData});
     }
     return result.data;
   };
@@ -156,7 +167,7 @@ export function joinRoom(data) {
         data: result.data
       });
       let socket = await socketServer();
-      socket.emit('join', {roomId: result.id, user: data.userData})
+      socket.emit('join', {roomId: result.data.data.id, user: data.userData})
     }
     return result.data;
   };

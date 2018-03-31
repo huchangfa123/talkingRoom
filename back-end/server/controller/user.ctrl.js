@@ -48,7 +48,7 @@ class UserController {
     let result = await userServices.createRoom(Object.assign(ctx.request.body, { id: ctx.user.id }));
     ctx.body = {
       code: 200,
-      result
+      data: result.data
     };
   }
 
@@ -56,7 +56,7 @@ class UserController {
     let result = await userServices.joinRoom(Object.assign(ctx.request.body, { id: ctx.user.id }));
     ctx.body = {
       code: 200,
-      result
+      data: result.data
     };
   }
 

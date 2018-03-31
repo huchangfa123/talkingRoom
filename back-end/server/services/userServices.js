@@ -142,9 +142,18 @@ class UserServices {
         throw Error('已加入该房间!');
       } else {
         RoomData.addUsers(id);
+        let onlineUsers = await this.getRoomsOnlineUser({roomId: RoomData.id})
         return {
           message: '加入成功!',
-          data: RoomData
+          data: {
+            id: RoomData.id,
+            avatar: RoomData.avatar,
+            createdAt: RoomData.createdAt,
+            name: RoomData.name,
+            notice: RoomData.notice,
+            updatedAt: RoomData.updatedAt,
+            onlineUsers
+          }
         };
       }
     }

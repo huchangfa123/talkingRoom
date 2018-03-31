@@ -9,7 +9,6 @@ const initState = immutable.fromJS({
 export function user(state = initState, action) {
   switch (action.type) {
     case 'getMessage': {
-      console.log('action.data', action.data)
       return state.updateIn(
         ['messageList'],
         messageList => {
@@ -44,7 +43,6 @@ export function user(state = initState, action) {
     }
     
     case 'userLeave': {
-      console.log('action.data.userId', action.data.userId)
       return state.updateIn(
         ['messageList'],
         messageList => messageList.map((item, index) => {
@@ -65,7 +63,6 @@ export function user(state = initState, action) {
 
     case 'setRoomsAndMessagesList': {
       let messageList = []
-      console.log('action.data', action.data)
       for(let room of action.data) {
         messageList.push({
           roomId: room.id,
@@ -79,13 +76,19 @@ export function user(state = initState, action) {
     case 'createRoom': {
       return state.updateIn(
         ['roomList'],
-        roomList => roomList.push(immutable.fromJS(Object.assign(action.data.result.data, {onlineUsers: []})))
+        roomList => roomList.unshift(immutable.fromJS(Object.assign(action.data.data, {onlineUsers: []})))
       )
-      // return state.set('roomList', immutable.fromJS(action.data.result.data))
     }
 
     case 'joinRoom': {
-      return state.set('roomList', immutable.fromJS(action.data.result.data))
+      return state.updateIn(
+        ['roomList'],
+        roomList => roomList.unshift(immutable.fromJS(Object.assign(action.data.data)))
+      )
+    }
+
+    case 'userLeaveRoom': {
+      
     }
 
     case 'getRoomMessage': {

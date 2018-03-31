@@ -18,4 +18,8 @@ export default function socketMonitor (io) {
     console.log('message.data',data)
     store.dispatch(getNewMessage(data));
   });
+
+  io.on('user.leaveroom', (data) => {
+    store.dispatch()
+  })
 }
