@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FloatPanel from '../floatPanel';
 import ui from '../../action/UiAction';
+import { userLeaveRoom } from '../../action/UserAction'
 import './groupMessage.css'
 
 /**
@@ -9,9 +10,21 @@ import './groupMessage.css'
  */
 @connect(state => ({
   curSelectedRoom: state.user.getIn(['curSelectedRoom']),
-  show: state.ui.getIn(['showGroupMessage'])
-}))
+  show: state.ui.getIn(['showGroupMessage']),
+  loginResult: state.loginResult
+}), { userLeaveRoom })
 export default class GroupMessage extends Component {
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  };
+
+  async handleLeaveRoom() {
+    let roomId = this.props.curSelectedRoom.get('id')
+    let userId = this.props.loginResult.id
+    await this.props.userLeaveRoom({roomId, userId})
+    ui.getOutRoom()
+    this.context.router.history.push('/main/chatting');
+  }
   render() {
     const { show } = this.props;
     return (
@@ -42,7 +55,7 @@ export default class GroupMessage extends Component {
           </div>   
         </div>
         <div className="group-exit">
-          <button>退出群组</button>
+          <button onClick={this.handleLeaveRoom.bind(this)}>退出群组</button>
         </div>
       </FloatPanel>
     );

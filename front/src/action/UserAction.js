@@ -102,11 +102,29 @@ export function userLeave(data) {
  * 用户退出房间
  */
 export function userLeaveRoom(data) {
-  return {
-    type: 'userLeaveRoom',
-    data
+  return async dispatch => {
+    let result = await postData('/user/leaveRoom', {roomId: data.roomId})
+    let socket = await socketServer();
+    if (result) {
+      socket.emit('user.leave.room', {roomId: data.roomId, userId: data.userId})
+      dispatch({
+        type: 'ownLeaveRoom',
+        roomId: data.roomId,
+        userId: data.userId
+      })
+    } else {
+      return result;
+    }
   }
-} 
+}
+
+export function otherLeaveRoom(data) {
+  return {
+    type: 'otherLeaveRoom',
+    roomId: data.roomId,
+    userId: data.userId
+  }
+}
 
 /**
  * 获取新消息

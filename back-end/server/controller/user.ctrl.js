@@ -60,6 +60,14 @@ class UserController {
     };
   }
 
+  async leaveRoom(ctx, next) {
+    let result = await userServices.getOutRoom({id: ctx.user.id, roomId: ctx.request.body.roomId});
+    ctx.body = {
+      code: 200,
+      success: result
+    }
+  }
+
   async getMyRooms(ctx, next) {
     let result = await userServices.getMyRooms({id: ctx.user.id});
     ctx.body = {

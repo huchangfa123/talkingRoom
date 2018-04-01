@@ -7,6 +7,7 @@ import { createColorCode } from '../utils/conveninentMothod';
 const User = models.User;
 const Auth = models.Auth;
 const Room = models.Room;
+const RoomMessage = models.RoomMessage;
 
 class UserServices {
   async register(data) {
@@ -159,6 +160,22 @@ class UserServices {
     }
   }
 
+  async getOutRoom(data) {
+    try {
+      let { id, roomId } = data;
+      let room = await Room.findById(roomId);
+      await room.removeUsers(id);
+      let users = await room.getUsers();
+      if(users.length === 0) {
+        await RoomMessage.destroy({where: {'toId': roomId}})
+        await Room.destroy({where: {id: roomId}})
+      }
+      return true;
+    } catch (error) {
+      throw Error(error)
+    }
+  }
+
   async getMyRooms(data) {
     let user = await User.findOne({ where: { id: data.id } });
     let Rooms = await user.getRooms();
@@ -177,8 +194,8 @@ class UserServices {
     }
     return result
   }
-
-  async getOutRooms(data){
+  
+  async userDisconnect(data){
     let authStatus = await Auth.findOne({});
     let hasLogin = await authStatus.hasOnlineUsers(data.id);
     if (hasLogin) {

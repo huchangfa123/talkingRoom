@@ -10,6 +10,7 @@ router.get('/onlineUsers', userController.onlineUsers);
 router.post('/ifLogin', userController.ifLogin);
 router.post('/createRoom', userController.createRoom);
 router.post('/joinRoom', userController.joinRoom);
+router.post('/leaveRoom', userController.leaveRoom);
 router.get('/myRooms', userController.getMyRooms);
 router.get('/myInfo', userController.getUserData);
 

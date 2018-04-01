@@ -34,14 +34,15 @@ function CreatSocketServer(server) {
     });
 
     // 用户退出房间
-    client.on('leave', function (msg) {
+    client.on('user.leave.room', function (msg) {
+      console.log('我有进来')
+      client.to(msg.roomId).emit('user.leave.room', msg)
       client.leave(msg.roomId)
-      client.emit('user.leave', msg)
     })
 
     // 用户断开连接    
     client.on('disconnect', async function (msg) {
-      await userServices.getOutRooms({id: client.handshake.headers.userid})
+      await userServices.userDisconnect({id: client.handshake.headers.userid})
       io.emit('user.leave', {userId: client.handshake.headers.userid});
     });
   });

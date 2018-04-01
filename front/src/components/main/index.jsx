@@ -47,8 +47,8 @@ export default class Main extends Component {
     };
   }
 
-  async goChatting() {
-    await ui.getOutRoom();
+  goChatting() {
+    ui.getOutRoom();
     this.context.router.history.push({ pathname: '/main/chatting' });
   }
 

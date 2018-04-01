@@ -87,8 +87,30 @@ export function user(state = initState, action) {
       )
     }
 
-    case 'userLeaveRoom': {
-      
+    case 'ownLeaveRoom': {
+      return state.updateIn(
+        ['roomList'],
+        roomList => roomList.delete(roomList.findIndex(room => room.get('id') === action.roomId))
+      ).updateIn(
+        ['messageList'],
+        messageList => messageList.delete(messageList.findIndex(g => g.get('roomId') === action.roomId))
+      )
+    }
+
+    case 'otherLeaveRoom': {
+      return state.updateIn(
+        ['roomList'],
+        roomList => {
+          let roomIndex = roomList.findIndex(room => room.get('id') === action.roomId)
+          if (roomIndex !== -1) {
+            return roomList.updateIn(
+              [roomIndex, 'onlineUsers'],
+              onlineUsers => onlineUsers.delete(onlineUsers.findIndex(g => g.get('id') === action.userId))
+            )
+          }
+          return roomList;
+        }
+      )
     }
 
     case 'getRoomMessage': {

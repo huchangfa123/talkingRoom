@@ -1,4 +1,4 @@
-import { addUser, userLeave } from '../action/UserAction';
+import { addUser, userLeave, otherLeaveRoom } from '../action/UserAction';
 import { getNewMessage } from '../action/UserAction';
 import store from '../store';
 
@@ -19,7 +19,8 @@ export default function socketMonitor (io) {
     store.dispatch(getNewMessage(data));
   });
 
-  io.on('user.leaveroom', (data) => {
-    store.dispatch()
+  io.on('user.leave.room', (data) => {
+    console.log('我有过来', data)
+    store.dispatch(otherLeaveRoom(data))
   })
 }
