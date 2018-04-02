@@ -5,7 +5,7 @@ export function formatTime(time) {
     mins = '0' + mins;
   }
   if (parseInt(hour) <= 9) {
-    hout = '0' + hour;
+    hour = '0' + hour;
   }
   return hour + ':' + mins;
 }

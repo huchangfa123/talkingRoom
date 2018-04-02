@@ -1,3 +1,5 @@
+@import '~highlight.js/styles/monokai.css';
+
 .messageItem {
   display: block;
 }
@@ -45,5 +47,11 @@
   margin: 0;
   box-shadow: 3px 3px 10px #aaa;
   border-radius: 10px;
+  word-break: break-all;
+  overflow: auto;
+  max-width: 500px;
+}
+
+.messageItem .message .userText .textData code {
   word-break: break-all;
 }

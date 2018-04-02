@@ -8,6 +8,7 @@ import { send } from '../../action/UserAction';
 import ui from '../../action/UiAction';
 import GroupMessage from '../groupMessage';
 import { formatTime } from '../../util/format'
+import marked from 'marked';
 
 /**
  * 聊天主界面
@@ -49,7 +50,7 @@ export default class Chatting extends Component {
         msgType: 'NORMAL_MESSAGE',
         contentType: 'text',
         createdAt: new Date(),
-        content: message
+        content: marked(message, {break: true})
       });
     }
   };
@@ -107,6 +108,7 @@ export default class Chatting extends Component {
               message.get('msgType') !== 'TIPS_MESSAGE' ?
               <MessageItem
                 key={index}
+                index={index}
                 userName={message.get('From').get('name')}
                 avatar={message.get('From').get('avatar')}
                 message={message.get('content')}

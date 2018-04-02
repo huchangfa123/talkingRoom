@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './messageItem.css';
-
+import hljs from 'highlight.js';
 export default class MessageItem extends Component {
   constructor(props) {
     super(props);
+  }
+
+  async componentDidMount(){
+    var els = document.querySelectorAll('code');
+    for (var i = 0; i < els.length; i++) {
+      if (!els[i].classList.contains('hljs')) {
+        await hljs.highlightBlock(els[i]);
+      }
+    }
   }
 
   render() {
@@ -33,11 +42,11 @@ export default class MessageItem extends Component {
               <span className="text-time">{this.props.date}</span>
             </div>
             <div className="textData"
+              dangerouslySetInnerHTML={{__html: this.props.message}}
               style={{
                 backgroundColor: isOtherMessage? '#f1f1f1': '#b2e281'
               }}
-            >
-              {this.props.message}        
+            >     
             </div>
           </div>
           {

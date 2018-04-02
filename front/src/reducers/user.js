@@ -22,22 +22,31 @@ export function user(state = initState, action) {
         ['roomList'], 
         roomList => {
           const roomIndex = roomList.findIndex(g => g.get('id') === action.roomId)
-          return roomList.updateIn([roomIndex, 'onlineUsers'], m => {
-            let userIndex = m.findIndex(user => user.get('id') === action.user.id)
-            if (userIndex === -1) {
-              return m.push(immutable.fromJS(action.user))
-            } 
-            return m;
-          })
+          console.log('roomList.get', roomList.get([roomIndex, 'onlineUsers']))
+          if (roomList.get([roomIndex, 'onlineUsers'])) {
+            return roomList.updateIn([roomIndex, 'onlineUsers'], m => {
+              let userIndex = m.findIndex(user => user.get('id') === action.user.id)
+              if (userIndex === -1) {
+                return m.push(immutable.fromJS(action.user))
+              } 
+              return m;
+            })
+          } else {
+            return roomList
+          }
         }
       ).updateIn(
         ['messageList'],
         messageList => {
           const roomIndex = messageList.findIndex(g => g.get('roomId') === action.roomId)
-          return messageList.updateIn([roomIndex, 'messages'], m => m.push(immutable.fromJS({
-            msgType: 'TIPS_MESSAGE',
-            data: action.data
-          })))
+          if(messageList.get([roomIndex, 'messages'])) {
+            return messageList.updateIn([roomIndex, 'messages'], m => m.push(immutable.fromJS({
+              msgType: 'TIPS_MESSAGE',
+              data: action.data
+            })))
+          } else {
+            return messageList;
+          }
         }
       )
     }
