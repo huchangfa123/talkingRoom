@@ -8,7 +8,8 @@ import { formatTime } from '../../util/format';
 
 @connect(
   state => ({
-    roomList: state.user.getIn(['roomList'])
+    roomList: state.user.getIn(['roomList']),
+    messageList: state.user.getIn(['messageList'])
   }),
   null
 )
@@ -31,7 +32,8 @@ export default class ManagerBody extends Component {
                   time={formatTime(room.get('updatedAt'))}
                   id={room.get('id')}
                   avatar={room.get('avatar')}
-                  content="21312312"
+                  content={room.get('lastMessage')}
+                  unread={room.get('unread')}
                 />
               ))
             }

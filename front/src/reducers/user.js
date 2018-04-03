@@ -10,24 +10,26 @@ const initState = immutable.fromJS({
 
 export function user(state = initState, action) {
   switch (action.type) {
-    case 'getMessage': {
-      if (action.data.From.id !== config.user.id) {
-        setNotification(action.data)
+
+    case 'setRoomsAndMessagesList': {
+      let messageList = []
+      let roomList = []
+      for(let room of action.data) {
+        messageList.push({
+          roomId: room.id,
+          messages: []
+        });
+        roomList.push(Object.assign(room, { unread: 0}))
       }
-      return state.updateIn(
-        ['messageList'],
-        messageList => {
-          const roomIndex = messageList.findIndex(g => g.get('roomId') === action.data.roomId);
-          return messageList.updateIn([roomIndex, 'messages'], m => m.push(immutable.fromJS(action.data)))
-        }
-      )
+      return state.set('messageList', immutable.fromJS(messageList))
+                  .set('roomList', immutable.fromJS(roomList))
     }
+
     case 'addUser': {
       return state.updateIn(
         ['roomList'], 
         roomList => {
           const roomIndex = roomList.findIndex(g => g.get('id') === action.roomId)
-          console.log('roomList.get', roomList.get([roomIndex, 'onlineUsers']))
           if (roomList.get([roomIndex, 'onlineUsers'])) {
             return roomList.updateIn([roomIndex, 'onlineUsers'], m => {
               let userIndex = m.findIndex(user => user.get('id') === action.user.id)
@@ -55,38 +57,68 @@ export function user(state = initState, action) {
         }
       )
     }
-    
-    case 'userLeave': {
+
+    // 初始化获取群信息
+    case 'getRoomMessage': {
       return state.updateIn(
         ['messageList'],
-        messageList => messageList.map((item, index) => {
-          return item.updateIn(['messages'], messages => messages.push(immutable.fromJS({
-            msgType: 'TIPS_MESSAGE',
-            data: action.data
-          })))
-        })
-      ).updateIn(
-        ['roomList'],
-        roomList => roomList.map((room, index) => {
-          return room.updateIn(['onlineUsers'], 
-            onlineUsers => onlineUsers.delete(onlineUsers.findIndex(user => user.get('id') === action.data.userId))
+        messageList => {
+          const roomIndex = messageList.findIndex(g => g.get('roomId') === action.roomId)
+          return messageList.updateIn(
+            [roomIndex, 'messages'],
+            messages => immutable.fromJS(action.data.data)
           )
-        })
+        }
       )
     }
 
-    case 'setRoomsAndMessagesList': {
-      let messageList = []
-      for(let room of action.data) {
-        messageList.push({
-          roomId: room.id,
-          messages: []
-        })
+    // 接信息
+    case 'getMessage': {
+      const curSelectId = state.get('curSelectedRoom').get('id')
+      console.log('action.data', action.data)
+      console.log('curSelectId', curSelectId)
+      console.log('roomId', action.data.roomId)      
+      if (action.data.From.id !== config.user.id) {
+        setNotification(action.data)
       }
-      return state.set('messageList', immutable.fromJS(messageList))
-                  .set('roomList', immutable.fromJS(action.data))
+      return state.updateIn(
+        ['messageList'],
+        messageList => {
+          const roomIndex = messageList.findIndex(g => g.get('roomId') === action.data.roomId);
+          return messageList.updateIn(
+            [roomIndex, 'messages'],
+            m => m.push(immutable.fromJS(action.data))
+          )
+        }
+      ).updateIn(
+        ['roomList'], 
+        roomList => {
+          const roomIndex = roomList.findIndex(g => g.get('id') === action.data.roomId);
+          return roomList.updateIn(
+            [roomIndex, 'unread'],
+            unread => (!curSelectId || curSelectId !== action.data.roomId)? unread+=1 : unread
+          ).updateIn(
+            [roomIndex, 'lastMessage'],
+            lastMessage => lastMessage = `<span>${action.data.From.name}: ${action.data.content}</span>`
+          )
+        }
+      )
     }
 
+    case 'setCurRoom': {
+      let roomList = state.get('roomList')
+      const roomIndex = roomList.findIndex(g => g.get('id') === action.data)
+      return state.updateIn(
+        ['roomList'],
+        roomList => roomList.updateIn(
+          [roomIndex, 'unread'],
+          unread => unread = 0
+        )
+      ).set('curSelectedRoom', roomList.get(roomIndex))
+
+    }
+
+    
     case 'createRoom': {
       return state.updateIn(
         ['roomList'],
@@ -127,24 +159,25 @@ export function user(state = initState, action) {
       )
     }
 
-    case 'getRoomMessage': {
+    case 'userLeave': {
       return state.updateIn(
         ['messageList'],
-        messageList => {
-          const roomIndex = messageList.findIndex(g => g.get('roomId') === action.roomId)
-          return messageList.updateIn(
-            [roomIndex, 'messages'],
-            messages => immutable.fromJS(action.data.data)
+        messageList => messageList.map((item, index) => {
+          return item.updateIn(['messages'], messages => messages.push(immutable.fromJS({
+            msgType: 'TIPS_MESSAGE',
+            data: action.data
+          })))
+        })
+      ).updateIn(
+        ['roomList'],
+        roomList => roomList.map((room, index) => {
+          return room.updateIn(['onlineUsers'], 
+            onlineUsers => onlineUsers.delete(onlineUsers.findIndex(user => user.get('id') === action.data.userId))
           )
-        }
+        })
       )
     }
 
-    case 'setCurRoom': {
-      let roomList = state.get('roomList')
-      const roomIndex = roomList.findIndex(g => g.get('id') === action.data)
-      return state.set('curSelectedRoom', roomList.get(roomIndex))
-    }
     default:
       return state;
   }

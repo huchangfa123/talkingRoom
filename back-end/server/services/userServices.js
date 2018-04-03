@@ -182,6 +182,11 @@ class UserServices {
     let result = []
     for (let room of Rooms) {
       let onlineUsers = await this.getRoomsOnlineUser({roomId: room.id})
+      let lastMessage = await RoomMessage.findOne({
+        order: [['createdAt', 'DESC']],        
+        where: {'toId': room.id},
+        include: ['From']
+      })
       result.push({
         id: room.id,
         avatar: room.avatar,
@@ -189,7 +194,8 @@ class UserServices {
         name: room.name,
         notice: room.notice,
         updatedAt: room.updatedAt,
-        onlineUsers
+        onlineUsers,
+        lastMessage: `<span>${lastMessage.From.name}: ${lastMessage.content}</span>`
       })
     }
     return result

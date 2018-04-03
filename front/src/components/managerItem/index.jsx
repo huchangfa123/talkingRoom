@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import './managerItem.css';
 import ui from '../../action/UiAction';
 import { getRoomMessage, setCurrentRoom } from '../../action/UserAction';
-import socketServer from '../../frameworks/Socket'
+import socketServer from '../../frameworks/Socket';
+import { formatMessageContent } from '../../util/format';
 @connect(null, { getRoomMessage, setCurrentRoom })
 export default class ManagerItem extends Component {
 
@@ -20,6 +21,7 @@ export default class ManagerItem extends Component {
   }
 
   render() {
+    console.log('this.props.unread', this.props.content)
     return (
       <div className="managerItem" onClick={this.handleClick.bind(this)}>
         <div className="itemPic">
@@ -40,14 +42,14 @@ export default class ManagerItem extends Component {
               {this.props.name.charAt(0)}
             </div>
           )}
+          <div className="unread" style={{display: this.props.unread === 0 ? 'none' : 'block'}}>{this.props.unread}</div>
         </div>
         <div className="itemContent">
           <div>
             <p>{this.props.name}</p>
             <p>{this.props.time}</p>
           </div>
-          <div>
-            <p>{this.props.content}</p>
+          <div dangerouslySetInnerHTML={{__html: formatMessageContent(this.props.content)}}>
           </div>
         </div>
       </div>
