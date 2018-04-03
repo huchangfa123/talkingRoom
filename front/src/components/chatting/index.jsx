@@ -38,8 +38,8 @@ export default class Chatting extends Component {
     }
     if (e.keyCode === 13 && !e.shiftKey) {
       e.preventDefault();
-      let message = this.refs.userInput.value;
-      this.refs.userInput.value = '';
+      let message = this.refs.userInput.innerText; // textContent会把换行符转化
+      this.refs.userInput.innerText = '';
       this.props.send({
         From: {
           id: this.props.userData.id,
@@ -118,23 +118,8 @@ export default class Chatting extends Component {
             )
           )}
         </div>
-        <div className="toolbar">
-          <div className="emoji" title="表情">
-            <i className="iconfont">&#xe65c;</i>
-          </div>
-          <div className="pic">
-            <i className="iconfont" title="上传图片">
-              &#xe60d;
-            </i>
-          </div>
-          <div className="code">
-            <i className="iconfont" title="代码">
-              &#xe6dc;
-            </i>
-          </div>
-        </div>
         <div className="input-box">
-          <input type="text" placeholder="输入消息" onKeyDown={this.handleInputKeyDown} ref="userInput" />
+          <pre contentEditable={true} placeholder="输入消息" onKeyDown={this.handleInputKeyDown} ref="userInput" />
         </div>
       </div>
     );

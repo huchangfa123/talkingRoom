@@ -9,3 +9,11 @@ export function formatTime(time) {
   }
   return hour + ':' + mins;
 }
+
+export function formatMessageContent(str) {
+  var s = "";
+  if(str.length == 0) return "";
+  s = str.replace(/<script>/g,"&lt;script&gt;");
+  s = s.replace(/<\/script>/g,"&lt;/script&gt;");
+  return s; 
+}

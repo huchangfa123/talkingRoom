@@ -69,6 +69,9 @@ export default class Main extends Component {
   }
 　
   async componentWillMount() {
+    if (window.Notification && (window.Notification.permission === 'default' || window.Notification.permission === 'denied')) {
+      window.Notification.requestPermission();
+    }
     const mainBody = await document.getElementsByClassName('mainWindow');
     mainBody[0].addEventListener('click', e => {
       console.log(e);

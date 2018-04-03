@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './messageItem.css';
 import hljs from 'highlight.js';
+import { formatMessageContent } from '../../util/format';
 export default class MessageItem extends Component {
   constructor(props) {
     super(props);
@@ -40,9 +41,9 @@ export default class MessageItem extends Component {
             <div className="textFrom">
               <span className="text-userName">{this.props.userName}</span>
               <span className="text-time">{this.props.date}</span>
-            </div>
+            </div>  
             <div className="textData"
-              dangerouslySetInnerHTML={{__html: this.props.message}}
+              dangerouslySetInnerHTML={{__html: formatMessageContent(this.props.message)}}
               style={{
                 backgroundColor: isOtherMessage? '#f1f1f1': '#b2e281'
               }}
