@@ -1,4 +1,6 @@
 import immutable, { isImmutable } from 'immutable'
+import config from '../config'
+import setNotification from '../util/setNotification'
 
 const initState = immutable.fromJS({
   messageList: [],
@@ -9,6 +11,9 @@ const initState = immutable.fromJS({
 export function user(state = initState, action) {
   switch (action.type) {
     case 'getMessage': {
+      if (action.data.From.id !== config.user.id) {
+        setNotification(action.data)
+      }
       return state.updateIn(
         ['messageList'],
         messageList => {
