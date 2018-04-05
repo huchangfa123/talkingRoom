@@ -120,6 +120,7 @@ export default class Chatting extends Component {
         </div>
         <div className="input-box">
           <pre contentEditable={true} placeholder="输入消息" onKeyDown={this.handleInputKeyDown} ref="userInput" />
+          <button className="send-pic"></button>
         </div>
       </div>
     );
