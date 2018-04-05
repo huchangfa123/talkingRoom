@@ -2,7 +2,7 @@ version: '2'
 services:
   backend:
     image: chattingroom-backend
-    port:
+    ports:
       - "4000:4000"
   redis:
     image: redis
