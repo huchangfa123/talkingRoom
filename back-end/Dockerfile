@@ -2,7 +2,7 @@ FROM node:latest
 MAINTAINER huchangfa<hcf1095246249@qq.com>
 
 RUN mkdir /backend
-RUN npm install -g nodemon babel-node
+RUN npm install -g nodemon babel-cli
 WORKDIR /backend
 COPY . /backend
 
