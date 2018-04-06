@@ -7,7 +7,7 @@
 // }
 
 var config = {
-  database: 'talkingRoom',
+  database: 'chattingroom',
   username: 'root',
   password: '123456',
   host: 'mysql',
