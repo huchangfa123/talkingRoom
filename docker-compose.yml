@@ -25,3 +25,5 @@ services:
     image: front
     ports:
       - "4001:4001"
+  volumes:
+    my-datavolume:
