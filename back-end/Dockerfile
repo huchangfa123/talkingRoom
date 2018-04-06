@@ -6,7 +6,7 @@ RUN npm install -g nodemon babel-cli
 WORKDIR /backend
 COPY . /backend
 
-RUN sudo npm install
+RUN npm install
 
 EXPOSE 4000
 ENTRYPOINT nodemon index.js --exec babel-node
