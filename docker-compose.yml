@@ -9,6 +9,8 @@ services:
     image: mysql
     ports: 
       - "3306:3306"
+    volumes:
+      - '~/dev/dbs-data/mysql:/var/lib/mysql'
     environment:
       MYSQL_ROOT_PASSWORD: "123456"
       MYSQL_DATABASE: 'chattingroom'
