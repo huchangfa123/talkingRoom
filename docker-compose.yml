@@ -11,15 +11,12 @@ services:
       - "3306:3306"
     container_name: mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=123456
-      - MYSQL_DATABASE=chattingroom
+      - MYSQL_USER: 'root'
+      - MYSQL_ROOT_PASSWORD: '123456'
+      - MYSQL_DATABASE: 'chattingroom'
 
   backend:
     image: chattingroom-backend
-    depends_on: 
-      - mysql
-    links:
-      - 'mysql'
     ports:
       - "4000:4000"
 
