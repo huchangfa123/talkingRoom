@@ -12,6 +12,8 @@ services:
 
   backend:
     image: chattingroom-backend
+    links:
+      - mysql: mysql
     ports:
       - "4000:4000"
 
