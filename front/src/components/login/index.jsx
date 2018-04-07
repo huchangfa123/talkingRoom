@@ -8,6 +8,7 @@ import socketServer from '../../frameworks/Socket';
 import Main from '../main';
 import cookie from 'js-cookie';
 import { getRoomList } from '../../action/UserAction'
+import '../../assert/css/icon.css';
 
 @connect(
   state => ({
@@ -94,39 +95,39 @@ export default class Login extends Component {
   render() {
     return (
       <div className="login">
+        <div className="title">chattingRoom</div>
         <div className="managerBlock">
-          <div>
-            <img className="userHead" src="http://www.17qq.com/img_qqtouxiang/22526416.jpeg" />
-          </div>
-          <div className="ioBlock">
-            <div className="dataBlock">
-              <div className="input-normal">
-                <span>帐号:</span>
+          <div className="dataBlock">
+            <div className="input-normal">
+              <span>
+                <i className="iconfont">&#xe739;</i>
                 <input
                   type="text"
                   placeholder="用户名"
                   value={this.state.userName}
                   onChange={this.handleUserName.bind(this)}
-                />
-              </div>
-              <div className="input-normal">
-                <span>密码:</span>
-                <input
-                  type="password"
-                  placeholder="密码"
-                  value={this.state.password}
-                  onChange={this.handlePassword.bind(this)}
-                />
-              </div>
+                /> 
+              </span>
             </div>
-            <div className="clickBlock">
-              <button className="btn" onClick={this.login.bind(this)}>
-                登录
-              </button>
-              <button className="btn" onClick={this.registerButton.bind(this)}>
-                注册
-              </button>
+            <div className="input-normal">
+              <span>
+              <i className="iconfont">&#xe6e6;</i>
+              <input
+                type="password"
+                placeholder="密码"
+                value={this.state.password}
+                onChange={this.handlePassword.bind(this)}
+              />
+              </span>
             </div>
+          </div>
+          <div className="clickBlock">
+            <button className="btn" onClick={this.login.bind(this)}>
+              登录
+            </button>
+            <button className="btn" onClick={this.registerButton.bind(this)}>
+              注册
+            </button>
           </div>
         </div>
       </div>

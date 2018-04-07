@@ -3,9 +3,17 @@
   padding: 0
 }
 
-body {
-  background: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509363424307&di=78cd421400cc8c75ebffb9795608a394&imgtype=0&src=http%3A%2F%2Fwww.005.tv%2Fuploads%2Fallimg%2F161215%2F142042D25-4.jpg');
-  background-size: 100% 100%;
-  overflow: hidden;
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 

@@ -37,6 +37,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: url('http://file02.16sucai.com/d/file/2014/0909/402b5754a39e7ebcf2a6cf7f6bca4c08.jpg');
+  background-size: 100% 100%;
 }
 
 .wrapper {

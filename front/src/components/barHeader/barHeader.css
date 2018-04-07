@@ -1,10 +1,10 @@
 .BarHeader {
-  flex: 2;
   width: 100%;
   background-color: #e0864c;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  height: 60px;
 }
 
 .BarHeader i {

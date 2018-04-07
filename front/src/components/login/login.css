@@ -1,31 +1,31 @@
 .login {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 460px;
-  height: 200px;
-  background-color:rgba(255,255,255,0.9);
+  height: 300px;
+
+}
+
+.login .title {
+  font-size: 50px;
+  color: white;
+  line-height: 120px;
+  text-shadow: 1px 0 1px #8B4513, 0 1px 1px #8B4513, 
+    0 -1px 1px #8B4513, -1px 0 1px #8B4513;
 }
 
 .managerBlock{
   display: flex;
-  justify-content: space-around;
-  flex-direction: row;
-}
-
-.ioBlock {
-  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-}
-
-.userHead {
-  width: 100px;
-  height: 100px;
-  box-sizing: border-box;
-  border-radius: 50%;
-  margin: 20px 30px 0 0;
+  border-radius: 5px;
+  background-color: #f8fbfd;
+  border: 1px solid #dae1e3;
+  width: 80%;
+  height: 180px;
 }
 
 .input-normal {
@@ -35,48 +35,56 @@
   align-items: center;
   box-sizing: content-box;
   margin-bottom: 10px;
-  width: 250px;
+  width: 300px;
   height: 36px;
 }
 
-.input-normal input {
-  flex: 1;
-  height: 36px;
-  padding-right: 10px;
+.input-normal span{
+  display: block;
+  position: relative;
+}
+
+.input-normal span i{
+  height: 14px;
+  left: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-10px);
+  width: 14px;
+  z-index: 2;
+}
+
+.input-normal span input {
+  border: 1px solid #dae1e3;
   font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
+  padding: 10px 10px 10px 35px;
+  width: 90%;
   border-radius: 5px;
-  background-color: transparent;
-  border: 1px solid #727272;
-  padding-left: 5px;
 }
 
-.input-normal input:-webkit-autofill {
+.input-normal span input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px #fff inset !important;
   -webkit-text-fill-color: #333;
 }
 
-.input-normal span {
-  margin-right: 10px;
-  font-size: 16px;
-}
-
 .clickBlock {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   flex-direction: row;
-  margin: 0 auto;
 }
 
 .clickBlock .btn {
   display: inline-block;
-  margin: 0 10px 5px 0;
+  margin: 0 5px;
   font-size: 16px;
   text-align: center;
   border: 1px solid transparent;
   padding: 6px 12px;
   color: #fff;
-  background-color: #337ab7;
+  background-color: #3aace9;
   border-color: #2e6da4;
   border-radius: 5px;
 }
