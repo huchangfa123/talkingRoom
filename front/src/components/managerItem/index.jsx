@@ -4,7 +4,7 @@ import './managerItem.css';
 import ui from '../../action/UiAction';
 import { getRoomMessage, setCurrentRoom } from '../../action/UserAction';
 import socketServer from '../../frameworks/Socket';
-import { formatMessageContent } from '../../util/format';
+import { formatManagerItemContent } from '../../util/format';
 @connect(null, { getRoomMessage, setCurrentRoom })
 export default class ManagerItem extends Component {
 
@@ -49,7 +49,10 @@ export default class ManagerItem extends Component {
             <p>{this.props.name}</p>
             <p>{this.props.time}</p>
           </div>
-          <div dangerouslySetInnerHTML={{__html: formatMessageContent(this.props.content)}}>
+          <div>
+            <p>
+              { formatManagerItemContent(this.props.content).toString() }
+            </p>
           </div>
         </div>
       </div>

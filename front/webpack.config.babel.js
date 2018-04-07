@@ -10,13 +10,14 @@ module.exports = {
       'webpack-dev-server/client?http://localhost:8080/',
       './src/index.jsx'
     ],
-    vendor: ['react', 'react-dom', 'react-router-dom', 'immutable']
+    // vendor: ['react', 'react-dom', 'react-router-dom', 'immutable']
   },
   output: {
     path: path.join(__dirname, 'public/static'),
     publicPath: '/static/',
-    filename: '[name].[chunkhash:4].js',
-    chunkFilename: '[name].[chunkhash:4].child.js'
+    filename: 'bundle.js'
+    // filename: '[name].[chunkhash:4].js',
+    // chunkFilename: '[name].[chunkhash:4].child.js'
   },
   devServer: {
     contentBase: path.join(__dirname, 'public'),
@@ -62,25 +63,25 @@ module.exports = {
         },
       }
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: ['vendor', 'runtime'], //把公共资源抽离，避免多次打包
-      minChunks: Infinity,
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      // ( 公共chunk(commnons chunk) 的名称)
-      name: "commons",
-      // ( 公共chunk 的文件名)
-      filename: "commons.[chunkhash:4].js",
-      // (模块必须被 3个 入口chunk 共享)
-      minChunks: 3
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      // (选择所有被选 chunks 的子 chunks)
-      children: true,
-      async: true,
-      // (在提取之前需要至少三个子 chunk 共享这个模块)
-      minChunks: 3,
-    })
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: ['vendor', 'runtime'], //把公共资源抽离，避免多次打包
+    //   minChunks: Infinity,
+    // }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   // ( 公共chunk(commnons chunk) 的名称)
+    //   name: "commons",
+    //   // ( 公共chunk 的文件名)
+    //   filename: "commons.[chunkhash:4].js",
+    //   // (模块必须被 3个 入口chunk 共享)
+    //   minChunks: 3
+    // }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   // (选择所有被选 chunks 的子 chunks)
+    //   children: true,
+    //   async: true,
+    //   // (在提取之前需要至少三个子 chunk 共享这个模块)
+    //   minChunks: 3,
+    // })
   ],
   resolve: {
     extensions: ['.js', '.jsx']

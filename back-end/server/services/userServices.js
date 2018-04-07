@@ -195,7 +195,7 @@ class UserServices {
         notice: room.notice,
         updatedAt: room.updatedAt,
         onlineUsers,
-        lastMessage: `<span>${lastMessage.From.name}: ${lastMessage.content}</span>`
+        lastMessage: `${lastMessage.From.name}: ${lastMessage.content}`
       })
     }
     return result

@@ -99,7 +99,7 @@ export function user(state = initState, action) {
             unread => (!curSelectId || curSelectId !== action.data.roomId)? unread+=1 : unread
           ).updateIn(
             [roomIndex, 'lastMessage'],
-            lastMessage => lastMessage = `<span>${action.data.From.name}: ${action.data.content}</span>`
+            lastMessage => lastMessage = `${action.data.From.name}: ${action.data.content}`
           )
         }
       )
