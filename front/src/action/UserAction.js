@@ -68,10 +68,6 @@ export function send(data) {
   return async dispatch => {
     let socket = await socketServer();
     socket.emit('send.message', data);
-    // dispatch({
-    //   type: 'sendMessage',
-    //   data
-    // });
   };
 }
 
@@ -79,7 +75,6 @@ export function send(data) {
  * 新用户加入
  */
 export function addUser(data) {
-  console.log('addUser', data)
   return {
     type: 'addUser',
     data,
@@ -160,7 +155,6 @@ export function getRoomList(data) {
 export function createRoom(data) {
   return async dispatch => {
     let result = await postData('/user/createRoom', data);
-    console.log('result', result)
     if (result.data.code === 200) {
       dispatch({
         type: 'createRoom',

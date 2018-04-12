@@ -30,12 +30,12 @@ export function user(state = initState, action) {
         ['roomList'], 
         roomList => {
           const roomIndex = roomList.findIndex(g => g.get('id') === action.roomId)
-          if (roomList.get([roomIndex, 'onlineUsers'])) {
+          if (roomList.getIn([roomIndex, 'onlineUsers'])) {
             return roomList.updateIn([roomIndex, 'onlineUsers'], m => {
               let userIndex = m.findIndex(user => user.get('id') === action.user.id)
               if (userIndex === -1) {
                 return m.push(immutable.fromJS(action.user))
-              } 
+              }
               return m;
             })
           } else {
@@ -75,9 +75,6 @@ export function user(state = initState, action) {
     // 接信息
     case 'getMessage': {
       const curSelectId = state.get('curSelectedRoom').get('id')
-      console.log('action.data', action.data)
-      console.log('curSelectId', curSelectId)
-      console.log('roomId', action.data.roomId)      
       if (action.data.From.id !== config.user.id) {
         setNotification(action.data)
       }
@@ -108,6 +105,7 @@ export function user(state = initState, action) {
     case 'setCurRoom': {
       let roomList = state.get('roomList')
       const roomIndex = roomList.findIndex(g => g.get('id') === action.data)
+      console.log('setCurRoom-roomIndex', roomIndex)
       return state.updateIn(
         ['roomList'],
         roomList => roomList.updateIn(

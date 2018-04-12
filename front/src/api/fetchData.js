@@ -5,10 +5,8 @@ axios.defaults.baseURL = config.apiUrl;
 axios.defaults.headers['xsrftoken'] = config.options.headers.XSRF_TOKEN || '';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-console.log('axios.defaults.headers', axios.defaults.headers['xsrftoken'])
 export function resetToken(newToken) {
   axios.defaults.headers['xsrftoken'] = newToken;
-  console.log('reset axios.defaults.headers', axios.defaults.headers['xsrftoken'])
   return
 }
 

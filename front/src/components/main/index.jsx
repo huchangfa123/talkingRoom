@@ -63,6 +63,7 @@ export default class Main extends Component {
       if (!this.props.loginResult) {
         this.context.router.history.push('/');
       } else {
+        console.log('asdasd')
         await this.props.getRoomList({userData: this.props.loginResult});
       }
     }
@@ -74,7 +75,6 @@ export default class Main extends Component {
     }
     const mainBody = await document.getElementsByClassName('mainWindow');
     mainBody[0].addEventListener('click', e => {
-      console.log(e);
       closeAllWindows();
     });
   }

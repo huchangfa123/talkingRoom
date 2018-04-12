@@ -42,7 +42,6 @@ export default class SideBar extends Component {
 
   async creatRoomEnsure() {
     let result = await this.props.createRoom({name: this.state.roomName, avatar: null, userData: this.props.userData});
-    console.log('result', result.code)
     if (result.code !== 200) {
       notification.warning(result.message);
     } else {

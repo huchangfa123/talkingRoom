@@ -1,5 +1,4 @@
 export default function openNotification(message) {
-  console.log('nesssage', message)
   if(window.Notification && window.Notification.permission === 'granted') {
     const notification = new window.Notification(
       message.From.name,

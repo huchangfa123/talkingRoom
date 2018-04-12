@@ -21,7 +21,6 @@ export default class ManagerItem extends Component {
   }
 
   render() {
-    console.log('this.props.unread', this.props.content)
     return (
       <div className="managerItem" onClick={this.handleClick.bind(this)}>
         <div className="itemPic">

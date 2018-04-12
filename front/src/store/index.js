@@ -18,7 +18,7 @@ function create() {
     routing: routerReducer
   });
 
-  const args = applyMiddleware(thunk, promise, createLogger);
+  const args = applyMiddleware(thunk, promise);
   const store = createStore(reducer, args);
   return store;
 }
