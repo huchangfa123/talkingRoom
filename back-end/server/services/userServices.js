@@ -183,7 +183,7 @@ class UserServices {
     for (let room of Rooms) {
       let onlineUsers = await this.getRoomsOnlineUser({roomId: room.id})
       let lastMessage = await RoomMessage.findOne({
-        order: [['createdAt', 'DESC']],        
+        order: [['createdAt', 'DESC']],
         where: {'toId': room.id},
         include: ['From']
       })

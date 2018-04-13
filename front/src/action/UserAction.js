@@ -190,7 +190,7 @@ export function joinRoom(data) {
  */
 export function getRoomMessage(data) {
   return async dispatch => {
-    let result = await getData(`/message/${data.id}`);
+    let result = await getData(`/message/${data.id}/０`);
     dispatch({
       type: 'getRoomMessage',
       data: result.data,
@@ -199,6 +199,21 @@ export function getRoomMessage(data) {
     return result.data
   }
 }
+
+/**
+ * 获取房间历史信息
+*/
+export function getRoomHistoryMessage(data) {
+  return async dispatch => {
+    let result = await getData(`/message/${data.id}/${data.curFirst}`)
+    dispatch({
+      type: 'getHistoryMessage',
+      data: result.data,
+      roomId: data.id
+    })
+  }
+}
+
 
 export function choiceOtherRoom() {
   return dispatch => {

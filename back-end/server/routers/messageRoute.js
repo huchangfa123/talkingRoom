@@ -3,6 +3,6 @@ import messageController from '../controller/message.ctrl';
 
 const router = new Router();
 
-router.get('/:id', messageController.getRoomMessage);
+router.get('/:id/:curFirst', messageController.getRoomMessage);
 
 export default router;

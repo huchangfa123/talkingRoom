@@ -29,8 +29,29 @@ class MessageServices {
 
   async getRoomMessage(data) {
     try {
-      console.log('data', data)
-      const roomMessage = await RoomMessage.findAll({ where: {'toId': data.id}, include: ['From'] })
+      let roomMessage = [];
+      let MessageLength = await RoomMessage.count({where: {'toId': data.id}})
+      if(data.curFirst !== 0) {
+        console.log(1111)
+        roomMessage = await RoomMessage.findAll({ 
+          where: {'toId': data.id, 'id':{$gt: data.curFirst}},
+          limit: 20,
+          order: [['createdAt', 'DESC']],
+          include: ['From'] 
+        })
+        roomMessage = roomMessage.reverse();
+      } else {
+        if(MessageLength > 20) {
+          MessageLength = MessageLength - 20;
+        }
+        roomMessage = await RoomMessage.findAll({
+          offset: MessageLength,
+          limit: 20,
+          order: [['createdAt', 'ASC']],
+          where: {'toId': data.id},
+          include: ['From']
+        })
+      }
       return roomMessage
 
     } catch (error) {

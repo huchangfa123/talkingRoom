@@ -72,6 +72,11 @@ export function user(state = initState, action) {
       )
     }
 
+    // 滚动获取历史信息
+    case 'getHistoryMessage': {
+      return state.update()
+    }
+
     // 接信息
     case 'getMessage': {
       const curSelectId = state.get('curSelectedRoom').get('id')

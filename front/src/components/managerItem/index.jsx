@@ -5,7 +5,11 @@ import ui from '../../action/UiAction';
 import { getRoomMessage, setCurrentRoom } from '../../action/UserAction';
 import socketServer from '../../frameworks/Socket';
 import { formatManagerItemContent } from '../../util/format';
-@connect(null, { getRoomMessage, setCurrentRoom })
+@connect(
+  state => ({
+    messageList: state.user.getIn(['messageList'])
+  }), 
+  { getRoomMessage, setCurrentRoom })
 export default class ManagerItem extends Component {
 
   static contextTypes = {
@@ -14,7 +18,10 @@ export default class ManagerItem extends Component {
 
   async handleClick() {
     await this.props.setCurrentRoom(this.props.id)
-    await this.props.getRoomMessage({id: this.props.id})
+    const roomIndex = this.props.messageList.findIndex(g => g.get('roomId') === this.props.id)
+    if(!this.props.messageList.getIn([roomIndex, 'messages', 0])) {
+      await this.props.getRoomMessage({id: this.props.id})
+    }
     await ui.getInRoom();
     this.context.router.history.push(`/main/chatting/${this.props.id}`);
     await socketServer()

@@ -1,10 +1,12 @@
+import { formatManagerItemContent } from './format';
+
 export default function openNotification(message) {
   if(window.Notification && window.Notification.permission === 'granted') {
     const notification = new window.Notification(
       message.From.name,
       {
         icon: null,
-        body: message.content,
+        body: formatManagerItemContent(message.content),
         tag: message.From.id
       }
     )
