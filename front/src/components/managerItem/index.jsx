@@ -57,7 +57,7 @@ export default class ManagerItem extends Component {
           </div>
           <div>
             <p>
-              { formatManagerItemContent(this.props.content).toString() }
+              { this.props.content? formatManagerItemContent(this.props.content).toString() : ''}
             </p>
           </div>
         </div>

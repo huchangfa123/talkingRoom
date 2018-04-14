@@ -31,10 +31,10 @@ class MessageServices {
     try {
       let roomMessage = [];
       let MessageLength = await RoomMessage.count({where: {'toId': data.id}})
-      if(data.curFirst !== 0) {
+      if(data.curFirst !== '0') {
         console.log(1111)
         roomMessage = await RoomMessage.findAll({ 
-          where: {'toId': data.id, 'id':{$gt: data.curFirst}},
+          where: {'toId': data.id, 'id':{$lt: data.curFirst}},
           limit: 20,
           order: [['createdAt', 'DESC']],
           include: ['From'] 
@@ -43,6 +43,8 @@ class MessageServices {
       } else {
         if(MessageLength > 20) {
           MessageLength = MessageLength - 20;
+        } else {
+          MessageLength = 0;
         }
         roomMessage = await RoomMessage.findAll({
           offset: MessageLength,

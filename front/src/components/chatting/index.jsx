@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import './chatting.css';
 import '../../assert/css/icon.css';
 import MessageItem from '../messageItem';
-import { send } from '../../action/UserAction';
+import { send, getRoomHistoryMessage } from '../../action/UserAction';
 import ui from '../../action/UiAction';
 import GroupMessage from '../groupMessage';
 import { formatTime } from '../../util/format'
@@ -19,7 +19,7 @@ import marked from 'marked';
     messageList: state.user.getIn(['messageList']),
     userData: state.loginResult
   }),
-  { send }
+  { send, getRoomHistoryMessage }
 )
 export default class Chatting extends Component {
   constructor(props) {
@@ -29,6 +29,18 @@ export default class Chatting extends Component {
   handleOnScroller(){
     let scrollbox = document.getElementsByClassName('message-list');
     scrollbox[0].scrollTop = scrollbox[0].scrollHeight;
+  }
+
+  async handleOnScroll() {
+    const roomId = this.props.curSelectedRoom.get('id')
+    if(this.list.scrollTop === 0) {
+      const roomIndex = this.props.messageList.findIndex(g => g.get('roomId') === roomId)
+      console.log('istop',this.props.messageList.get(roomIndex).get('isTop'))
+      if (this.props.messageList.get(roomIndex).get('messages').size !== 0 && !this.props.messageList.get(roomIndex).get('isTop')) {
+        const curFirst = this.props.messageList.get(roomIndex).get('messages').get(0).get('id');
+        await this.props.getRoomHistoryMessage({id: roomId, curFirst})
+      }
+    }
   }
 
   handleInputKeyDown = e => {
@@ -103,7 +115,11 @@ export default class Chatting extends Component {
             </div>
           </div>
         </div>
-        <div className="message-list">
+        <div 
+          className="message-list"
+          ref={list => this.list = list}
+          onScroll={this.handleOnScroll.bind(this)}
+        >
           {messages.map((message, index) => (
               message.get('msgType') !== 'TIPS_MESSAGE' ?
               <MessageItem

@@ -190,7 +190,7 @@ export function joinRoom(data) {
  */
 export function getRoomMessage(data) {
   return async dispatch => {
-    let result = await getData(`/message/${data.id}/０`);
+    let result = await getData(`/message/${data.id}/0`);
     dispatch({
       type: 'getRoomMessage',
       data: result.data,

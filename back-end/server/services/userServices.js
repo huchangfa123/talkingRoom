@@ -181,12 +181,16 @@ class UserServices {
     let Rooms = await user.getRooms();
     let result = []
     for (let room of Rooms) {
+      let lastMessage = ''
       let onlineUsers = await this.getRoomsOnlineUser({roomId: room.id})
-      let lastMessage = await RoomMessage.findOne({
-        order: [['createdAt', 'DESC']],
-        where: {'toId': room.id},
-        include: ['From']
-      })
+      const haveMessage = await RoomMessage.findOne({where: {'toId': room.id}});
+      if(haveMessage) {
+        lastMessage = await RoomMessage.findOne({
+          order: [['createdAt', 'DESC']],
+          where: {'toId': room.id},
+          include: ['From']
+        })
+      }
       result.push({
         id: room.id,
         avatar: room.avatar,
@@ -195,7 +199,7 @@ class UserServices {
         notice: room.notice,
         updatedAt: room.updatedAt,
         onlineUsers,
-        lastMessage: `${lastMessage.From.name}: ${lastMessage.content}`
+        lastMessage: haveMessage? `${lastMessage.From.name}: ${lastMessage.content}` : lastMessage
       })
     }
     return result

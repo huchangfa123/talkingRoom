@@ -17,7 +17,8 @@ export function user(state = initState, action) {
       for(let room of action.data) {
         messageList.push({
           roomId: room.id,
-          messages: []
+          messages: [],
+          isTop: false
         });
         roomList.push(Object.assign(room, { unread: 0}))
       }
@@ -74,7 +75,24 @@ export function user(state = initState, action) {
 
     // 滚动获取历史信息
     case 'getHistoryMessage': {
-      return state.update()
+      return state.updateIn(
+        ['messageList'],
+        messageList => {
+          const roomIndex = messageList.findIndex(g => g.get('roomId') === action.roomId)
+          console.log('action.data.data.length', action.data.data.length)
+          if (action.data.data.length === 0) {
+            return messageList.updateIn(
+              [roomIndex, 'isTop'],
+              isTop => isTop = true
+            )
+          } else {
+            return messageList.updateIn(
+              [roomIndex, 'messages'],
+              messages => immutable.fromJS(action.data.data).concat(messages)
+            ) 
+          }
+        }
+      );
     }
 
     // 接信息
@@ -110,7 +128,6 @@ export function user(state = initState, action) {
     case 'setCurRoom': {
       let roomList = state.get('roomList')
       const roomIndex = roomList.findIndex(g => g.get('id') === action.data)
-      console.log('setCurRoom-roomIndex', roomIndex)
       return state.updateIn(
         ['roomList'],
         roomList => roomList.updateIn(
