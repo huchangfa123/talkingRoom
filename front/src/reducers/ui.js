@@ -1,4 +1,5 @@
 import immutable from 'immutable'
+import { setDesktopNotification } from '../config'
 
 const initState = immutable.fromJS({
   showIconMenu: false,
@@ -6,7 +7,10 @@ const initState = immutable.fromJS({
   showMaskLayout: false,
   showGroupMessage: false,
   showGroupNotice: false,
-  getInRoom: false
+  getInRoom: false,
+  playSound: false,
+  soundNotification: true,
+  desktopNotification: true
 });
 
 export function ui(state = initState, action) {
@@ -61,6 +65,32 @@ export function ui(state = initState, action) {
 
     case 'GetOutRoom': {
       return state.set('getInRoom', false);
+    }
+
+    case 'PlaySound': {
+      return state.set('playSound', true);
+    }
+
+    case 'CloseSound': {
+      return state.set('playSound', false);    
+    }
+    
+    case 'OpenSoundNotification': {
+      return state.set('soundNotification', true)
+    }
+
+    case 'CloseSoundNotification': {
+      return state.set('soundNotification', false)
+    }
+
+    case 'OpenDesktopNotification': {
+      setDesktopNotification(true);
+      return state.set('desktopNotification', true)
+    }
+
+    case 'CloseDesktopNotification': {
+      setDesktopNotification(false);      
+      return state.set('desktopNotification', false)
     }
 
     default:

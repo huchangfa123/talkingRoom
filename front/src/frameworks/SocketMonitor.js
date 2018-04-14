@@ -1,6 +1,7 @@
 import { addUser, userLeave, otherLeaveRoom } from '../action/UserAction';
 import { getNewMessage } from '../action/UserAction';
 import store from '../store';
+import Ui from '../action/UiAction';
 
 export default function socketMonitor (io) {
   // 新用户加入
@@ -15,6 +16,7 @@ export default function socketMonitor (io) {
 
   io.on('send.message', (data) => {
     store.dispatch(getNewMessage(data));
+    store.dispatch(Ui.playSound())
   });
 
   io.on('user.leave.room', (data) => {

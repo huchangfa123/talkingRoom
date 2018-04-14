@@ -1,6 +1,51 @@
 .settingBody {
-  width: 100px;
-  height: 100px;
-  background-color: #000;
-  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column
+}
+
+.settingBody .switch {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.settingBody .switch > div {
+  width: 40px;
+  height: 14px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #e8e8e8;
+  border: 1px solid #bdbdbd;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.settingBody .switch > span {
+  margin-right: 40px;
+}
+
+.settingBody .switch > div > div {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.settingBody .switch > div .off {
+  right: -15px;
+  background-color: #ff4500;
+}
+
+.settingBody .switch > div .on {
+  left: -10px;
+  background-color: #7cfc00;
 }

@@ -26,7 +26,20 @@ const actions = {
 
   // getInRoom
   getInRoom: () => dispatch({ type: 'GetInRoom'}),
-  getOutRoom: () => dispatch({ type: 'GetOutRoom'})  
+  getOutRoom: () => dispatch({ type: 'GetOutRoom'}),
+
+  // playsound
+  playSound: () => dispatch({type: 'PlaySound'}),
+  notPlaySound: () => dispatch({type: 'CloseSound'}),
+
+  // DesktopNotification
+  openDesktopNotification: () => dispatch({type: 'OpenDesktopNotification'}),
+  notOpenDesktopNotification: () => dispatch({type: 'CloseDesktopNotification'}),
+
+  // SoundNotification
+  openSoundNotification: () => dispatch({type: 'OpenSoundNotification'}),
+  notOpenSoundNotification: () => dispatch({type: 'CloseSoundNotification'})
+
 }
 
 export default actions;

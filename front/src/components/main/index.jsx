@@ -29,7 +29,9 @@ class defaultChattingPage extends Component {
   state => ({
     sideBarType: state.ui.getIn(['sideBarType']),
     loginResult: state.loginResult,
-    getInRoom: state.ui.getIn(['getInRoom'])
+    getInRoom: state.ui.getIn(['getInRoom']),
+    playSound: state.ui.getIn(['playSound']),
+    soundNotification: state.ui.getIn(['soundNotification'])
   }),
   { autoLogin, getRoomList }
 )
@@ -78,6 +80,16 @@ export default class Main extends Component {
     });
   }
 
+  async componentWillUpdate(nextProps) {
+    if(nextProps.playSound && nextProps.soundNotification) {
+      await this.sound.play();
+      ui.notPlaySound();
+    } else {
+      await this.sound.pause();
+      await this.sound.load();    
+    }
+  }
+
   render() {
     this.state.selected = /\/setting$/.test(this.props.location.pathname);
     const { sideBarType } = this.props;
@@ -116,6 +128,13 @@ export default class Main extends Component {
             </div>
           </div>
         </div>
+        <audio
+          ref={sound => this.sound = sound}
+        >
+          <source src={require('../../assert/sounds/message_sound.mp3')} type="audio/mp3" />
+          <source src={require('../../assert/sounds/message_sound.ogg')} type="audio/ogg" />
+          <source src={require('../../assert/sounds/message_sound.wav')} type="audio/wav" />
+        </audio>
       </div>
     );
   }

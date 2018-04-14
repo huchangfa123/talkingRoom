@@ -98,7 +98,7 @@ export function user(state = initState, action) {
     // 接信息
     case 'getMessage': {
       const curSelectId = state.get('curSelectedRoom').get('id')
-      if (action.data.From.id !== config.user.id) {
+      if (action.data.From.id !== config.user.id && config.desktopNotification) {
         setNotification(action.data)
       }
       return state.updateIn(

@@ -37,6 +37,10 @@ module.exports = {
         use: ['style-loader', 'css-loader']
       },
       {
+        test: /(\.mp3|\.ogg|\.wav)$/,
+        use: 'file-loader'
+      },
+      {
         test: /\.scss$/,
         use: ['style-loader', 'sass-loader', 'css-loader']
       },

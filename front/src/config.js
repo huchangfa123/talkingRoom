@@ -8,7 +8,8 @@ let data =  {
       XSRF_TOKEN: `${cookie.get('XSRF_TOKEN')}`
     }
   },
-  user: {}
+  user: {},
+  desktopNotification: true
 };
 export default data;
 
@@ -18,4 +19,8 @@ export function setToken(token) {
 
 export function setUser(user) {
   data.user = user;
+}
+
+export function setDesktopNotification(bool) {
+  data.desktopNotification = bool;
 }
