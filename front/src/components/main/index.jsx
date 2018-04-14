@@ -83,10 +83,7 @@ export default class Main extends Component {
   async componentWillUpdate(nextProps) {
     if(nextProps.playSound && nextProps.soundNotification) {
       await this.sound.play();
-      ui.notPlaySound();
-    } else {
-      await this.sound.pause();
-      await this.sound.load();    
+      ui.notPlaySound()
     }
   }
 
