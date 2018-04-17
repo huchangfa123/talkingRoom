@@ -7,10 +7,10 @@ var config = {
 }
 
 // var config = {
-//   database: 'chattingroom',
+//   database: 'talkingRoom',
 //   username: 'root',
 //   password: '123456',
-//   host: 'mysql',
+//   host: '45.78.15.134',
 //   jwtSecret: '5663989'
 // }
 

@@ -4,7 +4,6 @@ import './login.css';
 import { login, register, autoLogin } from '../../action/UserAction';
 import notification from '../notice';
 import { Redirect } from 'react-router-dom';
-import socketServer from '../../frameworks/Socket';
 import Main from '../main';
 import cookie from 'js-cookie';
 import { getRoomList } from '../../action/UserAction'

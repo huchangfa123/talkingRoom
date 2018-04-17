@@ -7,6 +7,7 @@ import redis from '../server/utils/redis';
 import userServices from '../server/services/userServices';
 
 function CreatSocketServer(server) {
+  console.log('socketiocreate')
   // 创建socketIo服务实例
   const io = SocketIo(server);
   // 给实例添加token判断
@@ -36,7 +37,7 @@ function CreatSocketServer(server) {
     // 用户退出房间
     client.on('user.leave.room', function (msg) {
       console.log('我有进来')
-      client.to(msg.roomId).emit('user.leave.room', msg)
+      io.to(msg.roomId).emit('user.leave.room', msg)
       client.leave(msg.roomId)
     })
 

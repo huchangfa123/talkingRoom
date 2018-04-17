@@ -5,7 +5,10 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 
-app.use(cors())
+app.use(cors({
+  'origin': 'http://localhost:3006',
+  'credentials': true
+}))
 app.use(bodyParser.json())
 app.use(express.static(path.resolve(__dirname, './public')))
 

@@ -24,7 +24,6 @@ export default class ManagerItem extends Component {
     }
     await ui.getInRoom();
     this.context.router.history.push(`/main/chatting/${this.props.id}`);
-    await socketServer()
   }
 
   render() {
