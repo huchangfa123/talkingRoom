@@ -11,14 +11,15 @@ function CreatSocketServer(server) {
   // 创建socketIo服务实例
   const io = SocketIo(server);
   // 给实例添加token判断
-  io.use(async function (socket, next) {
-    let result = await redis.get(socket.handshake.headers.xsrftoken)
-    if (result) {
-      return next()
-    } else {
-      return next(new Error('Authentication error'));
-    }
-  });
+  // io.use(async function (socket, next) {
+  //   let result = await redis.get(socket.handshake.headers.xsrftoken)
+  //   console.log('result', socket.handshake.headers)
+  //   if (result) {
+  //     return next()
+  //   } else {
+  //     return next(new Error('Authentication error'));
+  //   }
+  // });
 　
   io.on('connection', function (client) {
 
