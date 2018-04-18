@@ -13,7 +13,4 @@ services:
   front:
     image: front
     ports:
-      - "4001:4001"
-
-  nginx:
-    image: nginx
+      - "4001:80"

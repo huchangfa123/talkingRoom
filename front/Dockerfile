@@ -37,9 +37,9 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 
 COPY . /tmp
 RUN cd /tmp && npm install
-RUN npm run build
+RUN cd /tmp && npm run build
 RUN rm -rf /usr/share/nginx/html && mv /tmp/public /usr/share/nginx/html
 COPY nginx-site.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 4001
+EXPOSE 80
 CMD nginx -g 'daemon off;'
